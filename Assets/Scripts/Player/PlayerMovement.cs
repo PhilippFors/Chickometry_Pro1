@@ -9,12 +9,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float groundDistance;
     [SerializeField] private bool isGrounded;
-
+    
     private Vector2 moveDirection => PlayerInputController.Instance.Movement.ReadValue();
     private bool jumpTriggered => PlayerInputController.Instance.Jump.Triggered;
-    
     private Rigidbody rb;
-
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
     }
