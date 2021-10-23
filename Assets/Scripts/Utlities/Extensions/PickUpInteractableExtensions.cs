@@ -1,5 +1,5 @@
 using Interactables;
-using Interactables.Items;
+using Interaction.Items;
 using UnityEngine;
 
 namespace Utlities

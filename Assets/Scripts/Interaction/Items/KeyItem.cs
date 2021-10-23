@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Interactables.Items
+namespace Interaction.Items
 {
     /// <summary>
     /// An item that is literally a key to a door or a similiar use case.

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Interactables;
-using Interactables.Items;
+using Interaction.Items;
 using UnityEngine;
 using Utlities.Locators;
 

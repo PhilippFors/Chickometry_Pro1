@@ -1,5 +1,5 @@
 using Entities.Player.PlayerInput;
-using Interactables.Items;
+using Interaction.Interactables;
 using UnityEngine;
 using Utlities;
 

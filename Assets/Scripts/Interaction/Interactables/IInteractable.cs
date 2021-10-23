@@ -1,4 +1,4 @@
-﻿namespace Interactables
+﻿namespace Interaction.Interactables
 {
     /// <summary>
     /// Interface used for general interaction with all kinds of objects.

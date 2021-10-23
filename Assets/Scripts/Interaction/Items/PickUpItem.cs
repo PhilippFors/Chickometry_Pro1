@@ -2,7 +2,7 @@ using Audio.SFX;
 using UnityEngine;
 using Utlities;
 
-namespace Interactables.Items
+namespace Interaction.Items
 {
     /// <summary>
     /// Base class for all items that the player can pick up.

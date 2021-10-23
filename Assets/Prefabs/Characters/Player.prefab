@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7105781407259761272}
   - component: {fileID: 7105781407259761273}
   - component: {fileID: 7105781407259761271}
+  - component: {fileID: 1470291609}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea76e364d8bfca41982c4daf47850cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 24
+  moveSpeed: 15
   jumpStrength: 8
   groundCheck: {fileID: 7105781407399895577}
   groundMask:
@@ -249,6 +250,23 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 2520517370913500402, guid: e24367dd430e4364ebe9f3cb0ade16ed, type: 3}
+--- !u!114 &1470291609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105781407259761278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce569500da308c4d8ff21e0af7b624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwForce: 0
+  interactionDistance: 4
+  interactableMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &7105781407399895582
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,8 +508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c646fba431250a4aa4585e3f57213ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterBody: {fileID: 7105781407259761278}
   clampInDegrees: {x: 360, y: 180}
   lockCursor: 1
   sensitivity: 0.1
   smoothing: {x: 1, y: 1}
-  characterBody: {fileID: 7105781407259761278}

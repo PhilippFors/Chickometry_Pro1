@@ -1,4 +1,6 @@
-namespace Interactables.Items
+using Interaction.Interactables;
+
+namespace Interaction.Items
 {
     /// <summary>
     /// Interface for interactables that can be picke up by the player.
