@@ -23,11 +23,24 @@ namespace Entities.Player {
         private void Update()
         {
             Jump();
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            if (isGrounded)
+            {
+                rb.drag = 2;
+            }
+            else
+            {
+                rb.drag = 0;
+            }
+
+            var moveDir = transform.rotation * new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
+            transform.position += moveDir;
         }
 
         private void FixedUpdate()
         {
-            Move();
+            // Move();
         }
 
         private void Move()

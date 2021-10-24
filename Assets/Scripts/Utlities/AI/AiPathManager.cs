@@ -17,12 +17,11 @@ namespace Utilities.AI
     /// </summary>
     public class NavData
     {
-        public NavData()
-        {
+        public NavData() {
             navMeshPath = new NavMeshPath();
             pathStatus = PathStatus.NoPath;
         }
-        
+
         public readonly NavMeshPath navMeshPath;
 
         public Vector3 source;
@@ -39,56 +38,35 @@ namespace Utilities.AI
     {
         private static Queue<NavData> pathQueue = new Queue<NavData>();
         private static bool isUpdaterRunning;
-        private static int BatchSize = 10;
-        // {
-        //     get
-        //     {
-        //         if (pathQueue.Count > 15)
-        //         {
-        //             var f = pathQueue.Count * 0.2f;
-        //             return Mathf.RoundToInt(f);
-        //         }
-        //         else
-        //         {
-        //             var f = pathQueue.Count * 0.4f;
-        //             return Mathf.RoundToInt(f);
-        //         }
-        //     }
-        // }
 
-        public static void RequestPath(NavData data)
-        {
+        private static int BatchSize = 5;
+        
+        public static void RequestPath(NavData data) {
             // TODO: Pathrequests can be denied based on various conditions. Maximum amount of denied requests until one is finally approved. Denied request amount handled in NavData.
             pathQueue.Enqueue(data);
             data.pathStatus = PathStatus.PathPending;
-            if (!isUpdaterRunning)
-            {
+            if (!isUpdaterRunning) {
                 PathUpdater().Forget();
             }
         }
 
-        private static async UniTaskVoid PathUpdater()
-        {
+        private static async UniTaskVoid PathUpdater() {
             isUpdaterRunning = true;
             int batchCount = 0;
-            
-            while (pathQueue.Count > 0)
-            {
+
+            while (pathQueue.Count > 0) {
                 var data = pathQueue.Dequeue();
-                
+
                 // TODO: Get valid navmesh areas for the specific entity from NavData
-                if (NavMesh.CalculatePath(data.source, data.target, NavMesh.AllAreas, data.navMeshPath))
-                {
+                if (NavMesh.CalculatePath(data.source, data.target, NavMesh.AllAreas, data.navMeshPath)) {
                     data.pathStatus = PathStatus.PathReady;
                 }
-                else
-                {
+                else {
                     data.pathStatus = PathStatus.NoPath;
                 }
 
                 batchCount++;
-                if (batchCount > BatchSize)
-                {
+                if (batchCount > BatchSize) {
                     await UniTask.Yield();
                     batchCount = 0;
                 }

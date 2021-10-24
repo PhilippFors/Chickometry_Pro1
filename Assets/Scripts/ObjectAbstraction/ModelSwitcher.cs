@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace ObjectAbstraction
 {
+    /// <summary>
+    /// References a normal and abstract model and toggles between them.
+    /// </summary>
     public class ModelSwitcher : MonoBehaviour
     {
         public bool IsAbstract => isAbstract;

@@ -4,11 +4,15 @@ using Utilities.AI;
 
 namespace Entities.Companion
 {
+    /// <summary>
+    /// Lovely hen that follows the player when it's not abstracted.
+    /// </summary>
     public class Gudrun : MonoBehaviour
     {
         [SerializeField] private Transform player;
         [SerializeField] private float stopDistance = 2f;
         [SerializeField] private float speed = 4f;
+        
         private Rigidbody rb;
         private ModelSwitcher switcher;
         private NavData navData;
@@ -26,16 +30,14 @@ namespace Entities.Companion
         }
 
         private void Update() {
-            if (switcher.IsAbstract) {
+            if (switcher.IsAbstract || Vector3.Distance(transform.position, player.position) < stopDistance) {
                 return;
             }
 
-            if (Vector3.Distance(transform.position, player.position) < stopDistance) {
-                return;
-            }
-            
             UpdatePath();
-
+            
+            // TODO: Handle ledges in case the level has any (with NavmeshLinks, or just detect ledges and teleport to the top)
+            
             if (currentPoints.Length == 0) {
                 return;
             }
