@@ -11,7 +11,7 @@ namespace Interaction.Items
         [SerializeField] private GameObject lockObject;
         public GameObject currentUsableLock;
 
-        public override void OnUse()
+        public override void OnInteract()
         {
             if (lockObject == currentUsableLock)
             {

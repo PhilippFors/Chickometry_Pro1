@@ -36,8 +36,6 @@ namespace Entities.Companion
 
             UpdatePath();
             
-            // TODO: Handle ledges in case the level has any (with NavmeshLinks, or just detect ledges and teleport to the top)
-            
             if (currentPoints.Length == 0) {
                 return;
             }

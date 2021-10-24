@@ -17,7 +17,8 @@ namespace Utilities.AI
     /// </summary>
     public class NavData
     {
-        public NavData() {
+        public NavData()
+        {
             navMeshPath = new NavMeshPath();
             pathStatus = PathStatus.NoPath;
         }
@@ -40,9 +41,9 @@ namespace Utilities.AI
         private static bool isUpdaterRunning;
 
         private static int BatchSize = 5;
-        
-        public static void RequestPath(NavData data) {
-            // TODO: Pathrequests can be denied based on various conditions. Maximum amount of denied requests until one is finally approved. Denied request amount handled in NavData.
+
+        public static void RequestPath(NavData data)
+        {
             pathQueue.Enqueue(data);
             data.pathStatus = PathStatus.PathPending;
             if (!isUpdaterRunning) {
@@ -50,14 +51,15 @@ namespace Utilities.AI
             }
         }
 
-        private static async UniTaskVoid PathUpdater() {
+        private static async UniTaskVoid PathUpdater()
+        {
             isUpdaterRunning = true;
+
             int batchCount = 0;
 
             while (pathQueue.Count > 0) {
                 var data = pathQueue.Dequeue();
 
-                // TODO: Get valid navmesh areas for the specific entity from NavData
                 if (NavMesh.CalculatePath(data.source, data.target, NavMesh.AllAreas, data.navMeshPath)) {
                     data.pathStatus = PathStatus.PathReady;
                 }

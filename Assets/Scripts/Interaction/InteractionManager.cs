@@ -42,7 +42,7 @@ namespace Interactables
             {
                 if (currentSelected != null)
                 {
-                    currentSelected.OnUse();
+                    currentSelected.OnInteract();
                 }
             }
 

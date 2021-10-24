@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4251301200995328978}
   - component: {fileID: 31474246}
   - component: {fileID: 31474245}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gudrun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAbstract: 0
+  shootable: 1
   normalMesh: {fileID: 7955624834666293720}
   abstractMesh: {fileID: 4190049833886642804}
 --- !u!54 &31474246
@@ -163,6 +164,10 @@ PrefabInstance:
       value: Chicken_Abstract
       objectReference: {fileID: 0}
     - target: {fileID: 1515579389417743624, guid: 35ad0f13538546c4a851c867885cf0f8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1515579389417743624, guid: 35ad0f13538546c4a851c867885cf0f8, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -232,6 +237,10 @@ PrefabInstance:
     - target: {fileID: 6534248408378698397, guid: f9dcb9d83a74aef4ea58f3e769744f01, type: 3}
       propertyPath: m_Name
       value: Chicken_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 6534248408378698397, guid: f9dcb9d83a74aef4ea58f3e769744f01, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6534248408378698397, guid: f9dcb9d83a74aef4ea58f3e769744f01, type: 3}
       propertyPath: m_IsActive

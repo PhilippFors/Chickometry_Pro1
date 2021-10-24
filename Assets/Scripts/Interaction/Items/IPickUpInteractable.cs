@@ -7,7 +7,7 @@ namespace Interaction.Items
     /// </summary>
     public interface IPickUpInteractable : IInteractable
     {
-        void OnInteract();
+        void OnPickup();
         void OnThrow();
     }
 }

@@ -13,7 +13,7 @@ namespace Interaction.Items
         protected GameObject audioGameObject;
         protected GlobalSFXController sfxController;
         protected VelocityTracker velocityTracker;
-        
+
         private void OnEnable()
         {
             velocityTracker = ServiceLocator.Get<VelocityTracker>();
@@ -23,8 +23,7 @@ namespace Interaction.Items
             var audioSource = GetComponentInChildren<AudioSource>();
 
             // Temporary fix so prototpye prefabs always have an audiosource object
-            if (!audioSource)
-            {
+            if (!audioSource) {
                 var obj = new GameObject();
                 obj.transform.parent = transform;
                 audioSource = obj.AddComponent<AudioSource>();
@@ -40,11 +39,11 @@ namespace Interaction.Items
 
         public virtual void OnInteract()
         {
+            Debug.Log($"You just interacted with {name}");
         }
 
-        public virtual void OnUse()
+        public void OnPickup()
         {
-            Debug.Log($"You just used {gameObject.name}");
         }
 
         public virtual void OnThrow()
@@ -56,12 +55,11 @@ namespace Interaction.Items
         public virtual void OnCollisionEnter(Collision other)
         {
             var vel = velocityTracker.GetVelocity(this);
-            if (vel > 2f)
-            {
+            if (vel > 2f) {
                 // Play sfx
             }
-            if (vel > 20f)
-            {
+
+            if (vel > 20f) {
                 Debug.Log($"Just hit something with {vel} velocity");
             }
         }
