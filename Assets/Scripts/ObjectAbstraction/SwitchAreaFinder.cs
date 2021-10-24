@@ -6,7 +6,7 @@ namespace ObjectAbstraction
     /// <summary>
     /// Used to define the area in which the Abstraction Switch takes effect.
     /// </summary>
-    public class SwitchArea : MonoBehaviour
+    public class SwitchAreaFinder : MonoBehaviour
     {
         // TODO...?: Make it look for things in its area at runtime to update the active objects
         private void Awake() {
@@ -18,7 +18,7 @@ namespace ObjectAbstraction
             var col = GetComponent<BoxCollider>();
             var abstractionSwitch = GetComponentInParent<AbstractionSwitch>();
             var objs = Physics.OverlapBox(col.transform.position, col.size, col.transform.rotation);
-            
+
             foreach (var s in objs) {
                 var switcher = s.GetComponentInParent<ModelSwitcher>();
                 if (switcher) {

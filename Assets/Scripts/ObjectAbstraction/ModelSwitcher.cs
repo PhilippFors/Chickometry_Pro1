@@ -7,20 +7,20 @@ namespace ObjectAbstraction
     /// </summary>
     public class ModelSwitcher : MonoBehaviour
     {
+        public bool Shootable => shootable;
         public bool IsAbstract => isAbstract;
         [SerializeField] private bool isAbstract;
+        [SerializeField] private bool shootable = true;
         [SerializeField] private GameObject normalMesh;
         [SerializeField] private GameObject abstractMesh;
 
         public void ToggleModels()
         {
-            if (isAbstract)
-            {
+            if (isAbstract) {
                 EnableNormal();
                 isAbstract = false;
             }
-            else
-            {
+            else {
                 EnableAbstract();
                 isAbstract = true;
             }
@@ -40,12 +40,10 @@ namespace ObjectAbstraction
 
         private void OnValidate()
         {
-            if (isAbstract)
-            {
+            if (isAbstract) {
                 EnableAbstract();
             }
-            else
-            {
+            else {
                 EnableNormal();
             }
         }
