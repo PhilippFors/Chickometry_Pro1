@@ -8,16 +8,22 @@ namespace ObjectAbstraction
     /// </summary>
     public class SwitchAreaFinder : MonoBehaviour
     {
+
         // TODO...?: Make it look for things in its area at runtime to update the active objects
-        private void Awake() {
+        private void Awake()
+        {
             FindInArea();
         }
 
         [Button]
-        private void FindInArea() {
+        private void FindInArea()
+        {
             var col = GetComponent<BoxCollider>();
             var abstractionSwitch = GetComponentInParent<AbstractionSwitch>();
-            var objs = Physics.OverlapBox(col.transform.position, col.size, col.transform.rotation);
+
+            var offset = col.center - transform.position;
+
+            var objs = Physics.OverlapBox(transform.position + offset, col.size, transform.rotation);
 
             foreach (var s in objs) {
                 var switcher = s.GetComponentInParent<ModelSwitcher>();
@@ -27,12 +33,17 @@ namespace ObjectAbstraction
             }
         }
 
-        private void OnDrawGizmos() {
+        private void OnDrawGizmos()
+        {
             var col = GetComponent<BoxCollider>();
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.color = new Color(255, 255, 255, 0.2f);
-            Gizmos.DrawCube(col.center, col.size);
-            Gizmos.DrawWireCube(col.center, col.size);
+
+            var offset = col.center - transform.position;
+            Gizmos.DrawCube(transform.position + offset, col.size);
+            Gizmos.DrawWireCube(transform.position + offset, col.size);
+            // Gizmos.DrawCube(col.center, col.size);
+            // Gizmos.DrawWireCube(col.center, col.size);
         }
     }
 }
