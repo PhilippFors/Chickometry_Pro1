@@ -28,7 +28,7 @@ namespace ObjectAbstraction
         private void Update()
         {
             if (GrenadeThrowTriggerd && activeGrenades < maxGrenades) {
-                var spawnPos = new Vector3(mainCam.position.x, mainCam.position.y - 0.5f, mainCam.position.z + 0.5f);
+                var spawnPos = new Vector3(mainCam.position.x, mainCam.position.y - 0.1f, mainCam.position.z) + (mainCam.forward * 1);
                 var obj = Instantiate(grenadePrefab, spawnPos, Quaternion.identity);
                 var rb = obj.GetComponent<Rigidbody>();
                 rb.AddForce(mainCam.forward * throwForce, ForceMode.Impulse);

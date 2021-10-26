@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace ObjectAbstraction
@@ -15,7 +16,7 @@ namespace ObjectAbstraction
         [SerializeField] private bool permanentChange;
         [SerializeField] private bool hasTimer;
         [SerializeField] private float timer;
-        private Dictionary<string, AbstractoModelChanger> changers = new Dictionary<string, AbstractoModelChanger>();
+        [SerializeField] private List<AbstractoModelChanger> changers = new List<AbstractoModelChanger>();
         private AbstractoGrenadeThrower grenadeThrower;
         private bool justSwitched;
 
@@ -25,8 +26,9 @@ namespace ObjectAbstraction
             var cols = Physics.OverlapSphere(transform.position, radius);
             foreach (var col in cols) {
                 var modelChanger = GetComponentInParent<AbstractoModelChanger>();
-                if (modelChanger) {
+                if (modelChanger && !changers.Contains(modelChanger)) {
                     modelChanger.ToggleModels();
+                    changers.Add(modelChanger);
                 }
             }
         }
@@ -65,9 +67,9 @@ namespace ObjectAbstraction
         private void OnTriggerEnter(Collider other)
         {
             var modelChanger = other.gameObject.GetComponentInParent<AbstractoModelChanger>();
-            if (modelChanger && !changers.ContainsKey(modelChanger.name)) {
+            if (modelChanger && !changers.Contains(modelChanger)) {
                 modelChanger.changeOverride = true;
-                changers.Add(modelChanger.name, modelChanger);
+                changers.Add(modelChanger);
                 ToggleModel(modelChanger);
             }
         }
@@ -75,11 +77,17 @@ namespace ObjectAbstraction
         private void OnTriggerExit(Collider other)
         {
             var modelChanger = other.gameObject.GetComponentInParent<AbstractoModelChanger>();
-            if (modelChanger && changers.ContainsKey(modelChanger.name) && !permanentChange) {
+            if (modelChanger && changers.Contains(modelChanger) && !permanentChange) {
                 modelChanger.changeOverride = false;
-                changers.Remove(modelChanger.name);
                 ToggleModel(modelChanger);
+                StartCoroutine(WaitRemove(modelChanger));
             }
+        }
+
+        private IEnumerator WaitRemove(AbstractoModelChanger modelChanger)
+        {
+            yield return new WaitForSeconds(0.2f);
+            changers.Remove(modelChanger);
         }
 
         private void ToggleModel(AbstractoModelChanger modelChanger)
@@ -92,8 +100,8 @@ namespace ObjectAbstraction
         private void ToggleAll()
         {
             foreach (var m in changers) {
-                m.Value.ToggleModels();
-                m.Value.changeOverride = false;
+                m.ToggleModels();
+                m.changeOverride = false;
             }
         }
 

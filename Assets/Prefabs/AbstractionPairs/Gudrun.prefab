@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeOverride: 0
-  isAbstract: 0
+  isAbstract: 1
   shootable: 1
   normalMesh: {fileID: 7955624834666293720}
   abstractMesh: {fileID: 4190049833886642804}
@@ -183,7 +183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1515579389417743624, guid: 35ad0f13538546c4a851c867885cf0f8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ad0f13538546c4a851c867885cf0f8, type: 3}
@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6534248408378698397, guid: f9dcb9d83a74aef4ea58f3e769744f01, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9dcb9d83a74aef4ea58f3e769744f01, type: 3}
