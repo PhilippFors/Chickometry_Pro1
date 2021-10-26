@@ -5,7 +5,7 @@ namespace ObjectAbstraction
     /// <summary>
     /// References a normal and abstract model and toggles between them.
     /// </summary>
-    public class ModelChanger : MonoBehaviour
+    public class AbstractoModelChanger : MonoBehaviour
     {
         public bool Shootable => shootable;
         public bool IsAbstract => isAbstract;

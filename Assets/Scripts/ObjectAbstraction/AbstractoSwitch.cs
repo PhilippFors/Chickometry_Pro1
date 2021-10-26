@@ -8,16 +8,16 @@ namespace ObjectAbstraction
     /// <summary>
     /// Toggles the abstraction level of every object in a defined area.
     /// </summary>
-    public class AbstractionSwitch : BaseInteractable
+    public class AbstractoSwitch : BaseInteractable
     {
         [SerializeField] private float timer;
         [SerializeField] private bool useTimer;
         [SerializeField] private bool isSwitchedOn;
-        [SerializeField] private List<ModelChanger> objectsInArea = new List<ModelChanger>();
+        [SerializeField] private List<AbstractoModelChanger> objectsInArea = new List<AbstractoModelChanger>();
 
         private void Awake()
         {
-            objectsInArea = new List<ModelChanger>();
+            objectsInArea = new List<AbstractoModelChanger>();
         }
 
         private void ToggleSwitch()
@@ -44,7 +44,7 @@ namespace ObjectAbstraction
             ToggleSwitch();
         }
 
-        public void AddModelSwitcher(ModelChanger obj)
+        public void AddModelSwitcher(AbstractoModelChanger obj)
         {
             if (objectsInArea.Contains(obj)) {
                 return;

@@ -1,19 +1,18 @@
 using Entities.Player.PlayerInput;
 using Interaction.Interactables;
+using Interaction.Items;
 using UnityEngine;
-using Utlities;
 
 namespace Interactables
 {
     public class InteractionManager : MonoBehaviour
     {
-        [SerializeField] private float throwForce;
+        [SerializeField] private float throwForce = 3f;
         [SerializeField] private float interactionDistance = 4f;
         [SerializeField] private LayerMask interactableMask;
-        private IInteractable currentSelected;
-        // private IInteractable heldInteractable;
-        private bool UseTriggered => PlayerInputController.Instance.LeftMouseButton.Triggered;
-        private bool UsePressed => PlayerInputController.Instance.LeftMouseButton.IsPressed;
+        [SerializeField] private Transform itemSlot;
+        private BaseInteractable currentSelected;
+        private BasePickUpInteractable currentlyHeldItem;
         private bool ThrowTriggered => PlayerInputController.Instance.ThrowItem.Triggered;
         private bool InteractTriggered => PlayerInputController.Instance.Interact.Triggered;
 
@@ -28,41 +27,45 @@ namespace Interactables
         {
             FindInteractable();
 
-            // if (IsPickUpTrigggered)
-            // {
-            //     if (currentSelected != null)
-            //     {
-            //         currentSelected.OnInteract();
-            //         heldInteractable = currentSelected;
-            //         currentSelected = null;
-            //     }
-            // }
-
-            if (InteractTriggered)
+            if (InteractTriggered && currentSelected)
             {
-                if (currentSelected != null)
-                {
+                if (!currentlyHeldItem && currentSelected is BasePickUpInteractable) {
+                    var pickup = (BasePickUpInteractable) currentSelected;
+                    currentlyHeldItem = pickup;
+                    currentlyHeldItem.transform.rotation = itemSlot.rotation;
+                    currentlyHeldItem.transform.parent = itemSlot;
+                    currentlyHeldItem.transform.localPosition = Vector3.zero;
+                    var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                    rb.useGravity = false;
+                    rb.isKinematic = true;
+                    pickup.OnPickup();
+                }
+                else {
                     currentSelected.OnInteract();
                 }
             }
 
-            // if (IsThrowTriggered)
-            // {
-            //     if (heldInteractable != null)
-            //     {
-            //         var rb = heldInteractable.GetComponent<Rigidbody>();
-            //         rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
-            //         heldInteractable.OnThrow();
-            //         heldInteractable = null;
-            //     }
-            // }
+            if (ThrowTriggered)
+            {
+                if (currentlyHeldItem != null) {
+                    currentlyHeldItem.transform.parent = null;
+                    currentlyHeldItem.transform.rotation = Quaternion.Euler(0,0,0);
+                    var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                    rb.isKinematic = false;
+                    rb.useGravity = true;
+                    rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
+                    currentlyHeldItem.OnThrow();
+                    currentlyHeldItem = null;
+                }
+            }
         }
 
         private void FindInteractable()
         {
-            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit, interactionDistance, interactableMask))
+            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit, interactionDistance, interactableMask, QueryTriggerInteraction.Ignore))
             {
-                var interactable = hit.transform.GetComponent<IInteractable>();
+                var interactable = hit.transform.GetComponent<BaseInteractable>();
+
                 if (interactable != null)
                 {
                     currentSelected = interactable;

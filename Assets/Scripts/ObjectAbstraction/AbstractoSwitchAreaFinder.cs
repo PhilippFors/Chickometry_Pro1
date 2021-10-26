@@ -6,7 +6,7 @@ namespace ObjectAbstraction
     /// <summary>
     /// Used to define the area in which the Abstraction Switch takes effect.
     /// </summary>
-    public class SwitchAreaFinder : MonoBehaviour
+    public class AbstractoSwitchAreaFinder : MonoBehaviour
     {
         [SerializeField] private LayerMask layerMask;
         // TODO...?: Make it look for things in its area at runtime to update the active objects
@@ -26,7 +26,7 @@ namespace ObjectAbstraction
             var objs = Physics.OverlapBox(transform.position + offset, col.size * 2, transform.rotation, layerMask);
 
             foreach (var s in objs) {
-                var switcher = s.GetComponentInParent<ModelChanger>();
+                var switcher = s.GetComponentInParent<AbstractoModelChanger>();
                 if (switcher) {
                     abstractionSwitch.AddModelSwitcher(switcher);
                 }
