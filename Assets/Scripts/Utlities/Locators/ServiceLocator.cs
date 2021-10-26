@@ -17,7 +17,7 @@ namespace Utlities
             var st = typeof(T).ToString();
 
             services.TryGetValue(st, out value);
-            if (value == null)
+            if (!value)
             {
                 Debug.LogError($"Service type '{typeof(T).Name}' does not exist.");
             }

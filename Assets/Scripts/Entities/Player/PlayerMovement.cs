@@ -64,7 +64,7 @@ namespace Entities.Player {
         {
             if (isGrounded && jumpTriggered)
             {
-                rb.AddForce(jumpStrength * Vector3.up, ForceMode.VelocityChange);
+                rb.AddForce(jumpStrength * Vector3.up, ForceMode.Impulse);
             }
         }
     }

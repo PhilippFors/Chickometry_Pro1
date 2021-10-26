@@ -6,7 +6,7 @@ namespace Interaction.Items
     /// An item that is literally a key to a door or a similiar use case.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class KeyItem : PickUpItem
+    public class KeyItem : BasePickUpInteractable
     {
         [SerializeField] private GameObject lockObject;
         public GameObject currentUsableLock;

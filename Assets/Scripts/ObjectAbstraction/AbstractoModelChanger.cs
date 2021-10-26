@@ -5,10 +5,11 @@ namespace ObjectAbstraction
     /// <summary>
     /// References a normal and abstract model and toggles between them.
     /// </summary>
-    public class ModelSwitcher : MonoBehaviour
+    public class ModelChanger : MonoBehaviour
     {
         public bool Shootable => shootable;
         public bool IsAbstract => isAbstract;
+        public bool changeOverride;
         [SerializeField] private bool isAbstract;
         [SerializeField] private bool shootable = true;
         [SerializeField] private GameObject normalMesh;

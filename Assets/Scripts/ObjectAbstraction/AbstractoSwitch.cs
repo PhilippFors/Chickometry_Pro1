@@ -13,11 +13,11 @@ namespace ObjectAbstraction
         [SerializeField] private float timer;
         [SerializeField] private bool useTimer;
         [SerializeField] private bool isSwitchedOn;
-        [SerializeField] private List<ModelSwitcher> objectsInArea = new List<ModelSwitcher>();
+        [SerializeField] private List<ModelChanger> objectsInArea = new List<ModelChanger>();
 
         private void Awake()
         {
-            objectsInArea = new List<ModelSwitcher>();
+            objectsInArea = new List<ModelChanger>();
         }
 
         private void ToggleSwitch()
@@ -44,7 +44,7 @@ namespace ObjectAbstraction
             ToggleSwitch();
         }
 
-        public void AddModelSwitcher(ModelSwitcher obj)
+        public void AddModelSwitcher(ModelChanger obj)
         {
             if (objectsInArea.Contains(obj)) {
                 return;

@@ -1,3 +1,4 @@
+using Interaction.Items;
 using ObjectAbstraction;
 using UnityEngine;
 using Utilities.AI;
@@ -12,9 +13,10 @@ namespace Entities.Companion
         [SerializeField] private Transform player;
         [SerializeField] private float stopDistance = 2f;
         [SerializeField] private float speed = 4f;
-        
+
+        private BasePickUpInteractable pickUpInteractable;
         private Rigidbody rb;
-        private ModelSwitcher switcher;
+        private AbstractoModelChanger switcher;
         private NavData navData;
         private Vector3[] currentPoints = new Vector3[0];
         private int pointIndex = 0;
@@ -24,13 +26,14 @@ namespace Entities.Companion
                 var obj = GameObject.FindWithTag("Player");
                 player = obj.transform;
             }
-            switcher = GetComponent<ModelSwitcher>();
+            switcher = GetComponent<AbstractoModelChanger>();
             rb = GetComponent<Rigidbody>();
+            pickUpInteractable = GetComponent<BasePickUpInteractable>();
             navData = new NavData();
         }
 
         private void Update() {
-            if (switcher.IsAbstract || Vector3.Distance(transform.position, player.position) < stopDistance) {
+            if (switcher.IsAbstract || pickUpInteractable.IsPickedUp || Vector3.Distance(transform.position, player.position) < stopDistance) {
                 return;
             }
 

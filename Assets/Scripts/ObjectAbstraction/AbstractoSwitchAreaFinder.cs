@@ -8,9 +8,9 @@ namespace ObjectAbstraction
     /// </summary>
     public class SwitchAreaFinder : MonoBehaviour
     {
-
+        [SerializeField] private LayerMask layerMask;
         // TODO...?: Make it look for things in its area at runtime to update the active objects
-        private void Awake()
+        private void Start()
         {
             FindInArea();
         }
@@ -19,14 +19,14 @@ namespace ObjectAbstraction
         private void FindInArea()
         {
             var col = GetComponent<BoxCollider>();
-            var abstractionSwitch = GetComponentInParent<AbstractionSwitch>();
+            var abstractionSwitch = GetComponentInParent<AbstractoSwitch>();
 
             var offset = col.center - transform.position;
 
-            var objs = Physics.OverlapBox(transform.position + offset, col.size, transform.rotation);
+            var objs = Physics.OverlapBox(transform.position + offset, col.size * 2, transform.rotation, layerMask);
 
             foreach (var s in objs) {
-                var switcher = s.GetComponentInParent<ModelSwitcher>();
+                var switcher = s.GetComponentInParent<ModelChanger>();
                 if (switcher) {
                     abstractionSwitch.AddModelSwitcher(switcher);
                 }
