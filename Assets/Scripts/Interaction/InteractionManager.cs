@@ -37,7 +37,11 @@ namespace Interactables
                     currentlyHeldItem.transform.localPosition = Vector3.zero;
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                     rb.useGravity = false;
-                    rb.isKinematic = true;
+
+                    if (currentlyHeldItem.name.Contains("Gudrun")) {
+                        rb.isKinematic = true;
+                    }
+
                     pickup.OnPickup();
                 }
                 else {
@@ -51,7 +55,11 @@ namespace Interactables
                     currentlyHeldItem.transform.parent = null;
                     currentlyHeldItem.transform.rotation = Quaternion.Euler(0,0,0);
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-                    rb.isKinematic = false;
+
+                    if (currentlyHeldItem.name.Contains("Gudrun")) {
+                        rb.isKinematic = false;
+                    }
+
                     rb.useGravity = true;
                     rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
                     currentlyHeldItem.OnThrow();
