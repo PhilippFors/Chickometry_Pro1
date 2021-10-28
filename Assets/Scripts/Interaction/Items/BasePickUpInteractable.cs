@@ -1,6 +1,5 @@
 using Interaction.Interactables;
 using UnityEngine;
-using Utlities;
 
 namespace Interaction.Items
 {
@@ -11,24 +10,7 @@ namespace Interaction.Items
     public class BasePickUpInteractable : BaseInteractable, IPickUpInteractable
     {
         public bool IsPickedUp => isPickedUp;
-        protected VelocityTracker velocityTracker;
         protected bool isPickedUp;
-        private void OnEnable()
-        {
-            // velocityTracker = ServiceLocator.Get<VelocityTracker>();
-            // if (!velocityTracker) {
-            //     return;
-            // }
-            // velocityTracker.Register(this);
-        }
-        
-        private void OnDisable()
-        {
-            // if (!velocityTracker) {
-            //     return;
-            // }
-            // velocityTracker.Unregister(this);
-        }
 
         public override void OnInteract()
         {
@@ -40,7 +22,7 @@ namespace Interaction.Items
             isPickedUp = true;
             var col = GetComponentsInChildren<Collider>(true);
             foreach (var c in col) {
-                c.enabled = false;
+                c.isTrigger = true; // it just works
             }
         }
 
@@ -49,21 +31,7 @@ namespace Interaction.Items
             isPickedUp = false;
             var col = GetComponentsInChildren<Collider>(true);
             foreach (var c in col) {
-                c.enabled = true;
-            }
-        }
-
-        public virtual void OnCollisionEnter(Collision other)
-        {
-            if(velocityTracker) {
-                var vel = velocityTracker.GetVelocity(this);
-                if (vel > 2f) {
-                    // Play sfx
-                }
-
-                if (vel > 20f) {
-                    Debug.Log($"Just hit something with {vel} velocity");
-                }
+                c.isTrigger = false;
             }
         }
     }

@@ -16,9 +16,9 @@ namespace ObjectAbstraction
         [SerializeField] private bool permanentChange;
         [SerializeField] private bool hasTimer;
         [SerializeField] private float timer;
-        [SerializeField] private List<AbstractoModelChanger> changers = new List<AbstractoModelChanger>();
+        
+        private List<AbstractoModelChanger> changers = new List<AbstractoModelChanger>();
         private AbstractoGrenadeThrower grenadeThrower;
-        private bool justSwitched;
 
         private void Start()
         {
@@ -68,9 +68,8 @@ namespace ObjectAbstraction
         {
             var modelChanger = other.gameObject.GetComponentInParent<AbstractoModelChanger>();
             if (modelChanger && !changers.Contains(modelChanger)) {
-                modelChanger.changeOverride = true;
                 changers.Add(modelChanger);
-                ToggleModel(modelChanger);
+                modelChanger.ToggleModels();
             }
         }
 
@@ -78,23 +77,15 @@ namespace ObjectAbstraction
         {
             var modelChanger = other.gameObject.GetComponentInParent<AbstractoModelChanger>();
             if (modelChanger && changers.Contains(modelChanger) && !permanentChange) {
-                modelChanger.changeOverride = false;
-                ToggleModel(modelChanger);
+                modelChanger.ToggleModels();
                 StartCoroutine(WaitRemove(modelChanger));
             }
         }
 
         private IEnumerator WaitRemove(AbstractoModelChanger modelChanger)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             changers.Remove(modelChanger);
-        }
-
-        private void ToggleModel(AbstractoModelChanger modelChanger)
-        {
-            if (modelChanger) {
-                modelChanger.ToggleModels();
-            }
         }
 
         private void ToggleAll()

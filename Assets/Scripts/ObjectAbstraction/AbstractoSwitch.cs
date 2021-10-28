@@ -13,11 +13,12 @@ namespace ObjectAbstraction
         [SerializeField] private float timer;
         [SerializeField] private bool useTimer;
         [SerializeField] private bool isSwitchedOn;
-        [SerializeField] private List<AbstractoModelChanger> objectsInArea = new List<AbstractoModelChanger>();
+        
+        private List<AbstractoModelChanger> objectsInArea = new List<AbstractoModelChanger>();
 
-        private void Awake()
+        public override void OnInteract()
         {
-            objectsInArea = new List<AbstractoModelChanger>();
+            ToggleSwitch();
         }
 
         private void ToggleSwitch()
@@ -28,14 +29,9 @@ namespace ObjectAbstraction
 
             isSwitchedOn = !isSwitchedOn;
 
-            if (useTimer) {
+            if (useTimer && isSwitchedOn) {
                 StartCoroutine(SwitchTimer());
             }
-        }
-
-        public override void OnInteract()
-        {
-            ToggleSwitch();
         }
 
         private IEnumerator SwitchTimer()

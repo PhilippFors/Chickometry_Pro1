@@ -7,13 +7,14 @@ namespace Interactables
 {
     public class InteractionManager : MonoBehaviour
     {
-        [SerializeField] private float throwForce = 3f;
-        [SerializeField] private float interactionDistance = 4f;
+        [SerializeField] private float throwForce = 5f;
+        [SerializeField] private float interactionDistance = 2f;
         [SerializeField] private LayerMask interactableMask;
-        [SerializeField] private Transform itemSlot;
+        [SerializeField] private Transform itemParent;
+        
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
-        private RigidbodyConstraints constraintCache;
+        private RigidbodyConstraints constraintCache; // needed for pickup items
         private bool ThrowTriggered => PlayerInputController.Instance.ThrowItem.Triggered;
         private bool InteractTriggered => PlayerInputController.Instance.Interact.Triggered;
 
@@ -34,8 +35,8 @@ namespace Interactables
                 {
                     var pickup = (BasePickUpInteractable) currentSelected;
                     currentlyHeldItem = pickup;
-                    currentlyHeldItem.transform.rotation = itemSlot.rotation;
-                    currentlyHeldItem.transform.parent = itemSlot;
+                    currentlyHeldItem.transform.rotation = itemParent.rotation;
+                    currentlyHeldItem.transform.parent = itemParent;
                     currentlyHeldItem.transform.localPosition = Vector3.zero;
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                     rb.useGravity = false;

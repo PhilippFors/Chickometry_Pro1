@@ -2098,10 +2098,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529737379}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.1, y: 0.1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1553176940
 PrefabInstance:
@@ -3506,22 +3506,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4190049833886642804, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251301200995328978, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
-      propertyPath: isAbstract
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5815962777826108053, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
-      propertyPath: m_Radius
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7955624834666293720, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
 --- !u!1001 &5806945273683427364
@@ -3588,6 +3572,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6435167782267622569, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
+      propertyPath: grenadeTimer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3749,10 +3737,6 @@ PrefabInstance:
     - target: {fileID: 8614851000955850661, guid: f302b24e65f480f4db7798f839edf9bd, type: 3}
       propertyPath: m_Name
       value: Switch
-      objectReference: {fileID: 0}
-    - target: {fileID: 8614851002271525345, guid: f302b24e65f480f4db7798f839edf9bd, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f302b24e65f480f4db7798f839edf9bd, type: 3}

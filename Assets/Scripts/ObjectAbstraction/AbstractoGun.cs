@@ -13,8 +13,8 @@ namespace ObjectAbstraction
         [SerializeField] private LayerMask hitMask;
         [SerializeField] bool canShoot = true;
         [SerializeField] private Animation anim;
-        private bool FireTriggerd => PlayerInputController.Instance.LeftMouseButton.Triggered;
-   
+
+        private bool FireTriggered => PlayerInputController.Instance.LeftMouseButton.Triggered;
         private Transform mainCam;
 
         private void Start()
@@ -24,16 +24,19 @@ namespace ObjectAbstraction
 
         private void Update()
         {
-            if (FireTriggerd && canShoot) {
+            if (FireTriggered && canShoot) {
                 anim.Play();
-            
-                if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask, QueryTriggerInteraction.Ignore)) {
+
+                if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask,
+                    QueryTriggerInteraction.Ignore)) {
                     var modelChanger = hit.transform.GetComponentInParent<AbstractoModelChanger>();
 
                     if (modelChanger && modelChanger.Shootable && !modelChanger.changeOverride) {
                         modelChanger.ToggleModels();
                         var rb = hit.transform.GetComponentInParent<Rigidbody>();
-                        rb.velocity = Vector3.zero;
+                        if (rb) {
+                            rb.velocity = Vector3.zero;
+                        }
                     }
 
                     canShoot = false;
