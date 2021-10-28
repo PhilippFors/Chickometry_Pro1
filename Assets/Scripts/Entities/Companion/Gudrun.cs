@@ -13,7 +13,7 @@ namespace Entities.Companion
         [SerializeField] private Transform player;
         [SerializeField] private float stopDistance = 2f;
         [SerializeField] private float speed = 4f;
-
+        private bool isGrounded;
         private BasePickUpInteractable pickUpInteractable;
         private Rigidbody rb;
         private AbstractoModelChanger switcher;
@@ -32,8 +32,11 @@ namespace Entities.Companion
             navData = new NavData();
         }
 
-        private void Update() {
-            if (switcher.IsAbstract || pickUpInteractable.IsPickedUp || Vector3.Distance(transform.position, player.position) < stopDistance) {
+        private void Update()
+        {
+            isGrounded = Physics.CheckSphere(transform.position + new Vector3(0, 0.09f, 0), 0.2f, LayerMask.GetMask("Default", "Interactable"));
+
+            if (!isGrounded || switcher.IsAbstract || pickUpInteractable.IsPickedUp || Vector3.Distance(transform.position, player.position) < stopDistance) {
                 return;
             }
 

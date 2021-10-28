@@ -21,9 +21,7 @@ namespace ObjectAbstraction
             var col = GetComponent<BoxCollider>();
             var abstractionSwitch = GetComponentInParent<AbstractoSwitch>();
 
-            var offset = col.center - transform.position;
-
-            var objs = Physics.OverlapBox(transform.position + offset, col.size * 2, transform.rotation, layerMask);
+            var objs = Physics.OverlapBox(transform.position, col.size, transform.rotation, layerMask);
 
             foreach (var s in objs) {
                 var switcher = s.GetComponentInParent<AbstractoModelChanger>();
@@ -36,12 +34,10 @@ namespace ObjectAbstraction
         private void OnDrawGizmos()
         {
             var col = GetComponent<BoxCollider>();
-            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.color = new Color(255, 255, 255, 0.2f);
 
-            var offset = col.center - transform.position;
-            Gizmos.DrawCube(transform.position + offset, col.size);
-            Gizmos.DrawWireCube(transform.position + offset, col.size);
+            Gizmos.DrawCube(transform.position, col.size);
+            Gizmos.DrawWireCube(transform.position, col.size);
             // Gizmos.DrawCube(col.center, col.size);
             // Gizmos.DrawWireCube(col.center, col.size);
         }

@@ -13,6 +13,7 @@ namespace Interactables
         [SerializeField] private Transform itemSlot;
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
+        private RigidbodyConstraints constraintCache;
         private bool ThrowTriggered => PlayerInputController.Instance.ThrowItem.Triggered;
         private bool InteractTriggered => PlayerInputController.Instance.Interact.Triggered;
 
@@ -29,7 +30,8 @@ namespace Interactables
 
             if (InteractTriggered && currentSelected)
             {
-                if (!currentlyHeldItem && currentSelected is BasePickUpInteractable) {
+                if (!currentlyHeldItem && currentSelected is BasePickUpInteractable)
+                {
                     var pickup = (BasePickUpInteractable) currentSelected;
                     currentlyHeldItem = pickup;
                     currentlyHeldItem.transform.rotation = itemSlot.rotation;
@@ -37,30 +39,26 @@ namespace Interactables
                     currentlyHeldItem.transform.localPosition = Vector3.zero;
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                     rb.useGravity = false;
-
-                    if (currentlyHeldItem.name.Contains("Gudrun")) {
-                        rb.isKinematic = true;
-                    }
-
+                    constraintCache = rb.constraints;
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
                     pickup.OnPickup();
                 }
-                else {
+                else
+                {
                     currentSelected.OnInteract();
                 }
             }
 
             if (ThrowTriggered)
             {
-                if (currentlyHeldItem != null) {
+                if (currentlyHeldItem != null)
+                {
                     currentlyHeldItem.transform.parent = null;
-                    currentlyHeldItem.transform.rotation = Quaternion.Euler(0,0,0);
+                    currentlyHeldItem.transform.rotation = Quaternion.Euler(0, 0, 0);
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-
-                    if (currentlyHeldItem.name.Contains("Gudrun")) {
-                        rb.isKinematic = false;
-                    }
-
                     rb.useGravity = true;
+                    rb.constraints = RigidbodyConstraints.None;
+                    rb.constraints = constraintCache;
                     rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
                     currentlyHeldItem.OnThrow();
                     currentlyHeldItem = null;
@@ -70,7 +68,8 @@ namespace Interactables
 
         private void FindInteractable()
         {
-            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit, interactionDistance, interactableMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit, interactionDistance,
+                interactableMask, QueryTriggerInteraction.Ignore))
             {
                 var interactable = hit.transform.GetComponent<BaseInteractable>();
 

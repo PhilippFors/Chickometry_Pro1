@@ -32,6 +32,8 @@ namespace ObjectAbstraction
 
                     if (modelChanger && modelChanger.Shootable && !modelChanger.changeOverride) {
                         modelChanger.ToggleModels();
+                        var rb = hit.transform.GetComponentInParent<Rigidbody>();
+                        rb.velocity = Vector3.zero;
                     }
 
                     canShoot = false;
