@@ -1,5 +1,6 @@
 using System.Collections;
 using Entities.Player.PlayerInput;
+using ObjectAbstraction.Prototype;
 using UnityEngine;
 
 namespace ObjectAbstraction
@@ -29,9 +30,9 @@ namespace ObjectAbstraction
 
                 if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask,
                     QueryTriggerInteraction.Ignore)) {
-                    var modelChanger = hit.transform.GetComponentInParent<AbstractoModelChanger>();
+                    var modelChanger = hit.transform.GetComponentInParent<IModelChanger>();
 
-                    if (modelChanger && modelChanger.Shootable && !modelChanger.changeOverride) {
+                    if (modelChanger != null && modelChanger.Shootable) {
                         modelChanger.ToggleModels();
                         var rb = hit.transform.GetComponentInParent<Rigidbody>();
                         if (rb) {

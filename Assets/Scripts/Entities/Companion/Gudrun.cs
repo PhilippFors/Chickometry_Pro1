@@ -16,7 +16,7 @@ namespace Entities.Companion
         private bool isGrounded;
         private BasePickUpInteractable pickUpInteractable;
         private Rigidbody rb;
-        private AbstractoModelChanger switcher;
+        private IModelChanger switcher;
         private NavData navData;
         private Vector3[] currentPoints = new Vector3[0];
         private int pointIndex = 0;
@@ -26,7 +26,7 @@ namespace Entities.Companion
                 var obj = GameObject.FindWithTag("Player");
                 player = obj.transform;
             }
-            switcher = GetComponent<AbstractoModelChanger>();
+            switcher = GetComponent<IModelChanger>();
             rb = GetComponent<Rigidbody>();
             pickUpInteractable = GetComponent<BasePickUpInteractable>();
             navData = new NavData();

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using ObjectAbstraction.Prototype;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ObjectAbstraction
@@ -24,8 +25,8 @@ namespace ObjectAbstraction
             var objs = Physics.OverlapBox(transform.position, col.size, transform.rotation, layerMask);
 
             foreach (var s in objs) {
-                var switcher = s.GetComponentInParent<AbstractoModelChanger>();
-                if (switcher) {
+                var switcher = s.GetComponentInParent<IModelChanger>();
+                if (switcher != null) {
                     abstractionSwitch.AddModelSwitcher(switcher);
                 }
             }

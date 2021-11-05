@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ObjectAbstraction.Prototype;
 using Sirenix.Serialization;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace ObjectAbstraction
         [SerializeField] private bool hasTimer;
         [SerializeField] private float timer;
         
-        private List<AbstractoModelChanger> changers = new List<AbstractoModelChanger>();
+        private List<IModelChanger> changers = new List<IModelChanger>();
         private AbstractoGrenadeThrower grenadeThrower;
 
         private void Start()
@@ -25,8 +26,8 @@ namespace ObjectAbstraction
             // For the pickup thing at start
             var cols = Physics.OverlapSphere(transform.position, radius);
             foreach (var col in cols) {
-                var modelChanger = GetComponentInParent<AbstractoModelChanger>();
-                if (modelChanger && !changers.Contains(modelChanger)) {
+                var modelChanger = GetComponentInParent<IModelChanger>();
+                if (modelChanger != null && !changers.Contains(modelChanger)) {
                     modelChanger.ToggleModels();
                     changers.Add(modelChanger);
                 }
@@ -66,8 +67,8 @@ namespace ObjectAbstraction
 
         private void OnTriggerEnter(Collider other)
         {
-            var modelChanger = other.gameObject.GetComponentInParent<AbstractoModelChanger>();
-            if (modelChanger && !changers.Contains(modelChanger)) {
+            var modelChanger = other.gameObject.GetComponentInParent<IModelChanger>();
+            if (modelChanger != null && !changers.Contains(modelChanger)) {
                 changers.Add(modelChanger);
                 modelChanger.ToggleModels();
             }
@@ -75,14 +76,14 @@ namespace ObjectAbstraction
 
         private void OnTriggerExit(Collider other)
         {
-            var modelChanger = other.gameObject.GetComponentInParent<AbstractoModelChanger>();
-            if (modelChanger && changers.Contains(modelChanger) && !permanentChange) {
+            var modelChanger = other.gameObject.GetComponentInParent<IModelChanger>();
+            if (modelChanger != null && changers.Contains(modelChanger) && !permanentChange) {
                 modelChanger.ToggleModels();
                 StartCoroutine(WaitRemove(modelChanger));
             }
         }
 
-        private IEnumerator WaitRemove(AbstractoModelChanger modelChanger)
+        private IEnumerator WaitRemove(IModelChanger modelChanger)
         {
             yield return new WaitForSeconds(0.1f);
             changers.Remove(modelChanger);
@@ -92,7 +93,6 @@ namespace ObjectAbstraction
         {
             foreach (var m in changers) {
                 m.ToggleModels();
-                m.changeOverride = false;
             }
         }
 

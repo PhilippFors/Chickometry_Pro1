@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interaction.Interactables;
+using ObjectAbstraction.Prototype;
 using UnityEngine;
 
 namespace ObjectAbstraction
@@ -14,7 +15,7 @@ namespace ObjectAbstraction
         [SerializeField] private bool useTimer;
         [SerializeField] private bool isSwitchedOn;
         
-        private List<AbstractoModelChanger> objectsInArea = new List<AbstractoModelChanger>();
+        private List<IModelChanger> objectsInArea = new List<IModelChanger>();
 
         public override void OnInteract()
         {
@@ -40,7 +41,7 @@ namespace ObjectAbstraction
             ToggleSwitch();
         }
 
-        public void AddModelSwitcher(AbstractoModelChanger obj)
+        public void AddModelSwitcher(IModelChanger obj)
         {
             if (objectsInArea.Contains(obj)) {
                 return;

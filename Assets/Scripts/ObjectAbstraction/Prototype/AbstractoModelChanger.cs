@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace ObjectAbstraction
+namespace ObjectAbstraction.Prototype
 {
     /// <summary>
     /// References a normal and abstract model and toggles between them.
     /// </summary>
-    public class AbstractoModelChanger : MonoBehaviour
+    public class AbstractoModelChanger : MonoBehaviour, IModelChanger
     {
         public bool Shootable => shootable;
         public bool IsAbstract => isAbstract;
