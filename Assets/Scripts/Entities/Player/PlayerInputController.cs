@@ -20,7 +20,6 @@ namespace Entities.Player.PlayerInput
         public InputActionData<float> RightMouseButton => rightMouseButton ?? (rightMouseButton = new InputActionData<float>(rightMouseButtonAction));
         public InputActionData<float> Mousewheel => mouswheel ?? (mouswheel = new InputActionData<float>(mousewheelAction));
         public InputActionData<float> ThrowItem => throwItem ?? (throwItem = new InputActionData<float>(throwItemAction));
-
         
         [SerializeField] private InputActionAsset inputActions;
         

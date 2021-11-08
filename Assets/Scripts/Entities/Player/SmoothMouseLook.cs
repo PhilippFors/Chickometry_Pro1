@@ -2,7 +2,11 @@ using Entities.Player.PlayerInput;
 using UnityEngine;
 
 namespace Entities.Player {
-    public class SmoothMouseLook : MonoBehaviour {
+    public class SmoothMouseLook : MonoBehaviour
+    {
+        public bool enableLook;
+        public Transform CharacterBody => characterBody.transform;
+        
         [SerializeField] private GameObject characterBody;
         [SerializeField] private Vector2 clampInDegrees = new Vector2(360, 180);
         [SerializeField] private bool lockCursor;
@@ -22,7 +26,20 @@ namespace Entities.Player {
                 targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
         }
 
+        public void ResetTargeDirection()
+        {
+            targetDirection = transform.localRotation.eulerAngles;
+            if (characterBody) {
+                targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
+            }
+            mouseAbsolute = Vector2.zero;
+        }
+        
         private void Update() {
+            if (!enableLook) {
+                return;
+            }
+            
             if (lockCursor)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -36,7 +53,7 @@ namespace Entities.Player {
 
             smoothMouse.x = Mathf.Lerp(smoothMouse.x, mouseDelta.x, 1f / smoothing.x);
             smoothMouse.y = Mathf.Lerp(smoothMouse.y, mouseDelta.y, 1f / smoothing.y);
-
+            
             mouseAbsolute += smoothMouse;
 
             if (clampInDegrees.x < 360)

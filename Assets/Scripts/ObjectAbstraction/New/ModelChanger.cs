@@ -36,13 +36,13 @@ namespace ObjectAbstraction.New
         
         private void EnableAbstract()
         {
-            meshFilter.mesh = abstractMesh;
+            meshFilter.sharedMesh = abstractMesh;
             meshCollider.sharedMesh = abstractMesh;
         }
 
         private void EnableNormal()
         {
-            meshFilter.mesh = normalMesh;
+            meshFilter.sharedMesh = normalMesh;
             meshCollider.sharedMesh = normalMesh;
         }
 

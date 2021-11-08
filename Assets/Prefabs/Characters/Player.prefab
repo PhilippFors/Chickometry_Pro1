@@ -659,6 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ddd74528765a944aa76f61b0708431b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseLook: {fileID: 0}
   coolDown: 0.6
   hitMask:
     serializedVersion: 2
@@ -925,6 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c646fba431250a4aa4585e3f57213ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLook: 0
   characterBody: {fileID: 7105781407259761278}
   clampInDegrees: {x: 360, y: 180}
   lockCursor: 1
