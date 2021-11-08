@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace ObjectAbstraction.New
 {
+    [RequireComponent(typeof(MeshCollider), typeof(MeshFilter))]
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
         public bool Shootable => true;
@@ -35,7 +36,7 @@ namespace ObjectAbstraction.New
         // Called every frame by the abstracto gun
         public void ToggleModels()
         {
-            // works but idk if UI can be integrated all that nicely
+            // works ok but idk if UI can be integrated all that nicely...Too bad!
             if (!inThreshhold) {
                 absolute += (MouseDeltaX / width) * sensitivity;
                 absolute = Mathf.Clamp(absolute, -0.05f, 1.05f);
@@ -44,7 +45,11 @@ namespace ObjectAbstraction.New
                     if (abstrLayer + 1 < meshes.Count) {
                         abstrLayer++;
                         EnableLayer();
-                        absolute = 0;
+
+                        if (abstrLayer + 1 < meshes.Count) {
+                            absolute = 0;
+                        }
+
                         inThreshhold = true;
                     }
                 }

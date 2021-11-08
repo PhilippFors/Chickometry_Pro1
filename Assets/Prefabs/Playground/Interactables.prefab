@@ -992,6 +992,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4249323513981537090, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+    - target: {fileID: 4249323513981537090, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
@@ -999,6 +1003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewGudrun
       objectReference: {fileID: 0}
+    - target: {fileID: 4249323513981537103, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     m_RemovedComponents:
     - {fileID: 4249323513981537101, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}

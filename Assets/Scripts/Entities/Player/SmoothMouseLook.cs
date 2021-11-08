@@ -26,7 +26,7 @@ namespace Entities.Player {
                 targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
         }
 
-        public void ResetTargeDirection()
+        public void ResetTargeDirection() // why
         {
             targetDirection = transform.localRotation.eulerAngles;
             if (characterBody) {
