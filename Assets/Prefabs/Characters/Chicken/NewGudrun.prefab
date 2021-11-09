@@ -157,15 +157,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f87bc8e164a2480badf72ceea00e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sperarateMeshCol: 0
+  simpleToggle: 0
+  hasSperarateMeshCol: 0
   abstrLayer: 0
   sensitivity: 2
-  threshhold: 0
-  absolute: 0
+  threshhold: 0.15
+  absoluteMouseDelta: 0
   threshholdAbsolute: 0.15
   currentMeshFilter: {fileID: 4249323513981537103}
   nextMeshFilter: {fileID: 3452201490709082021}
   meshes:
+  - {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+  - {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
   - {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
   - {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
   colMeshes: []

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entities.Player.PlayerInput;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,87 +11,113 @@ namespace ObjectAbstraction.New
     {
         public bool Shootable => true;
         public bool IsAbstract => abstrLayer != 0;
+        public bool SimpleToggle => simpleToggle;
         
-        [SerializeField] private bool sperarateMeshCol;
+        [SerializeField] private bool simpleToggle;
+        [SerializeField] private bool hasSperarateMeshCol;
         [SerializeField, Min(0)] private int abstrLayer; //current abstraction layer
-        [SerializeField] private float sensitivity = 1f;
+        [SerializeField] private float sensitivity = 2f;
         [SerializeField] private float threshhold;
-        [SerializeField, ReadOnly] private float absolute;
+        [SerializeField, ReadOnly] private float absoluteMouseDelta;
         [SerializeField, ReadOnly] private float threshholdAbsolute;
         [SerializeField] private MeshFilter currentMeshFilter;
         [SerializeField] private MeshFilter nextMeshFilter;
         
         [SerializeField] private List<Mesh> meshes;
-        [SerializeField, EnableIf("sperarateMeshCol")] private List<Mesh> colMeshes;
+        [SerializeField, EnableIf("hasSperarateMeshCol")] private List<Mesh> colMeshes;
 
         private float MouseDeltaX => PlayerInputController.Instance.MouseDelta.ReadValue().x;
-        private bool inThreshhold;
-        private int width => Screen.width;
+        private bool isInThreshhold;
+        private int ScreenWidth => Screen.width;
         private MeshCollider meshCollider;
-
+        
+        private float[] abstractionSections;
+        private float realSensitivity;
+        private float oldAbsolute;
         
         private void Start()
         {
             meshCollider = GetComponent<MeshCollider>();
+            
+            EnableLayer(abstrLayer);
+            
+            abstractionSections = new float[meshes.Count];
+            
+            var sec = 1f / meshes.Count;
+            for (int i = 0; i < meshes.Count; i++) {
+                if (i == 0) {
+                    abstractionSections[i] = 0;
+                    continue;
+                } 
+                if (i == meshes.Count - 1) {
+                    abstractionSections[i] = 1;
+                    continue;
+                }
+
+                abstractionSections[i] = sec * i;
+            }
+
+            realSensitivity = sensitivity / meshes.Count; // adjusting sensitivity so mouse speed is always the same
         }
 
         // Called every frame by the abstracto gun
         public void ToggleModels()
         {
-            // works ok but idk if UI can be integrated all that nicely...Too bad!
-            if (!inThreshhold) {
-                absolute += (MouseDeltaX / width) * sensitivity;
-                absolute = Mathf.Clamp(absolute, -0.05f, 1.05f);
+            if (!simpleToggle) {
+                if (!isInThreshhold) {
+                    oldAbsolute = absoluteMouseDelta;
+                    absoluteMouseDelta += (MouseDeltaX / ScreenWidth) * realSensitivity;
+                    absoluteMouseDelta = Mathf.Clamp(absoluteMouseDelta, 0, 1);
 
-                if (absolute > 1) {
-                    if (abstrLayer + 1 < meshes.Count) {
-                        abstrLayer++;
-                        EnableLayer();
+                    for (int i = 0; i < abstractionSections.Length; i++) {
+                        
+                        // floating point precisions ahhhhhhhhh
+                        if (absoluteMouseDelta >= abstractionSections[i] - 0.01f &&
+                            absoluteMouseDelta <= abstractionSections[i] + 0.01f) {
+                            if (oldAbsolute < absoluteMouseDelta) {
+                                absoluteMouseDelta += 0.02f;
+                            }
+                            else {
+                                absoluteMouseDelta -= 0.02f;
+                            }
 
-                        if (abstrLayer + 1 < meshes.Count) {
-                            absolute = 0;
+                            EnableLayer(i);
+                            abstrLayer = i;
+                            isInThreshhold = true;
+                            break;
                         }
+                    }
+                }
 
-                        inThreshhold = true;
+                if (isInThreshhold) {
+                    threshholdAbsolute += (MouseDeltaX / ScreenWidth) * sensitivity;
+                    threshholdAbsolute = Mathf.Clamp(threshholdAbsolute, threshhold * -1, threshhold);
+                    if (threshholdAbsolute <= threshhold * -1 || threshholdAbsolute >= threshhold) {
+                        isInThreshhold = false;
+                        threshholdAbsolute = 0;
                     }
-                }
-                else if (absolute < 0f) {
-                    if (abstrLayer > 0) {
-                        abstrLayer--;
-                        EnableLayer();
-                        absolute = 1;
-                        inThreshhold = true;
-                    }
-                }
-            }
-            
-            if (inThreshhold) {
-                threshholdAbsolute += (MouseDeltaX / width) * sensitivity;
-                threshholdAbsolute = Mathf.Clamp(threshholdAbsolute, threshhold * -1, threshhold);
-                if (threshholdAbsolute <= threshhold * -1 || threshholdAbsolute >= threshhold) {
-                    inThreshhold = false;
-                    threshholdAbsolute = 0;
                 }
             }
         }
 
-        private void EnableLayer()
+        private void EnableLayer(int layer)
         {
-            if (sperarateMeshCol) {
-                currentMeshFilter.sharedMesh = meshes[abstrLayer];
-                meshCollider.sharedMesh = colMeshes[abstrLayer];
+            if (hasSperarateMeshCol) {
+                currentMeshFilter.sharedMesh = meshes[layer];
+                meshCollider.sharedMesh = colMeshes[layer];
             }
             else {
-                currentMeshFilter.sharedMesh = meshes[abstrLayer];
-                meshCollider.sharedMesh = meshes[abstrLayer];
+                currentMeshFilter.sharedMesh = meshes[layer];
+                meshCollider.sharedMesh = meshes[layer];
             }
         }
 
-        // private void OnValidate()
-        // {
-        //     currentMeshFilter = GetComponent<MeshFilter>();
-        //     meshCollider = GetComponent<MeshCollider>();
-        //     EnableLayer();
-        // }
+        private void OnValidate()
+        {
+            if (abstrLayer < meshes.Count) {
+                meshCollider = GetComponent<MeshCollider>();
+                EnableLayer(abstrLayer);
+            }
+        }
     }
 }

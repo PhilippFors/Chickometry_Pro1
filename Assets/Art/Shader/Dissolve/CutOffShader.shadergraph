@@ -8,9 +8,6 @@
         },
         {
             "m_Id": "b77e6c3f22c646f79e7d9426d29b72de"
-        },
-        {
-            "m_Id": "da333ed426d8427480a2c180a286fc7f"
         }
     ],
     "m_Keywords": [],
@@ -1248,24 +1245,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.BooleanShaderProperty",
-    "m_ObjectId": "da333ed426d8427480a2c180a286fc7f",
-    "m_Guid": {
-        "m_GuidSerialized": "0cdd0f2f-cf49-4a8f-b384-c8d11f5c52fd"
-    },
-    "m_Name": "_UseNoise",
-    "m_DefaultReferenceName": "Boolean_da333ed426d8427480a2c180a286fc7f",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": true
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "def1d93b4c1d4e8e99bd343ae13f1d02",
     "m_Id": 5,
@@ -1335,7 +1314,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": 0.0,
-    "m_FloatType": 0,
+    "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.0,
         "y": 1.0

@@ -3,6 +3,7 @@ using Entities.Player;
 using Entities.Player.PlayerInput;
 using ObjectAbstraction.New;
 using UnityEngine;
+using Utlities;
 
 namespace ObjectAbstraction
 {
@@ -18,7 +19,7 @@ namespace ObjectAbstraction
         [SerializeField] private Animation anim;
 
         private bool FireTriggered => PlayerInputController.Instance.LeftMouseButton.Triggered;
-        private bool AltFirePressed => PlayerInputController.Instance.RightMouseButton.IsPressed;
+        private bool FirePressed => PlayerInputController.Instance.LeftMouseButton.IsPressed;
 
         private Transform mainCam;
         private AdvModelChanger altFireCache;
@@ -31,35 +32,50 @@ namespace ObjectAbstraction
 
         private void Update()
         {
-            AltFire();
-
             Fire();
         }
 
-        private void AltFire()
+        private void Fire()
         {
-            if (AltFirePressed) {
+            if (FireTriggered || FirePressed) {
                 if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask,
                     QueryTriggerInteraction.Ignore)) {
-                    var modelChanger = hit.transform.GetComponentInParent<AdvModelChanger>();
-                    if (modelChanger) {
-                        if (!altFireCache) {
-                            altFireCache = modelChanger;
+                    var modelChanger = hit.transform.GetComponentInParent<IModelChanger>();
+                    var advModelChanger = modelChanger.GetComponent<AdvModelChanger>();
+
+                    if (advModelChanger) {
+                        if (!advModelChanger.SimpleToggle) {
+                            if (!altFireCache) {
+                                altFireCache = advModelChanger;
+                            }
+
+                            if (altFireCache) {
+                                mouseLook.enableLook = false;
+
+                                // TODO: Better lock on, probably needs a mouselook refactor
+                                mouseLook.transform.LookAt(altFireCache.transform);
+                                var temp = new Vector3(altFireCache.transform.position.x,
+                                    mouseLook.CharacterBody.position.y,
+                                    altFireCache.transform.position.z);
+                                mouseLook.CharacterBody.LookAt(temp);
+
+                                altFireCache.ToggleModels();
+                            }
                         }
                     }
-                }
-
-                if (altFireCache) {
-                    mouseLook.enableLook = false;
-
-                    // TODO: Better lock on, probably needs a mouselook refactor
-                    mouseLook.transform.LookAt(altFireCache.transform);
-                    var temp = new Vector3(altFireCache.transform.position.x,
-                        mouseLook.CharacterBody.position.y,
-                        altFireCache.transform.position.z);
-                    mouseLook.CharacterBody.LookAt(temp);
-
-                    altFireCache.ToggleModels();
+                    else if (canShoot) {
+                        anim.Play();
+                        if (modelChanger != null && modelChanger.Shootable) {
+                            if (modelChanger is AdvModelChanger) {
+                                if (advModelChanger.SimpleToggle) {
+                                    Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
+                                }
+                            }
+                            else {
+                                Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
+                            }
+                        }
+                    }
                 }
             }
             else {
@@ -68,29 +84,16 @@ namespace ObjectAbstraction
             }
         }
 
-        private void Fire()
+        private void Shoot(IModelChanger modelChanger, Rigidbody rb)
         {
-            if (FireTriggered && canShoot && !AltFirePressed) {
-                anim.Play();
-
-                if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask,
-                    QueryTriggerInteraction.Ignore)) {
-                    var modelChanger = hit.transform.GetComponentInParent<IModelChanger>();
-
-                    if (modelChanger != null && !(modelChanger is AdvModelChanger) && modelChanger.Shootable) {
-                        modelChanger.ToggleModels();
-                        var rb = hit.transform.GetComponentInParent<Rigidbody>();
-                        if (rb) {
-                            rb.velocity = Vector3.zero;
-                        }
-                    }
-
-                    canShoot = false;
-                    StartCoroutine(CoolDown());
-                }
+            modelChanger.ToggleModels();
+            if (rb) {
+                rb.velocity = Vector3.zero;
             }
+            canShoot = false;
+            StartCoroutine(CoolDown());
         }
-
+        
         private IEnumerator CoolDown()
         {
             yield return new WaitForSeconds(coolDown);
