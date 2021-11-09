@@ -568,9 +568,11 @@ MonoBehaviour:
   sperarateMeshCol: 0
   abstrLayer: 0
   sensitivity: 2.5
+  threshhold: 0.2
   absolute: 0
   threshholdAbsolute: 0
-  threshhold: 0.2
+  currentMeshFilter: {fileID: 7712124593818600725}
+  nextMeshFilter: {fileID: 0}
   meshes:
   - {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
   - {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
@@ -1010,13 +1012,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4249323513981537101, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
+--- !u!1 &7712124593818600729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4249323513981537091, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
+  m_PrefabInstance: {fileID: 5908257951701339738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5042048844013709027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1443032013078669497, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
   m_PrefabInstance: {fileID: 5908257951701339738}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7712124593818600729 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4249323513981537091, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
+--- !u!33 &7712124593818600725 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 4249323513981537103, guid: 843df9005b13d2747be2ef1ae39b2fe7, type: 3}
   m_PrefabInstance: {fileID: 5908257951701339738}
   m_PrefabAsset: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ObjectAbstraction.New
 {
-    [RequireComponent(typeof(MeshCollider), typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshCollider))]
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
         public bool Shootable => true;
@@ -14,10 +14,12 @@ namespace ObjectAbstraction.New
         [SerializeField] private bool sperarateMeshCol;
         [SerializeField, Min(0)] private int abstrLayer; //current abstraction layer
         [SerializeField] private float sensitivity = 1f;
-        [SerializeField] private float absolute;
-        [SerializeField] private float threshholdAbsolute;
         [SerializeField] private float threshhold;
-
+        [SerializeField, ReadOnly] private float absolute;
+        [SerializeField, ReadOnly] private float threshholdAbsolute;
+        [SerializeField] private MeshFilter currentMeshFilter;
+        [SerializeField] private MeshFilter nextMeshFilter;
+        
         [SerializeField] private List<Mesh> meshes;
         [SerializeField, EnableIf("sperarateMeshCol")] private List<Mesh> colMeshes;
 
@@ -25,12 +27,11 @@ namespace ObjectAbstraction.New
         private bool inThreshhold;
         private int width => Screen.width;
         private MeshCollider meshCollider;
-        private MeshFilter meshFilter;
+
         
         private void Start()
         {
             meshCollider = GetComponent<MeshCollider>();
-            meshFilter = GetComponent<MeshFilter>();
         }
 
         // Called every frame by the abstracto gun
@@ -76,20 +77,20 @@ namespace ObjectAbstraction.New
         private void EnableLayer()
         {
             if (sperarateMeshCol) {
-                meshFilter.sharedMesh = meshes[abstrLayer];
+                currentMeshFilter.sharedMesh = meshes[abstrLayer];
                 meshCollider.sharedMesh = colMeshes[abstrLayer];
             }
             else {
-                meshFilter.sharedMesh = meshes[abstrLayer];
+                currentMeshFilter.sharedMesh = meshes[abstrLayer];
                 meshCollider.sharedMesh = meshes[abstrLayer];
             }
         }
 
-        private void OnValidate()
-        {
-            meshFilter = GetComponent<MeshFilter>();
-            meshCollider = GetComponent<MeshCollider>();
-            EnableLayer();
-        }
+        // private void OnValidate()
+        // {
+        //     currentMeshFilter = GetComponent<MeshFilter>();
+        //     meshCollider = GetComponent<MeshCollider>();
+        //     EnableLayer();
+        // }
     }
 }
