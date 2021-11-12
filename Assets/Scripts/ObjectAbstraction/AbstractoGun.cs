@@ -62,18 +62,17 @@ namespace ObjectAbstraction
                                 altFireCache.ToggleModels();
                             }
                         }
+                        else {
+                            if (canShoot) {
+                                anim.Play();
+                                Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
+                            }
+                        }
                     }
                     else if (canShoot) {
                         anim.Play();
                         if (modelChanger != null && modelChanger.Shootable) {
-                            if (modelChanger is AdvModelChanger) {
-                                if (advModelChanger.SimpleToggle) {
-                                    Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
-                                }
-                            }
-                            else {
-                                Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
-                            }
+                            Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
                         }
                     }
                 }
@@ -90,10 +89,11 @@ namespace ObjectAbstraction
             if (rb) {
                 rb.velocity = Vector3.zero;
             }
+
             canShoot = false;
             StartCoroutine(CoolDown());
         }
-        
+
         private IEnumerator CoolDown()
         {
             yield return new WaitForSeconds(coolDown);

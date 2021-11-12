@@ -98,6 +98,13 @@ namespace ObjectAbstraction.New
                     }
                 }
             }
+            else {
+                abstrLayer++;
+                if (abstrLayer == meshes.Count) {
+                    abstrLayer = 0;
+                }
+                EnableLayer(abstrLayer);
+            }
         }
 
         private void EnableLayer(int layer)
