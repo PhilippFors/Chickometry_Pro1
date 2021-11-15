@@ -773,6 +773,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gudrun
       objectReference: {fileID: 0}
+    - target: {fileID: 1453844818229854786, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     - target: {fileID: 3002333503646521265, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -817,6 +821,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7202732365780705779, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
+      propertyPath: abstractLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7996208326614851816, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
 --- !u!4 &7836803040259881904 stripped
@@ -843,6 +855,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gudrun (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1453844818229854786, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     - target: {fileID: 3002333503646521265, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -899,10 +915,18 @@ PrefabInstance:
       propertyPath: changeOverride
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7202732365780705779, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
+      propertyPath: abstractLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7955624834666293720, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7996208326614851816, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d5bbead5a08f24badc178c344905db, type: 3}
 --- !u!1 &6244869696839174435 stripped

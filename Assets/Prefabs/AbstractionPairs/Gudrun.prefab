@@ -50,20 +50,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleToggle: 1
-  hasSperarateMeshCol: 0
-  abstractLayer: 1
+  abstractLayer: 0
   sensitivity: 2
-  threshhold: 0
-  absoluteMouseDelta: 0
+  threshhold: 0.15
   threshholdAbsolute: 0
   currentMeshFilter: {fileID: 7996208326614851816}
   nextMeshFilter: {fileID: 2370864428424155662}
-  meshes:
-  - {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
-  - {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
-  colMeshes: []
+  models:
+  - mesh: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+    hasSeperateColliderMesh: 0
+    colliderMesh: {fileID: 0}
+    modelTexture: {fileID: 0}
+    material: {fileID: 0}
+    useRigidbodySettings: 0
+    rigidbodySettings:
+      mass: 0
+      drag: 0
+      useGravity: 0
+      rigidbodyConstraints: 0
+  - mesh: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+    hasSeperateColliderMesh: 0
+    colliderMesh: {fileID: 0}
+    modelTexture: {fileID: 0}
+    material: {fileID: 0}
+    useRigidbodySettings: 0
+    rigidbodySettings:
+      mass: 0
+      drag: 0
+      useGravity: 0
+      rigidbodyConstraints: 0
   dissolveShader: {fileID: 2100000, guid: a3c211be51272a848b727fefe9180c4b, type: 2}
-  abstractionSections: []
 --- !u!114 &31474245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +136,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+  m_Mesh: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
 --- !u!1 &880029654293751679
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +176,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880029654293751679}
-  m_Mesh: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+  m_Mesh: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
 --- !u!23 &6214281952117233873
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace ObjectAbstraction.New
 {
+    /// <summary>
+    /// Advance version of the model changer with more settings and functionality
+    /// </summary>
     [RequireComponent(typeof(MeshCollider))]
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
@@ -15,21 +18,16 @@ namespace ObjectAbstraction.New
         public bool IsAbstract => abstractLayer != 0;
         public bool SimpleToggle => simpleToggle;
 
-        [SerializeField] private bool simpleToggle;
-        [SerializeField] private bool hasSperarateMeshCol;
+        [SerializeField] private bool simpleToggle = true;
         [SerializeField, Min(0)] private int abstractLayer; //current abstraction layer
         [SerializeField] private float sensitivity = 2f;
-        [SerializeField] private float threshhold;
-        [SerializeField, ReadOnly] private float absoluteMouseDelta;
+        [SerializeField] private float threshhold = 0.15f;
         [SerializeField, ReadOnly] private float threshholdAbsolute;
         [SerializeField] private MeshFilter currentMeshFilter;
         [SerializeField] private MeshFilter nextMeshFilter;
 
-        [SerializeField] private List<Mesh> meshes;
-
-        [SerializeField, EnableIf("hasSperarateMeshCol")]
-        private List<Mesh> colMeshes;
-
+        [SerializeField] private List<ModelSettings> models;
+        
         [SerializeField] private Material dissolveShader;
         private Material currentMat;
         private Material nextMat;
@@ -37,7 +35,7 @@ namespace ObjectAbstraction.New
         private bool isInThreshhold;
         private int ScreenWidth => Screen.width;
         private MeshCollider meshCollider;
-        public float[] abstractionSections;
+        private float[] abstractionSections;
         private float oldAbsolute;
         private bool goesUp;
         private bool toNext;
@@ -57,18 +55,22 @@ namespace ObjectAbstraction.New
 
         private void Start()
         {
-            abstractionSections = new float[meshes.Count];
-            currentMeshFilter.sharedMesh = meshes[abstractLayer];
+            abstractionSections = new float[models.Count];
+            currentMeshFilter.sharedMesh = models[abstractLayer].mesh;
             if (abstractLayer == 0) {
-                nextMeshFilter.sharedMesh = meshes[abstractLayer + 1];
+                nextMeshFilter.sharedMesh = models[abstractLayer + 1].mesh;
             }
 
-            if (abstractLayer == meshes.Count - 1) {
-                nextMeshFilter.sharedMesh = meshes[abstractLayer - 1];
+            if (abstractLayer == models.Count - 1) {
+                nextMeshFilter.sharedMesh = models[abstractLayer - 1].mesh;
+            }
+
+            for (int i = 0; i < abstractLayer + 1; i++) {
+                abstractionSections[i] = 1;
             }
         }
 
-        // Called every frame by the abstracto gun
+        // Called in Update by the abstracto gun
         public void ToggleModels()
         {
             if (!simpleToggle) {
@@ -76,37 +78,35 @@ namespace ObjectAbstraction.New
                     oldAbsolute = abstractionSections[abstractLayer];
                     abstractionSections[abstractLayer] += (MouseDeltaX / ScreenWidth) * sensitivity;
                     abstractionSections[abstractLayer] = Mathf.Clamp(abstractionSections[abstractLayer], -0.05f, 1.05f);
-
+                    
                     if (oldAbsolute < abstractionSections[abstractLayer]) {
-                        if (goesUp) {
-                            toNext = true;
-                        }
-                        else {
-                            toNext = false;
-                        }
+                        toNext = goesUp;
                     }
                     else {
-                        if (goesUp) {
-                            toNext = false;
-                        }
-                        else {
-                            toNext = true;
-                        }
+                        toNext = !goesUp;
                     }
 
                     isInThreshhold = abstractionSections[abstractLayer] >= 1 || abstractionSections[abstractLayer] <= 0;
 
                     if (abstractionSections[abstractLayer] >= 1 && abstractLayer + 1 < abstractionSections.Length) {
                         abstractionSections[abstractLayer] = 0.99f;
-                        abstractLayer++;
+                        if (toNext) {
+                            abstractLayer++;
+                        }
+
                         EnableLayer(abstractLayer);
                     }
 
                     if (abstractionSections[abstractLayer] <= 0 && abstractLayer > 0) {
                         abstractionSections[abstractLayer] = 0.01f;
-                        abstractLayer--;
+                        if (toNext) {
+                            abstractLayer--;
+                        }
+
                         EnableLayer(abstractLayer);
                     }
+                    
+                    Interp();
                 }
 
                 if (isInThreshhold) {
@@ -117,15 +117,17 @@ namespace ObjectAbstraction.New
                     if (threshholdAbsolute <= threshhold * -1 || threshholdAbsolute >= threshhold) {
                         if (threshholdAbsolute < 0) {
                             if (abstractLayer > 0) {
-                                nextMeshFilter.sharedMesh = meshes[abstractLayer - 1];
+                                models[abstractLayer - 1].ApplyMesh(nextMeshFilter);
+                                models[abstractLayer - 1].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                             }
 
                             goesUp = false;
                         }
 
                         if (threshholdAbsolute > 0) {
-                            if (abstractLayer + 1 < meshes.Count) {
-                                nextMeshFilter.sharedMesh = meshes[abstractLayer + 1];
+                            if (abstractLayer + 1 < models.Count) {
+                                models[abstractLayer + 1].ApplyMesh(nextMeshFilter);
+                                models[abstractLayer + 1].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                             }
 
                             goesUp = true;
@@ -138,7 +140,7 @@ namespace ObjectAbstraction.New
             }
             else {
                 abstractLayer++;
-                if (abstractLayer == meshes.Count) {
+                if (abstractLayer == models.Count) {
                     abstractLayer = 0;
                 }
 
@@ -156,28 +158,32 @@ namespace ObjectAbstraction.New
                 currentMat.SetFloat("_CutoffValue", 0);
                 nextMat.SetFloat("_CutoffValue", 1);
                 
-                if (hasSperarateMeshCol) {
-                    meshCollider.sharedMesh = meshes[layer];
-                }
-
-                if (layer + 1 >= meshes.Count) {
-                    nextMeshFilter.sharedMesh = meshes[0];
+                models[layer].ApplyMeshCollider(meshCollider);
+                models[layer].ApplyRigidbodySettings(GetComponent<Rigidbody>());
+                models[layer].ApplyTexture(currentMeshFilter.GetComponent<MeshRenderer>());
+                
+                if (layer + 1 >= models.Count) {
+                    models[0].ApplyMesh(nextMeshFilter);
+                    models[0].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                 }
                 else {
-                    nextMeshFilter.sharedMesh = meshes[layer + 1];
+                    models[layer + 1].ApplyMesh(nextMeshFilter);
+                    models[layer + 1].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                 }
-
             }
             else {
                 if (nextMeshFilter.sharedMesh) {
                     if (!toNext) {
-                        nextMeshFilter.sharedMesh = meshes[layer];
+                        nextMeshFilter.sharedMesh = models[layer].mesh;
                     }
 
                     currentMeshFilter.sharedMesh = nextMeshFilter.sharedMesh;
+                               
+                    currentMat.SetFloat("_CutoffValue", 0);
+                    nextMat.SetFloat("_CutoffValue", 1);
 
-                    if (hasSperarateMeshCol) {
-                        meshCollider.sharedMesh = colMeshes[layer];
+                    if (models[layer].hasSeperateColliderMesh) {
+                        meshCollider.sharedMesh = models[layer].colliderMesh;
                     }
                     else {
                         meshCollider.sharedMesh = nextMeshFilter.sharedMesh;
@@ -193,17 +199,32 @@ namespace ObjectAbstraction.New
             yield return new WaitForSeconds(0.5f);
         }
 
+        private void Interp()
+        {
+            var current = 0f;
+            var next = 0f;
+            if (!goesUp) {
+                current = Mathf.InverseLerp(1, 0,abstractionSections[abstractLayer]);
+                next = abstractionSections[abstractLayer];
+                currentMat.SetFloat("_CutoffValue", current);
+                nextMat.SetFloat("_CutoffValue", next);
+            }
+            else {
+                current = abstractionSections[abstractLayer];
+                next = Mathf.InverseLerp(1, 0, abstractionSections[abstractLayer]);
+            }
+
+            currentMat.SetFloat("_CutoffValue", current);
+            nextMat.SetFloat("_CutoffValue", next);
+        }
+
         private void OnValidate()
         {
-            if (abstractLayer < meshes.Count) {
+            if (abstractLayer < models.Count) {
                 meshCollider = GetComponent<MeshCollider>();
-                currentMeshFilter.sharedMesh = meshes[abstractLayer];
-                if (hasSperarateMeshCol) {
-                    meshCollider.sharedMesh = colMeshes[abstractLayer];
-                }
-                else {
-                    meshCollider.sharedMesh = meshes[abstractLayer];
-                }
+                models[abstractLayer].ApplyMesh(currentMeshFilter);
+                models[abstractLayer].ApplyMeshCollider(meshCollider);
+                models[abstractLayer].ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
         }
     }

@@ -2,6 +2,9 @@
 
 namespace ObjectAbstraction.New
 {
+    /// <summary>
+    /// Stinky poopoo
+    /// </summary>
     [RequireComponent(typeof(MeshCollider))]
     public class ModelChanger : MonoBehaviour, IModelChanger
     {
