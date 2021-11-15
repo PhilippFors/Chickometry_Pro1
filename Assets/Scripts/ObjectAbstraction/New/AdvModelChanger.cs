@@ -1,4 +1,6 @@
 ﻿using System;
+using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using Entities.Player.PlayerInput;
 using Sirenix.OdinInspector;
@@ -10,12 +12,12 @@ namespace ObjectAbstraction.New
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
         public bool Shootable => true;
-        public bool IsAbstract => abstrLayer != 0;
+        public bool IsAbstract => abstractLayer != 0;
         public bool SimpleToggle => simpleToggle;
 
         [SerializeField] private bool simpleToggle;
         [SerializeField] private bool hasSperarateMeshCol;
-        [SerializeField, Min(0)] private int abstrLayer; //current abstraction layer
+        [SerializeField, Min(0)] private int abstractLayer; //current abstraction layer
         [SerializeField] private float sensitivity = 2f;
         [SerializeField] private float threshhold;
         [SerializeField, ReadOnly] private float absoluteMouseDelta;
@@ -28,31 +30,42 @@ namespace ObjectAbstraction.New
         [SerializeField, EnableIf("hasSperarateMeshCol")]
         private List<Mesh> colMeshes;
 
+        [SerializeField] private Material dissolveShader;
+        private Material currentMat;
+        private Material nextMat;
         private float MouseDeltaX => PlayerInputController.Instance.MouseDelta.ReadValue().x;
         private bool isInThreshhold;
         private int ScreenWidth => Screen.width;
         private MeshCollider meshCollider;
-
         public float[] abstractionSections;
-        private float realSensitivity;
         private float oldAbsolute;
-        private float oldThreshholdAbsolute;
-        private void Start()
+        private bool goesUp;
+        private bool toNext;
+
+        private void Awake()
         {
             meshCollider = GetComponent<MeshCollider>();
+            
+            var currentMeshRenderer = currentMeshFilter.GetComponent<MeshRenderer>();
+            var nextMeshRenderer = nextMeshFilter.GetComponent<MeshRenderer>();
+            currentMat = new Material(dissolveShader);
+            nextMat = new Material(dissolveShader);
+            currentMeshRenderer.sharedMaterial = currentMat;
+            nextMeshRenderer.sharedMaterial = nextMat;
+            nextMat.SetFloat("_CutoffValue", 1);
+        }
 
+        private void Start()
+        {
             abstractionSections = new float[meshes.Count];
-
-            var sec = 1f / (meshes.Count - 1);
-            abstractionSections[0] = 0;
-            abstractionSections[meshes.Count-1] = 1;
-            for (int i = 1; i < meshes.Count - 1; i++) {
-                abstractionSections[i] = sec * i;
+            currentMeshFilter.sharedMesh = meshes[abstractLayer];
+            if (abstractLayer == 0) {
+                nextMeshFilter.sharedMesh = meshes[abstractLayer + 1];
             }
 
-            realSensitivity = sensitivity / meshes.Count; // adjusting sensitivity so mouse speed is always the same
-
-            currentMeshFilter.sharedMesh = meshes[abstrLayer];
+            if (abstractLayer == meshes.Count - 1) {
+                nextMeshFilter.sharedMesh = meshes[abstractLayer - 1];
+            }
         }
 
         // Called every frame by the abstracto gun
@@ -60,114 +73,136 @@ namespace ObjectAbstraction.New
         {
             if (!simpleToggle) {
                 if (!isInThreshhold) {
-                    oldAbsolute = absoluteMouseDelta;
-                    absoluteMouseDelta += (MouseDeltaX / ScreenWidth) * realSensitivity;
-                    absoluteMouseDelta = Mathf.Clamp(absoluteMouseDelta, 0, 1);
+                    oldAbsolute = abstractionSections[abstractLayer];
+                    abstractionSections[abstractLayer] += (MouseDeltaX / ScreenWidth) * sensitivity;
+                    abstractionSections[abstractLayer] = Mathf.Clamp(abstractionSections[abstractLayer], -0.05f, 1.05f);
 
-                    for (int i = 0; i < abstractionSections.Length; i++) {
-                        //if the delta is so high that it skips a section
-                        if (oldAbsolute < abstractionSections[i] && absoluteMouseDelta > abstractionSections[i] ||
-                            oldAbsolute > abstractionSections[i] && absoluteMouseDelta < abstractionSections[i]) {
-                            abstrLayer = i;
-                            EnableLayer(i);
-                            break;
+                    if (oldAbsolute < abstractionSections[abstractLayer]) {
+                        if (goesUp) {
+                            toNext = true;
                         }
-                        
-                        // floating point precisions ahhhhhhhhh
-                        if (absoluteMouseDelta >= abstractionSections[i] - 0.01f &&
-                            absoluteMouseDelta <= abstractionSections[i] + 0.01f) {
+                        else {
+                            toNext = false;
+                        }
+                    }
+                    else {
+                        if (goesUp) {
+                            toNext = false;
+                        }
+                        else {
+                            toNext = true;
+                        }
+                    }
 
-                            abstrLayer = i;
-                            EnableLayer(i);
-                            isInThreshhold = true;
-                            break;
-                        }
+                    isInThreshhold = abstractionSections[abstractLayer] >= 1 || abstractionSections[abstractLayer] <= 0;
+
+                    if (abstractionSections[abstractLayer] >= 1 && abstractLayer + 1 < abstractionSections.Length) {
+                        abstractionSections[abstractLayer] = 0.99f;
+                        abstractLayer++;
+                        EnableLayer(abstractLayer);
+                    }
+
+                    if (abstractionSections[abstractLayer] <= 0 && abstractLayer > 0) {
+                        abstractionSections[abstractLayer] = 0.01f;
+                        abstractLayer--;
+                        EnableLayer(abstractLayer);
                     }
                 }
 
                 if (isInThreshhold) {
-                    
-                    // big load of nothing. When exiting the threshold and going back to the previous section,
-                    // the nextMeshFilter is basically stuck with what it thought was gonna be the next mesh, either one lower or higher,
-                    // without considering the possibility that it could go to where it just was previously.
-                    // lot of code that doesn't do shit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa. 
-                    // extend this with a previousLayer variable so it can compare where it ends up?
-                    oldThreshholdAbsolute = threshholdAbsolute;
+                    oldAbsolute = threshholdAbsolute;
                     threshholdAbsolute += (MouseDeltaX / ScreenWidth) * sensitivity;
                     threshholdAbsolute = Mathf.Clamp(threshholdAbsolute, threshhold * -1, threshhold);
-                    if (oldThreshholdAbsolute < threshholdAbsolute) {
-                        if (abstrLayer + 1 < meshes.Count) {
-                            nextMeshFilter.sharedMesh = meshes[abstrLayer + 1];
-                        }
-                        else {
-                            nextMeshFilter.sharedMesh = meshes[meshes.Count - 1];
-                        }
-                    }
-                    else if(oldThreshholdAbsolute > threshholdAbsolute) {
-                        if (abstrLayer > 0) {
-                            nextMeshFilter.sharedMesh = meshes[abstrLayer - 1];
-                        }
-                        else {
-                            nextMeshFilter.sharedMesh = meshes[0];
-                        }
-                    }
 
                     if (threshholdAbsolute <= threshhold * -1 || threshholdAbsolute >= threshhold) {
-                        if (oldThreshholdAbsolute < threshholdAbsolute) {
-                            absoluteMouseDelta += 0.02f;
-                            absoluteMouseDelta = Mathf.Clamp(absoluteMouseDelta, 0, 1);
+                        if (threshholdAbsolute < 0) {
+                            if (abstractLayer > 0) {
+                                nextMeshFilter.sharedMesh = meshes[abstractLayer - 1];
+                            }
+
+                            goesUp = false;
                         }
-                        else if(oldThreshholdAbsolute > threshholdAbsolute) {
-                            absoluteMouseDelta -= 0.02f;
-                            absoluteMouseDelta = Mathf.Clamp(absoluteMouseDelta, 0, 1);
+
+                        if (threshholdAbsolute > 0) {
+                            if (abstractLayer + 1 < meshes.Count) {
+                                nextMeshFilter.sharedMesh = meshes[abstractLayer + 1];
+                            }
+
+                            goesUp = true;
                         }
+
                         isInThreshhold = false;
                         threshholdAbsolute = 0;
                     }
                 }
             }
             else {
-                abstrLayer++;
-                if (abstrLayer == meshes.Count) {
-                    abstrLayer = 0;
+                abstractLayer++;
+                if (abstractLayer == meshes.Count) {
+                    abstractLayer = 0;
                 }
 
-                EnableLayer(abstrLayer);
+                StartCoroutine(EnableLayer(abstractLayer));
             }
         }
 
-        private void EnableLayer(int layer)
+        private IEnumerator EnableLayer(int layer)
         {
-            if (nextMeshFilter.sharedMesh) {
+            if (simpleToggle) {
+                yield return StartCoroutine(Transition());
+                
                 currentMeshFilter.sharedMesh = nextMeshFilter.sharedMesh;
+                                
+                currentMat.SetFloat("_CutoffValue", 0);
+                nextMat.SetFloat("_CutoffValue", 1);
+                
                 if (hasSperarateMeshCol) {
-                    meshCollider.sharedMesh = colMeshes[layer];
+                    meshCollider.sharedMesh = meshes[layer];
+                }
+
+                if (layer + 1 >= meshes.Count) {
+                    nextMeshFilter.sharedMesh = meshes[0];
                 }
                 else {
-                    meshCollider.sharedMesh = nextMeshFilter.sharedMesh;
+                    nextMeshFilter.sharedMesh = meshes[layer + 1];
+                }
+
+            }
+            else {
+                if (nextMeshFilter.sharedMesh) {
+                    if (!toNext) {
+                        nextMeshFilter.sharedMesh = meshes[layer];
+                    }
+
+                    currentMeshFilter.sharedMesh = nextMeshFilter.sharedMesh;
+
+                    if (hasSperarateMeshCol) {
+                        meshCollider.sharedMesh = colMeshes[layer];
+                    }
+                    else {
+                        meshCollider.sharedMesh = nextMeshFilter.sharedMesh;
+                    }
                 }
             }
-            // if (hasSperarateMeshCol) {
-                //     currentMeshFilter.sharedMesh = meshes[layer];
-                //     meshCollider.sharedMesh = colMeshes[layer];
-                // }
-                // else {
-                //     currentMeshFilter.sharedMesh = meshes[layer];
-                //     meshCollider.sharedMesh = meshes[layer];
-                // }
-            
+        }
+
+        private IEnumerator Transition()
+        {
+            currentMat.DOFloat(1, "_CutoffValue", 0.5f);
+            nextMat.DOFloat(0, "_CutoffValue", 0.5f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         private void OnValidate()
         {
-            if (abstrLayer < meshes.Count) {
+            if (abstractLayer < meshes.Count) {
                 meshCollider = GetComponent<MeshCollider>();
-                currentMeshFilter.sharedMesh = meshes[abstrLayer];
+                currentMeshFilter.sharedMesh = meshes[abstractLayer];
                 if (hasSperarateMeshCol) {
-                    meshCollider.sharedMesh = colMeshes[abstrLayer];
+                    meshCollider.sharedMesh = colMeshes[abstractLayer];
                 }
                 else {
-                    meshCollider.sharedMesh = meshes[abstrLayer];
+                    meshCollider.sharedMesh = meshes[abstractLayer];
                 }
             }
         }
