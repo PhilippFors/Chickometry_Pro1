@@ -1,5 +1,8 @@
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.ProBuilder;
+using Utlities;
 
 namespace ObjectAbstraction.New
 {
@@ -9,30 +12,52 @@ namespace ObjectAbstraction.New
     [System.Serializable]
     public class ModelSettings
     {
-        public Mesh mesh;
-        public bool hasSeperateColliderMesh;
-        [EnableIf("hasSeperateColliderMesh")] public Mesh colliderMesh;
-        public Texture2D modelTexture;
-        [ReadOnly] public Material material;
-        public bool useRigidbodySettings;
-        public RigidbodySettings rigidbodySettings;
-        private Material instanceMat;
+        [SerializeField] private bool usePrefab;
+
+        [SerializeField, ShowIf("usePrefab")] private GameObject prefab;
+        [SerializeField, HideIf("usePrefab")] private Mesh mesh;
+        [SerializeField, HideIf("usePrefab")] private Mesh colliderMesh;
+
+        [SerializeField] private Texture2D modelTexture;
+        [SerializeField] private bool useRigidbodySettings;
+        [SerializeField] private RigidbodySettings rigidbodySettings;
 
         public void ApplyMesh(MeshFilter filter)
         {
-            filter.sharedMesh = mesh;
+            if (usePrefab) {
+                var prefabProBuilder = prefab.GetComponent<ProBuilderMesh>();
+
+                if (!prefabProBuilder) {
+                    var prefabFilter = prefab.GetComponent<MeshFilter>();
+                    filter.sharedMesh = prefabFilter.sharedMesh;
+                }
+                else {
+                    var prefabFilter = prefabProBuilder.GetPropertyValue<MeshFilter>("filter");
+                    filter.sharedMesh = prefabFilter.sharedMesh;
+                }
+            }
+            else {
+                filter.sharedMesh = mesh;
+            }
         }
 
         public void ApplyMeshCollider(MeshCollider collider)
         {
-            if (hasSeperateColliderMesh) {
-                collider.sharedMesh = colliderMesh;
+            if (usePrefab) {
+                var prefabMeshCol = prefab.GetComponent<MeshCollider>();
+
+                collider.sharedMesh = prefabMeshCol.sharedMesh;
             }
             else {
-                collider.sharedMesh = mesh;
+                if (colliderMesh) {
+                    collider.sharedMesh = colliderMesh;
+                }
+                else {
+                    collider.sharedMesh = mesh;
+                }
             }
         }
-        
+
         public void ApplyRigidbodySettings(Rigidbody rb)
         {
             if (useRigidbodySettings) {
@@ -40,23 +65,10 @@ namespace ObjectAbstraction.New
             }
         }
 
-        public void ApplyMaterial(MeshRenderer renderer)
-        {
-            if (material) {
-                if (instanceMat == null) {
-                    instanceMat = new Material(material);
-                }
-
-                renderer.material = instanceMat;
-            }
-
-            ApplyTexture(renderer);
-        }
-
         public void ApplyTexture(MeshRenderer renderer)
         {
             if (modelTexture) {
-                renderer.material.SetTexture("_MainTex", modelTexture);
+                renderer.sharedMaterial.SetTexture("_MainTex", modelTexture);
             }
         }
     }
@@ -64,10 +76,10 @@ namespace ObjectAbstraction.New
     [System.Serializable]
     public class RigidbodySettings
     {
-        public float mass;
-        public float drag;
-        public bool useGravity;
-        public RigidbodyConstraints rigidbodyConstraints;
+        [SerializeField] private float mass = 1;
+        [SerializeField] private float drag;
+        [SerializeField] private bool useGravity = true;
+        [SerializeField] private RigidbodyConstraints rigidbodyConstraints;
 
         public void ApplySettings(Rigidbody rb)
         {

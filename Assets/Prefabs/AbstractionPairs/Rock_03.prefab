@@ -260,26 +260,26 @@ MonoBehaviour:
   currentMeshFilter: {fileID: 1323632193862200513}
   nextMeshFilter: {fileID: 6622060974181734540}
   models:
-  - mesh: {fileID: 6535324834227901980, guid: cd1120c3b7f2bf54b92b185f910be005, type: 3}
-    hasSeperateColliderMesh: 0
+  - usePrefab: 0
+    prefab: {fileID: 0}
+    mesh: {fileID: 6535324834227901980, guid: cd1120c3b7f2bf54b92b185f910be005, type: 3}
     colliderMesh: {fileID: 0}
     modelTexture: {fileID: 0}
-    material: {fileID: 0}
     useRigidbodySettings: 0
     rigidbodySettings:
       mass: 0
       drag: 0
       useGravity: 0
       rigidbodyConstraints: 0
-  - mesh: {fileID: 7174268114802588496, guid: cd1120c3b7f2bf54b92b185f910be005, type: 3}
-    hasSeperateColliderMesh: 0
+  - usePrefab: 0
+    prefab: {fileID: 0}
+    mesh: {fileID: 7174268114802588496, guid: cd1120c3b7f2bf54b92b185f910be005, type: 3}
     colliderMesh: {fileID: 0}
     modelTexture: {fileID: 0}
-    material: {fileID: 0}
     useRigidbodySettings: 0
     rigidbodySettings:
       mass: 0
       drag: 0
       useGravity: 0
       rigidbodyConstraints: 0
-  dissolveShader: {fileID: 2100000, guid: f65f9bc264a4bf94ebeee4f216876bd2, type: 2}
+  usedMaterial: {fileID: 2100000, guid: f65f9bc264a4bf94ebeee4f216876bd2, type: 2}
