@@ -41,7 +41,14 @@ namespace ObjectAbstraction
                 if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask,
                     QueryTriggerInteraction.Ignore)) {
                     var modelChanger = hit.transform.GetComponentInParent<IModelChanger>();
-                    var advModelChanger = modelChanger.GetComponent<AdvModelChanger>();
+                    AdvModelChanger advModelChanger = null;
+                    
+                    if (modelChanger != null) {
+                        advModelChanger = modelChanger.GetComponent<AdvModelChanger>();
+                    }
+                    else {
+                        return;
+                    }
 
                     if (advModelChanger) {
                         if (!advModelChanger.SimpleToggle) {
@@ -51,8 +58,6 @@ namespace ObjectAbstraction
 
                             if (altFireCache) {
                                 mouseLook.enableLook = false;
-
-                                // TODO: Better lock on, probably needs a mouselook refactor
                                 mouseLook.transform.LookAt(altFireCache.transform);
                                 var temp = new Vector3(altFireCache.transform.position.x,
                                     mouseLook.CharacterBody.position.y,
