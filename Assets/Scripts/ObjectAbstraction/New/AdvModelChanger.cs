@@ -13,6 +13,7 @@ namespace ObjectAbstraction.New
     [RequireComponent(typeof(MeshCollider))]
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
+        public event System.Action onMeshChange;
         public bool Shootable => true;
         public bool IsAbstract => abstractLayer != 0;
         public bool SimpleToggle => simpleToggle;
@@ -188,6 +189,7 @@ namespace ObjectAbstraction.New
                     models[layer + 1].ApplyMesh(nextMeshFilter);
                     models[layer + 1].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                 }
+                onMeshChange?.Invoke();
             }
             else {
                 if (nextMeshFilter.sharedMesh) {
