@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ObjectAbstraction.New
+namespace ObjectAbstraction.ModelChanger
 {
     /// <summary>
     /// Stinky poopoo

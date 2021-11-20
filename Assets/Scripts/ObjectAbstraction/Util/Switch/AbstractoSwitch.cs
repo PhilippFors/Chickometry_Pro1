@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interaction.Interactables;
+using ObjectAbstraction.ModelChanger;
 using UnityEngine;
 
 namespace ObjectAbstraction

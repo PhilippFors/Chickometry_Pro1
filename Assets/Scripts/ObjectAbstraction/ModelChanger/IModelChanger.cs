@@ -1,4 +1,4 @@
-namespace ObjectAbstraction
+namespace ObjectAbstraction.ModelChanger
 {
     public interface IModelChanger
     {

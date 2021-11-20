@@ -1,10 +1,7 @@
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
-using UnityEngine.ProBuilder;
-using Utlities;
 
-namespace ObjectAbstraction.New
+namespace ObjectAbstraction.ModelChanger
 {
     /// <summary>
     /// Settings used by the AdvModelChanger

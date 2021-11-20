@@ -5,7 +5,7 @@ using Entities.Player.PlayerInput;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace ObjectAbstraction.New
+namespace ObjectAbstraction.ModelChanger
 {
     /// <summary>
     /// Advance version of the model changer with more settings and functionality
@@ -20,7 +20,6 @@ namespace ObjectAbstraction.New
         }
         public bool IsAbstract => abstractLayer != 0;
         public bool SimpleToggle => simpleToggle;
-        public int AbstractLayer => abstractLayer;
 
         [SerializeField] private bool simpleToggle = true;
         [SerializeField, Min(0)] private int abstractLayer; //current abstraction layer
