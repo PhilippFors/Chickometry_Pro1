@@ -1,5 +1,6 @@
 using Interaction.Items;
 using ObjectAbstraction;
+using ObjectAbstraction.ModelChanger;
 using UnityEngine;
 using Utilities.AI;
 
