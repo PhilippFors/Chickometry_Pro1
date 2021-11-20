@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6484367476256385712}
   - component: {fileID: 8079299159128884964}
   - component: {fileID: 638648683943889534}
-  - component: {fileID: 7075469895437314920}
   m_Layer: 7
   m_Name: Current
   m_TagString: Untagged
@@ -61,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1fd12f033d1d7d34b9efb8d73962224a, type: 2}
+  - {fileID: 2100000, guid: 9a3dfb43564cb8b4e9609e19f44839b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,18 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd659f98f8edf0b46bb84eea6fc0b93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7075469895437314920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638648683943889533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd659f98f8edf0b46bb84eea6fc0b93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3302143412267926503
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,9 +103,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1623171438682359469}
+  - component: {fileID: 3302143412267926504}
   - component: {fileID: 7368614435490432942}
   - component: {fileID: 1912560157345487053}
-  - component: {fileID: 3302143412267926504}
   m_Layer: 7
   m_Name: WireFrameTree
   m_TagString: Untagged
@@ -142,6 +129,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3302143412267926504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3302143412267926503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a404a4d7960a239498c51a24267a1209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minWireFrameBlend: 0.09
+  currentRend: {fileID: 8079299159128884964}
+  defaultLayer: 7
+  wireframeLayer: 8
 --- !u!114 &7368614435490432942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +187,7 @@ MonoBehaviour:
       drag: 0
       useGravity: 1
       rigidbodyConstraints: 0
-  usedMaterial: {fileID: 2100000, guid: 1fd12f033d1d7d34b9efb8d73962224a, type: 2}
+  usedMaterial: {fileID: 2100000, guid: 9a3dfb43564cb8b4e9609e19f44839b2, type: 2}
 --- !u!64 &1912560157345487053
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -196,21 +199,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6441263851625206158, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
---- !u!114 &3302143412267926504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3302143412267926503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a404a4d7960a239498c51a24267a1209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8807439955077041377
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,8 +213,7 @@ GameObject:
   - component: {fileID: 3707679810678103358}
   - component: {fileID: 699184728302002883}
   - component: {fileID: 3075941279050926355}
-  - component: {fileID: 8807439955077041378}
-  - component: {fileID: 4765358501687285796}
+  - component: {fileID: 6830919415060878105}
   m_Layer: 7
   m_Name: next
   m_TagString: Untagged
@@ -294,19 +284,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8807439955077041378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8807439955077041377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd659f98f8edf0b46bb84eea6fc0b93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4765358501687285796
+--- !u!114 &6830919415060878105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

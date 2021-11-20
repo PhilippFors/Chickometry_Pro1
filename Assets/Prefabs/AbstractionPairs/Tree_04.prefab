@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 1609570233368017445}
   - component: {fileID: 9171126508194519852}
   - component: {fileID: 2685564187584644182}
+  - component: {fileID: 5426968230121604018}
   m_Layer: 7
   m_Name: Tree_Normal_04
   m_TagString: Untagged
@@ -192,6 +193,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3349950484380103108, guid: ce9eb890351faf54697dbabfabd0cfba, type: 3}
+--- !u!114 &5426968230121604018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963747776845946125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd659f98f8edf0b46bb84eea6fc0b93f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2621227684843119667
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +229,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2621227684843119667}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.9794655, y: -0.00000023841858, z: 10.31225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -3,10 +3,13 @@ using UnityEngine;
 
 namespace ObjectAbstraction
 {
+    /// <summary>
+    /// Used for models that can turn into billboards.
+    /// Detects if model is a billboard and rotates itself towards the target.
+    /// </summary>
     public class Billboard : MonoBehaviour
     {
         [SerializeField] private GameObject lookAtTarget;
-        [SerializeField] private int abstractLayer;
         [SerializeField] private float rotationSpeed = 4f;
         private AdvModelChanger modelChanger;
 
@@ -21,7 +24,7 @@ namespace ObjectAbstraction
     
         void Update()
         {
-            if (modelChanger.AbstractLayer == abstractLayer) {
+            if (modelChanger.IsAbstract) {
                 var dir = lookAtTarget.transform.position - transform.position;
                 dir.y = 0;
                 var newRot = Quaternion.LookRotation(dir);

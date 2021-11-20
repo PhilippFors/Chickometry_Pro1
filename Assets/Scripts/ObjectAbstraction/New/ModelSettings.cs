@@ -25,14 +25,8 @@ namespace ObjectAbstraction.New
         public void ApplyMesh(MeshFilter filter)
         {
             if (usePrefab) {
-                var prefabProBuilder = prefab.GetComponent<ProBuilderMesh>();
-
-                if (!prefabProBuilder) {
-                    var prefabFilter = prefab.GetComponent<MeshFilter>();
-                    filter.sharedMesh = prefabFilter.sharedMesh;
-                }
-                else {
-                    var prefabFilter = prefabProBuilder.GetPropertyValue<MeshFilter>("filter");
+                var prefabFilter = prefab.GetComponentInChildren<MeshFilter>();
+                if (prefabFilter) {
                     filter.sharedMesh = prefabFilter.sharedMesh;
                 }
             }
@@ -46,7 +40,9 @@ namespace ObjectAbstraction.New
             if (usePrefab) {
                 var prefabMeshCol = prefab.GetComponent<MeshCollider>();
 
-                collider.sharedMesh = prefabMeshCol.sharedMesh;
+                if (prefabMeshCol) {
+                    collider.sharedMesh = prefabMeshCol.sharedMesh;
+                }
             }
             else {
                 if (colliderMesh) {

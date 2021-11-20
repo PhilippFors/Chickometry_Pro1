@@ -11,7 +11,7 @@ namespace Utlities.MeshUtils
     [RequireComponent(typeof(MeshFilter)), DefaultExecutionOrder(-51)]
     public class MeshDataBuilder : MonoBehaviour
     {
-        private HashSet<Mesh> meshes = new HashSet<Mesh>();
+        private static HashSet<Mesh> meshes = new HashSet<Mesh>();
         private AdvModelChanger modelChanger;
         
         private void Reset()

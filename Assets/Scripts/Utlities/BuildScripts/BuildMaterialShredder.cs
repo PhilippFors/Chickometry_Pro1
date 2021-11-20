@@ -16,25 +16,29 @@ namespace Utilities.BuildScripts
             get => 0;
         }
 
+        
         public void OnPreprocessBuild(BuildReport report)
         {
-            var sceneCount = SceneManager.sceneCountInBuildSettings;
-
-            for (int i = 0; i < sceneCount; i++) {
-                var activeScene = SceneManager.GetSceneByBuildIndex(i);
-                var root = activeScene.GetRootGameObjects();
-                foreach (var obj in root) {
-                    var modelChanger = obj.GetComponent<AdvModelChanger>();
-                    if (modelChanger) {
-                        var children = modelChanger.GetComponentsInChildren<MeshRenderer>();
-                        foreach (var child in children) {
-                            var mat = child.material;
-                            child.material = null;
-                            GameObject.Destroy(mat);
-                        }
-                    }
-                }
-            }
+            // var sceneCount = SceneManager.sceneCountInBuildSettings;
+            //
+            // for (int i = 0; i < sceneCount; i++) {
+            //     SceneManager.LoadScene(i);
+            //     var activeScene = SceneManager.GetActiveScene();
+            //     var root = activeScene.GetRootGameObjects();
+            //     foreach (var obj in root) {
+            //         var modelChanger = obj.GetComponent<AdvModelChanger>();
+            //         if (modelChanger) {
+            //             var children = modelChanger.GetComponentsInChildren<MeshRenderer>();
+            //             foreach (var child in children) {
+            //                 var mat = child.material;
+            //                 child.material = null;
+            //                 Object.Destroy(mat);
+            //             }
+            //         }
+            //     }
+            //
+            //     SceneManager.UnloadSceneAsync(activeScene);
+            // }
         }
     }
 }

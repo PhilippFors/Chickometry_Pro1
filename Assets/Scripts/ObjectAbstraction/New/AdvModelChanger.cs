@@ -14,7 +14,10 @@ namespace ObjectAbstraction.New
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
         public event System.Action onMeshChange;
-        public bool Shootable => true;
+        public bool Shootable {
+            get => shootable;
+            set => shootable = value;
+        }
         public bool IsAbstract => abstractLayer != 0;
         public bool SimpleToggle => simpleToggle;
         public int AbstractLayer => abstractLayer;
@@ -38,6 +41,7 @@ namespace ObjectAbstraction.New
         private bool goesUp;
         private bool toNext;
         private bool isInThreshhold;
+        private bool shootable;
         private int ScreenWidth => Screen.width;
 
         private void Awake()
@@ -189,6 +193,7 @@ namespace ObjectAbstraction.New
                     models[layer + 1].ApplyMesh(nextMeshFilter);
                     models[layer + 1].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                 }
+
                 onMeshChange?.Invoke();
             }
             else {
@@ -236,12 +241,11 @@ namespace ObjectAbstraction.New
 
         private void OnValidate()
         {
-#if UNITY_EDITOR
-                var currentRend = currentMeshFilter.GetComponent<MeshRenderer>();
-                if(!currentRend.sharedMaterial){
-                    currentRend.sharedMaterial = new Material(usedMaterial);
-                }
-#endif
+            var currentRend = currentMeshFilter.GetComponent<MeshRenderer>();
+            if (!currentRend.sharedMaterial) {
+                currentRend.sharedMaterial = new Material(usedMaterial);
+            }
+
             if (abstractLayer < models.Count) {
                 meshCollider = GetComponent<MeshCollider>();
                 models[abstractLayer].ApplyMesh(currentMeshFilter);

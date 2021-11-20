@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648525757378230851}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.15, y: 0.09900001, z: 1.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -67,17 +67,6 @@ MonoBehaviour:
       useGravity: 0
       rigidbodyConstraints: 0
   - usePrefab: 0
-    prefab: {fileID: 0}
-    mesh: {fileID: -6441263851625206158, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
-    colliderMesh: {fileID: 0}
-    modelTexture: {fileID: 2800000, guid: 28a51d508c86a8948b59df81d5188b17, type: 3}
-    useRigidbodySettings: 0
-    rigidbodySettings:
-      mass: 3
-      drag: 0
-      useGravity: 1
-      rigidbodyConstraints: 0
-  - usePrefab: 0
     prefab: {fileID: 8372085510955632128, guid: f6231d8e591916b4f9654bbb6dcdd732, type: 3}
     mesh: {fileID: -716780490448543209, guid: 3aa4ec8960506d2429c6a24ea5d6641e, type: 3}
     colliderMesh: {fileID: 0}
@@ -116,8 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtTarget: {fileID: 0}
-  abstractLayer: 2
-  rotationSpeed: 0
+  rotationSpeed: 5
 --- !u!1 &2126439636803529079
 GameObject:
   m_ObjectHideFlags: 0
