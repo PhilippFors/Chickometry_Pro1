@@ -5,6 +5,6 @@
     /// </summary>
     public interface IInteractable
     {
-        void OnUse();
+        void OnInteract();
     }
 }

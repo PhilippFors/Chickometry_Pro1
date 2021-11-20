@@ -28,9 +28,9 @@ namespace Utlities
 
         private int currentFrameCounter = 0;
         
-        private Dictionary<PickUpItem, VelocityData> velocityObjects = new Dictionary<PickUpItem, VelocityData>();
+        private Dictionary<BasePickUpInteractable, VelocityData> velocityObjects = new Dictionary<BasePickUpInteractable, VelocityData>();
         
-        public void Register(PickUpItem obj)
+        public void Register(BasePickUpInteractable obj)
         {
             var data = new VelocityData();
             data.referenceObject = obj.gameObject;
@@ -39,12 +39,12 @@ namespace Utlities
             velocityObjects.Add(obj, data);
         }
 
-        public void Unregister(PickUpItem obj)
+        public void Unregister(BasePickUpInteractable obj)
         {
             velocityObjects.Remove(obj);
         }
 
-        public float GetVelocity(PickUpItem obj)
+        public float GetVelocity(BasePickUpInteractable obj)
         {
             if (velocityObjects.TryGetValue(obj, out var value))
             {

@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.philfors.usefulcode": {
-      "version": "https://github.com/PhilippFors/useful-code.git?path=Assets/UsefulCode#f6bd5b9bbbdd6d4a11363a920d867822171fd7f0",
+      "version": "https://github.com/PhilippFors/useful-code.git?path=Assets/UsefulCode#5efa15eeee756cfe7ba36f4c4e2b0555abe81405",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.inputsystem": "1.0.2"
       },
-      "hash": "f6bd5b9bbbdd6d4a11363a920d867822171fd7f0"
+      "hash": "5efa15eeee756cfe7ba36f4c4e2b0555abe81405"
     },
     "com.unity.cinemachine": {
       "version": "2.6.5",
@@ -56,11 +56,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
-      "version": "4.5.0",
+      "version": "5.0.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.settings-manager": "1.0.3"
+        "com.unity.settings-manager": "1.0.3",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
