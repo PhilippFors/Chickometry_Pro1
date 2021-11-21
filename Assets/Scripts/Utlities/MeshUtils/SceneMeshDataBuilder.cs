@@ -8,34 +8,64 @@ namespace Utlities.MeshUtils
 {
     public class SceneMeshDataBuilder : MonoBehaviour
     {
-        private HashSet<MeshFilter> sceneCache = new HashSet<MeshFilter>();
-
+        private HashSet<WireframeIdentifier> sceneCache = new HashSet<WireframeIdentifier>();
+        private static int maxDepth = 4;
+        private static int depth;
         [Button("Set Meshdatabuilders")]
-        void Reset()
-        {
 #if UNITY_EDITOR
+        void OnValidate()
+        {
+
             var activeScene = SceneManager.GetActiveScene();
             var root = activeScene.GetRootGameObjects();
             foreach (var obj in root) {
-                var childMeshFilters = obj.GetComponentsInChildren<MeshFilter>();
-                
-                foreach (var meshFilter in childMeshFilters) {
-                    var wireframe = meshFilter.GetComponentInParent<WireframeIdentifier>();
-                    var meshdatabuilder = meshFilter.GetComponentInParent<MeshDataBuilder>();
-                    if (wireframe && !meshdatabuilder && !sceneCache.Contains(meshFilter)) {
-                        sceneCache.Add(meshFilter);
-                        meshFilter.gameObject.AddComponent<MeshDataBuilder>();
-                    } else if (sceneCache.Contains(meshFilter) && !wireframe) {
-                        sceneCache.Remove(meshFilter);
-                        if(meshdatabuilder){
-                            Destroy(meshdatabuilder);
-                        }
-                    }
-                }
+                CheckChildren(obj);
             }
-#endif
+
         }
 
+        private void CheckChildren(GameObject obj)
+        {
+            depth++;
+            if (obj.transform.childCount > 0 && depth <= maxDepth) {
+                int i = 0;
+                while (i < obj.transform.childCount) {
+                    AddMeshBuilder(obj.transform.GetChild(i));
+                    CheckChildren(obj.transform.GetChild(i).gameObject);
+                    i++;
+                }
+            }
+            else {
+                AddMeshBuilder(obj.transform);
+            }
+
+            if (depth > 0) {
+                depth--;
+            }
+        }
+
+        private void AddMeshBuilder(Transform obj)
+        {
+            var wireframe = obj.GetComponent<WireframeIdentifier>();
+            var meshDataBuilder = obj.GetComponent<MeshDataBuilder>();
+            if (wireframe && !meshDataBuilder && !sceneCache.Contains(wireframe)) {
+                sceneCache.Add(wireframe);
+                var m = wireframe.gameObject.AddComponent<MeshDataBuilder>();
+                m.GenerateMeshData();
+            }
+            else if (sceneCache.Contains(wireframe) && !wireframe && meshDataBuilder) {
+                sceneCache.Remove(wireframe);
+                if (meshDataBuilder) {
+                    Destroy(meshDataBuilder);
+                }
+            }
+        }
+
+        [Button]
+        private void Clear() => sceneCache.Clear();
+            
+#endif
+            
         private void Awake()
         {
             Destroy(gameObject);

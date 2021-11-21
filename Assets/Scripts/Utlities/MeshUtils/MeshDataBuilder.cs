@@ -13,22 +13,14 @@ namespace Utlities.MeshUtils
     {
         private static HashSet<Mesh> meshes = new HashSet<Mesh>();
         private AdvModelChanger modelChanger;
-        
-        private void Reset()
+        private void OnEnable()
         {
             GenerateMeshData();
         }
 
         private void Awake()
         {
-            modelChanger = GetComponentInParent<AdvModelChanger>();
-            modelChanger.onMeshChange += GenerateMeshData;
             GenerateMeshData();
-        }
-
-        private void OnDisable()
-        {
-            modelChanger.onMeshChange -= GenerateMeshData;
         }
 
         /// <summary>
@@ -37,11 +29,14 @@ namespace Utlities.MeshUtils
         [Button]
         public void GenerateMeshData()
         {
-            Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
-            if (mesh && !meshes.Contains(mesh)) {
-                meshes.Add(mesh);
-                SplitMesh(mesh);
-                SetVertexColors(mesh);
+            modelChanger = GetComponentInParent<AdvModelChanger>();
+            foreach (var model in modelChanger.Models) {
+                var mesh = model.GetMesh();
+                if (mesh && !meshes.Contains(mesh)) {
+                    meshes.Add(mesh);
+                    SplitMesh(mesh);
+                    SetVertexColors(mesh);
+                }
             }
         }
 

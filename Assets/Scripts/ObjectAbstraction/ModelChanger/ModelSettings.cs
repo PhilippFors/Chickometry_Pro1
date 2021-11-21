@@ -64,6 +64,9 @@ namespace ObjectAbstraction.ModelChanger
                 renderer.sharedMaterial.SetTexture("_MainTex", modelTexture);
             }
         }
+
+        public Mesh GetMesh() => mesh;
+        public Texture2D GetTexture() => modelTexture;
     }
 
     [System.Serializable]

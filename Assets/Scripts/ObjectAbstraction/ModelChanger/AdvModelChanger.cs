@@ -13,14 +13,14 @@ namespace ObjectAbstraction.ModelChanger
     [RequireComponent(typeof(MeshCollider))]
     public class AdvModelChanger : MonoBehaviour, IModelChanger
     {
-        public event System.Action onMeshChange;
         public bool Shootable {
             get => shootable;
             set => shootable = value;
         }
         public bool IsAbstract => abstractLayer != 0;
         public bool SimpleToggle => simpleToggle;
-
+        public List<ModelSettings> Models => models;
+        
         [SerializeField] private bool simpleToggle = true;
         [SerializeField, Min(0)] private int abstractLayer; //current abstraction layer
         [SerializeField] private float sensitivity = 2f;
@@ -192,8 +192,6 @@ namespace ObjectAbstraction.ModelChanger
                     models[layer + 1].ApplyMesh(nextMeshFilter);
                     models[layer + 1].ApplyTexture(nextMeshFilter.GetComponent<MeshRenderer>());
                 }
-
-                onMeshChange?.Invoke();
             }
             else {
                 if (nextMeshFilter.sharedMesh) {
