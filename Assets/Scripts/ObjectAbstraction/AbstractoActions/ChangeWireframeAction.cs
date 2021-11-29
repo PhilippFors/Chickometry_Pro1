@@ -1,16 +1,14 @@
-﻿using ObjectAbstraction.ModelChanger;
-using ObjectAbstraction.Wireframe;
+﻿using ObjectAbstraction.Wireframe;
 using UnityEngine;
-using Utlities;
 
 namespace ObjectAbstraction.AbstractoActions
 {
     [CreateAssetMenu(fileName = "Change wireframe action", menuName = "Abstracto Actions/Change Wireframe action")]
     public class ChangeWireframeAction : AbstractoAction
     {
-        public override void Execute(IModelChanger modelChanger)
+        public override void Execute(Collider other)
         {
-            var wireframe = modelChanger.GetComponent<WireframeIdentifier>();
+            var wireframe = other.GetComponent<WireframeIdentifier>();
             if (wireframe) {
                 wireframe.ToggleWireFrame();
             }

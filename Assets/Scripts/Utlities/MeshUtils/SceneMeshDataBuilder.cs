@@ -11,6 +11,7 @@ namespace Utlities.MeshUtils
         private HashSet<WireframeIdentifier> sceneCache = new HashSet<WireframeIdentifier>();
         private static int maxDepth = 4;
         private static int depth;
+        
         [Button("Set Meshdatabuilders")]
 #if UNITY_EDITOR
         void OnValidate()

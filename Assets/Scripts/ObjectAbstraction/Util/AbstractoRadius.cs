@@ -71,7 +71,7 @@ namespace ObjectAbstraction
             var modelChanger = other.gameObject.GetComponentInParent<IModelChanger>();
             if (modelChanger != null && !changers.Contains(modelChanger)) {
                 changers.Add(modelChanger);
-                action.Execute(modelChanger);
+                action.Execute(other);
             }
         }
 
@@ -79,7 +79,7 @@ namespace ObjectAbstraction
         {
             var modelChanger = other.gameObject.GetComponentInParent<IModelChanger>();
             if (modelChanger != null && changers.Contains(modelChanger) && !permanentChange) {
-                action.Execute(modelChanger);
+                action.Execute(other);
                 StartCoroutine(WaitRemove(modelChanger));
             }
         }
@@ -92,9 +92,9 @@ namespace ObjectAbstraction
 
         private void ToggleAll()
         {
-            foreach (var m in changers) {
-                action.Execute(m);
-            }
+            // foreach (var m in changers) {
+            //     action.Execute(m);
+            // }
         }
 
         private void OnCollisionEnter(Collision other)

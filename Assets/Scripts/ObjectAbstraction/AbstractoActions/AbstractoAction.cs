@@ -8,6 +8,6 @@ namespace ObjectAbstraction.AbstractoActions
     /// </summary>
     public abstract class AbstractoAction : ScriptableObject
     {
-        public abstract void Execute(IModelChanger modelChanger);
+        public abstract void Execute(Collider other);
     }
 }

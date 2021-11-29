@@ -7,9 +7,12 @@ namespace ObjectAbstraction.AbstractoActions
     public class ToggleModelAction : AbstractoAction
     {
         
-        public override void Execute(IModelChanger modelChanger)
+        public override void Execute(Collider other)
         {
-            modelChanger.ToggleModels();
+            var modelChanger = other.gameObject.GetComponentInParent<IModelChanger>();
+            if (modelChanger != null) {
+                modelChanger.ToggleModels();
+            }
         }
     }
 }

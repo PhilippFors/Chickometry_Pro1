@@ -1,6 +1,5 @@
 ﻿// Based on: https://catlikecoding.com/unity/tutorials/advanced-rendering/flat-and-wireframe-shading/
 
-using System;
 using System.Collections.Generic;
 using ObjectAbstraction.ModelChanger;
 using Sirenix.OdinInspector;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace Utlities.MeshUtils
 {
-    [RequireComponent(typeof(MeshFilter)), DefaultExecutionOrder(-51)]
+    [DefaultExecutionOrder(-51)]
     public class MeshDataBuilder : MonoBehaviour
     {
         private static HashSet<Mesh> meshes = new HashSet<Mesh>();
@@ -17,12 +16,7 @@ namespace Utlities.MeshUtils
         {
             GenerateMeshData();
         }
-
-        private void Awake()
-        {
-            GenerateMeshData();
-        }
-
+        
         /// <summary>
         /// We will assign a color to each Vertex in a Triangle on the object's mesh
         /// </summary>

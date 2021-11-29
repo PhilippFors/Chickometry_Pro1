@@ -11,12 +11,14 @@ namespace Interactables
         [SerializeField] private float interactionDistance = 2f;
         [SerializeField] private LayerMask interactableMask;
         [SerializeField] private Transform itemParent;
-        
+
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
         private bool ThrowTriggered => PlayerInputController.Instance.ThrowItem.Triggered;
         private bool InteractTriggered => PlayerInputController.Instance.Interact.Triggered;
+        private bool RightClickTriggered => PlayerInputController.Instance.RightMouseButton.Triggered;
+        private bool RightClickIsPressed => PlayerInputController.Instance.RightMouseButton.IsPressed;
 
         private Camera mainCam;
 
@@ -29,31 +31,30 @@ namespace Interactables
         {
             FindInteractable();
 
-            if (InteractTriggered && currentSelected)
-            {
-                if (!currentlyHeldItem && currentSelected is BasePickUpInteractable)
-                {
-                    var pickup = (BasePickUpInteractable) currentSelected;
-                    currentlyHeldItem = pickup;
-                    currentlyHeldItem.transform.rotation = itemParent.rotation;
-                    currentlyHeldItem.transform.parent = itemParent;
-                    currentlyHeldItem.transform.localPosition = Vector3.zero;
-                    var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-                    rb.useGravity = false;
-                    constraintCache = rb.constraints;
-                    rb.constraints = RigidbodyConstraints.FreezeAll;
-                    pickup.OnPickup();
-                }
-                else
-                {
-                    currentSelected.OnInteract();
+            if (InteractTriggered && currentSelected) {
+                if (currentSelected.pattern == InteractionPattern.PickUp) {
+                    if (!currentlyHeldItem && currentSelected is BasePickUpInteractable) {
+                        var pickup = (BasePickUpInteractable) currentSelected;
+
+                        currentlyHeldItem = pickup;
+                        currentlyHeldItem.transform.rotation = itemParent.rotation;
+                        currentlyHeldItem.transform.parent = itemParent;
+                        currentlyHeldItem.transform.localPosition = Vector3.zero;
+                        var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                        rb.useGravity = false;
+                        constraintCache = rb.constraints;
+                        rb.constraints = RigidbodyConstraints.FreezeAll;
+                        pickup.OnPickup();
+                    }
+
+                    if (currentSelected.pattern == InteractionPattern.Interact) {
+                        currentSelected.OnInteract();
+                    }
                 }
             }
-
-            if (ThrowTriggered)
-            {
-                if (currentlyHeldItem != null)
-                {
+            
+            if (ThrowTriggered) {
+                if (currentlyHeldItem != null) {
                     currentlyHeldItem.transform.parent = null;
                     currentlyHeldItem.transform.rotation = Quaternion.Euler(0, 0, 0);
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
@@ -65,22 +66,26 @@ namespace Interactables
                     currentlyHeldItem = null;
                 }
             }
+            
+            if ((RightClickTriggered || RightClickIsPressed) && currentSelected) {
+                if (currentSelected.pattern == InteractionPattern.RightClick) {
+                    currentSelected.OnInteract();
+                }
+            }
         }
 
         private void FindInteractable()
         {
-            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit, interactionDistance,
-                interactableMask, QueryTriggerInteraction.Ignore))
-            {
+            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit,
+                interactionDistance,
+                interactableMask, QueryTriggerInteraction.Ignore)) {
                 var interactable = hit.transform.GetComponent<BaseInteractable>();
 
-                if (interactable != null)
-                {
+                if (interactable != null) {
                     currentSelected = interactable;
                 }
             }
-            else
-            {
+            else {
                 currentSelected = null;
             }
         }

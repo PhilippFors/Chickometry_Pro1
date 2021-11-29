@@ -62,7 +62,7 @@ MonoBehaviour:
     mesh: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     colliderMesh: {fileID: 0}
     modelTexture: {fileID: 0}
-    useRigidbodySettings: 1
+    useRigidbodySettings: 0
     rigidbodySettings:
       mass: 1
       drag: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
     mesh: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
     colliderMesh: {fileID: 0}
     modelTexture: {fileID: 0}
-    useRigidbodySettings: 1
+    useRigidbodySettings: 0
     rigidbodySettings:
       mass: 3
       drag: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c0c5d5011d3a243a95288c402e1867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pattern: 3
 --- !u!54 &31474246
 Rigidbody:
   m_ObjectHideFlags: 0

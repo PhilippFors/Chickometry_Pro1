@@ -78,8 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fc6856c2cc15743863231cd1bf2876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 0}
   radius: 5
-  radiusVis: {fileID: 1244423070332093441}
+  permanentChange: 0
   hasTimer: 0
   timer: 0
 --- !u!135 &1244423068820145223
@@ -107,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f0192667bd7d24da2c0ec06ead0acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pattern: 3
 --- !u!1 &1244423070332093446
 GameObject:
   m_ObjectHideFlags: 0
