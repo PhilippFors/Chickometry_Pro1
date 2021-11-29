@@ -17,7 +17,7 @@ namespace ObjectAbstraction
         [SerializeField] private float grenadeTimer = 3;
         private List<GameObject> activeGrenadeList = new List<GameObject>();
         private int activeGrenades;
-        private bool GrenadeThrowTriggerd => InputController.Instance.Triggered<float>(InputPatterns.RightClick);
+        private bool GrenadeThrowTriggerd => InputController.Instance.Triggered(InputPatterns.RightClick);
         private Transform mainCam;
 
         private void Awake()

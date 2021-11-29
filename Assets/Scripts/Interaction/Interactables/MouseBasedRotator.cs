@@ -16,7 +16,7 @@ namespace Interaction.Interactables
         private void Start()
         {
             mouseLook = ServiceLocator.Get<SmoothMouseLook>();
-            InputController.Instance.Get<float>(InputPatterns.RightClick).Canceled += ctx => EnableMouseLook();
+            InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => EnableMouseLook();
         }
 
         public override void OnInteract()

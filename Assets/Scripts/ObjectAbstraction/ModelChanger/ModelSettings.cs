@@ -82,7 +82,7 @@ namespace ObjectAbstraction.ModelChanger
             rb.mass = mass;
             rb.drag = drag;
             rb.useGravity = useGravity;
-            rb.constraints = rigidbodyConstraints;
+            // rb.constraints = rigidbodyConstraints;
         }
     }
 }

@@ -18,8 +18,8 @@ namespace ObjectAbstraction
         [SerializeField] bool canShoot = true;
         [SerializeField] private Animation anim;
 
-        private bool FireTriggered => InputController.Instance.Triggered<float>(InputPatterns.LeftClick);
-        private bool FirePressed => InputController.Instance.Pressed<float>(InputPatterns.LeftClick);
+        private bool FireTriggered => InputController.Instance.Triggered(InputPatterns.LeftClick);
+        private bool FirePressed => InputController.Instance.IsPressed(InputPatterns.LeftClick);
 
         private Transform mainCam;
         private AdvModelChanger altFireCache;
@@ -28,7 +28,7 @@ namespace ObjectAbstraction
         {
             mouseLook = ServiceLocator.Get<SmoothMouseLook>();
             mainCam = Camera.main.transform;
-            InputController.Instance.Get<float>(InputPatterns.RightClick).Canceled += ctx => mouseLook.ResetTargeDirection();
+            InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => mouseLook.ResetTargeDirection();
         }
 
         private void Update()

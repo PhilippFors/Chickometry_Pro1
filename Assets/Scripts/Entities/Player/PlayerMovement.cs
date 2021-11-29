@@ -12,7 +12,7 @@ namespace Entities.Player {
         [SerializeField] private bool isGrounded;
     
         private Vector2 moveDirection => InputController.Instance.GetValue<Vector2>(InputPatterns.Movement);
-        private bool jumpTriggered => InputController.Instance.Triggered<float>(InputPatterns.Jump);
+        private bool jumpTriggered => InputController.Instance.Triggered(InputPatterns.Jump);
         private Rigidbody rb;
     
         private void Awake()

@@ -15,10 +15,10 @@ namespace Interactables
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
-        private bool ThrowTriggered => InputController.Instance.Triggered<float>(InputPatterns.Throw);
-        private bool InteractTriggered => InputController.Instance.Triggered<float>(InputPatterns.Interact);
-        private bool RightClickTriggered => InputController.Instance.Triggered<float>(InputPatterns.RightClick);
-        private bool RightClickIsPressed => InputController.Instance.Pressed<float>(InputPatterns.RightClick);
+        private bool ThrowTriggered => InputController.Instance.Triggered(InputPatterns.Throw);
+        private bool InteractTriggered => InputController.Instance.Triggered(InputPatterns.Interact);
+        private bool RightClickTriggered => InputController.Instance.Triggered(InputPatterns.RightClick);
+        private bool RightClickIsPressed => InputController.Instance.IsPressed(InputPatterns.RightClick);
 
         private Camera mainCam;
 

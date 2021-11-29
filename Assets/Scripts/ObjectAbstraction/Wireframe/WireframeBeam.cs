@@ -46,10 +46,12 @@ namespace ObjectAbstraction.Wireframe
                 Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? 0 : 1);
                 WireframeBeamReflector hitReflector = null;
                 var maxDist = maxLength;
+                
                 for (int i = 0; i < hits.Length; i++) {
                     if (ignore.Contains(hits[i].transform.gameObject)) {
                         continue;
                     }
+                    
                     var wIdentifier = hits[i].transform.GetComponent<WireframeIdentifier>();
                     var wReflector = hits[i].transform.GetComponentInChildren<WireframeBeamReflector>();
 
@@ -69,7 +71,6 @@ namespace ObjectAbstraction.Wireframe
                 length = maxDist;
                 
                 if (!hitReflector) {
-                    Debug.Log("penis");
                     DisableReflector();
                 }
             }
@@ -93,7 +94,6 @@ namespace ObjectAbstraction.Wireframe
         private void EnableReflector()
         {
             if (currentReflector) {
-                Debug.Log("Hit Beam");
                 currentReflector.EnableBeams();
             }
         }

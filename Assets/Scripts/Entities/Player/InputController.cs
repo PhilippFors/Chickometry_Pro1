@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UsefulCode.Input;
 using UsefulCode.Utilities;
@@ -53,33 +52,32 @@ namespace Entities.Player.PlayerInput
         public override void Awake()
         {
             base.Awake();
-            inputDictonary.Add(InputPatterns.Jump, new InputActionData<float>(jumpAction));
-            inputDictonary.Add(InputPatterns.Interact, new InputActionData<float>(interactAction));
-            inputDictonary.Add(InputPatterns.Movement, new InputActionData<Vector2>(movementAction));
-            inputDictonary.Add(InputPatterns.MouseDelta, new InputActionData<Vector2>(mouseDeltaAction));
-            inputDictonary.Add(InputPatterns.MousePosition, new InputActionData<Vector2>(mousePositionAction));
-            inputDictonary.Add(InputPatterns.LeftClick, new InputActionData<float>(leftMouseButtonAction));
-            inputDictonary.Add(InputPatterns.RightClick, new InputActionData<float>(rightMouseButtonAction));
-            inputDictonary.Add(InputPatterns.MouseWheel, new InputActionData<float>(mousewheelAction));
-            inputDictonary.Add(InputPatterns.Throw, new InputActionData<float>(throwItemAction));
+            inputDictonary.Add(InputPatterns.Jump, new InputActionData(jumpAction));
+            inputDictonary.Add(InputPatterns.Interact, new InputActionData(interactAction));
+            inputDictonary.Add(InputPatterns.Movement, new InputActionData(movementAction));
+            inputDictonary.Add(InputPatterns.MouseDelta, new InputActionData(mouseDeltaAction));
+            inputDictonary.Add(InputPatterns.MousePosition, new InputActionData(mousePositionAction));
+            inputDictonary.Add(InputPatterns.LeftClick, new InputActionData(leftMouseButtonAction));
+            inputDictonary.Add(InputPatterns.RightClick, new InputActionData(rightMouseButtonAction));
+            inputDictonary.Add(InputPatterns.MouseWheel, new InputActionData(mousewheelAction));
+            inputDictonary.Add(InputPatterns.Throw, new InputActionData(throwItemAction));
         }
 
-        public InputActionData<T> Get<T>(InputPatterns pattern) where T : struct
+        public InputActionData Get(InputPatterns pattern)
         {
             inputDictonary.TryGetValue(pattern, out var val);
-            InputActionData<T> d = (InputActionData<T>) val;
-            return d;
+            return val;
         }
 
-        public T GetValue<T>(InputPatterns pattern) where T : struct => Get<T>(pattern).ReadValue();
+        public T GetValue<T>(InputPatterns pattern) where T : struct => Get(pattern).ReadValue<T>();
         
-        public bool Triggered<T>(InputPatterns pattern) where T : struct => Get<T>(pattern).Triggered;
+        public bool Triggered(InputPatterns pattern) => Get(pattern).Triggered;
 
-        public bool Pressed<T>(InputPatterns pattern) where T : struct => Get<T>(pattern).IsPressed;
+        public bool IsPressed(InputPatterns pattern) => Get(pattern).IsPressed;
 
-        public void EnableInput<T>(InputPatterns pattern) where T : struct => Get<T>(pattern).Enable();
+        public void EnableInput(InputPatterns pattern) => Get(pattern).Enable();
         
-        public void DisableInput<T>(InputPatterns pattern) where T : struct => Get<T>(pattern).Disable();
+        public void DisableInput(InputPatterns pattern) => Get(pattern).Disable();
 
         public void EnableControls()
         {
