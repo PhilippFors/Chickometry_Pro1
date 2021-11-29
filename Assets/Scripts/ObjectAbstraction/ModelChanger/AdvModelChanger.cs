@@ -34,7 +34,7 @@ namespace ObjectAbstraction.ModelChanger
         private Material currentInstanceMat;
         private Material nextInstanceMat;
         private MeshCollider meshCollider;
-        private float MouseDeltaX => PlayerInputController.Instance.MouseDelta.ReadValue().x;
+        private float MouseDeltaX => InputController.Instance.GetValue<Vector2>(InputPatterns.MouseDelta).x;
         private float oldAbsolute;
         private float[] abstractionSections;
         private bool goesUp;

@@ -11,8 +11,8 @@ namespace Entities.Player {
         [SerializeField] private float groundDistance;
         [SerializeField] private bool isGrounded;
     
-        private Vector2 moveDirection => PlayerInputController.Instance.Movement.ReadValue();
-        private bool jumpTriggered => PlayerInputController.Instance.Jump.Triggered;
+        private Vector2 moveDirection => InputController.Instance.GetValue<Vector2>(InputPatterns.Movement);
+        private bool jumpTriggered => InputController.Instance.Triggered<float>(InputPatterns.Jump);
         private Rigidbody rb;
     
         private void Awake()

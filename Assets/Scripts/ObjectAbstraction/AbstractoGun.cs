@@ -12,22 +12,23 @@ namespace ObjectAbstraction
     /// </summary>
     public class AbstractoGun : MonoBehaviour
     {
-        [SerializeField] private SmoothMouseLook mouseLook;
+        private SmoothMouseLook mouseLook;
         [SerializeField] private float coolDown;
         [SerializeField] private LayerMask hitMask;
         [SerializeField] bool canShoot = true;
         [SerializeField] private Animation anim;
 
-        private bool FireTriggered => PlayerInputController.Instance.LeftMouseButton.Triggered;
-        private bool FirePressed => PlayerInputController.Instance.LeftMouseButton.IsPressed;
+        private bool FireTriggered => InputController.Instance.Triggered<float>(InputPatterns.LeftClick);
+        private bool FirePressed => InputController.Instance.Pressed<float>(InputPatterns.LeftClick);
 
         private Transform mainCam;
         private AdvModelChanger altFireCache;
 
         private void Start()
         {
+            mouseLook = ServiceLocator.Get<SmoothMouseLook>();
             mainCam = Camera.main.transform;
-            PlayerInputController.Instance.RightMouseButton.Canceled += ctx => mouseLook.ResetTargeDirection();
+            InputController.Instance.Get<float>(InputPatterns.RightClick).Canceled += ctx => mouseLook.ResetTargeDirection();
         }
 
         private void Update()

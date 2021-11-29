@@ -1,8 +1,9 @@
 using Entities.Player.PlayerInput;
 using UnityEngine;
+using Utlities.Locators;
 
 namespace Entities.Player {
-    public class SmoothMouseLook : MonoBehaviour
+    public class SmoothMouseLook : MonoBehaviourService
     {
         public bool enableLook;
         public Transform CharacterBody => characterBody.transform;
@@ -13,7 +14,7 @@ namespace Entities.Player {
         [SerializeField] private float sensitivity = 0.5f;
         [SerializeField] private Vector2 smoothing = new Vector2(3, 3);
 
-        private Vector2 MousePointerDelta => PlayerInputController.Instance.MouseDelta.ReadValue();
+        private Vector2 MousePointerDelta => InputController.Instance.GetValue<Vector2>(InputPatterns.MouseDelta);
         private Vector2 targetDirection;
         private Vector2 targetCharacterDirection;
         private Vector2 mouseAbsolute;
