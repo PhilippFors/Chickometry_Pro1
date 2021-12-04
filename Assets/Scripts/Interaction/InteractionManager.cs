@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Interactables
 {
+    /// <summary>
+    /// Handles interactions with BaseInteractables and BasePickupInteractables.
+    /// </summary>
     public class InteractionManager : MonoBehaviour
     {
         [SerializeField] private float throwForce = 5f;
@@ -31,46 +34,46 @@ namespace Interactables
         {
             FindInteractable();
 
-            if (InteractTriggered && currentSelected) {
-                if (currentSelected.pattern == InteractionPattern.PickUp) {
-                    if (!currentlyHeldItem && currentSelected is BasePickUpInteractable) {
-                        var pickup = (BasePickUpInteractable) currentSelected;
+            if (currentSelected) {
+                if (InteractTriggered) {
+                    if (currentSelected.pattern == InteractionPattern.PickUp) {
+                        if (!currentlyHeldItem) {
+                            var pickup = (BasePickUpInteractable) currentSelected;
 
-                        currentlyHeldItem = pickup;
-                        currentlyHeldItem.transform.rotation = itemParent.rotation;
-                        currentlyHeldItem.transform.parent = itemParent;
-                        currentlyHeldItem.transform.localPosition = Vector3.zero;
-                        var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-                        rb.useGravity = false;
-                        constraintCache = rb.constraints;
-                        rb.constraints = RigidbodyConstraints.FreezeAll;
-                        pickup.OnPickup();
+                            currentlyHeldItem = pickup;
+                            currentlyHeldItem.transform.rotation = itemParent.rotation;
+                            currentlyHeldItem.transform.parent = itemParent;
+                            currentlyHeldItem.transform.localPosition = Vector3.zero;
+                            var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                            rb.useGravity = false;
+                            constraintCache = rb.constraints;
+                            rb.constraints = RigidbodyConstraints.FreezeAll;
+                            pickup.OnPickup();
+                        }
                     }
-
+                    
                     if (currentSelected.pattern == InteractionPattern.Interact) {
                         currentSelected.OnInteract();
                     }
                 }
-            }
-            
-            if (ThrowTriggered) {
-                if (currentlyHeldItem != null) {
-                    currentlyHeldItem.transform.parent = null;
-                    currentlyHeldItem.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-                    rb.useGravity = true;
-                    rb.constraints = RigidbodyConstraints.None;
-                    rb.constraints = constraintCache;
-                    rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
-                    currentlyHeldItem.OnThrow();
-                    currentlyHeldItem = null;
+
+                if (RightClickTriggered || RightClickIsPressed) {
+                    if (currentSelected.pattern == InteractionPattern.RightClick) {
+                        currentSelected.OnInteract();
+                    }
                 }
             }
-            
-            if ((RightClickTriggered || RightClickIsPressed) && currentSelected) {
-                if (currentSelected.pattern == InteractionPattern.RightClick) {
-                    currentSelected.OnInteract();
-                }
+
+            if (currentlyHeldItem != null && ThrowTriggered) {
+                currentlyHeldItem.transform.parent = null;
+                currentlyHeldItem.transform.rotation = Quaternion.Euler(0, 0, 0);
+                var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                rb.useGravity = true;
+                rb.constraints = RigidbodyConstraints.None;
+                rb.constraints = constraintCache;
+                rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
+                currentlyHeldItem.OnThrow();
+                currentlyHeldItem = null;
             }
         }
 
@@ -81,7 +84,7 @@ namespace Interactables
                 interactableMask, QueryTriggerInteraction.Ignore)) {
                 var interactable = hit.transform.GetComponent<BaseInteractable>();
 
-                if (interactable != null) {
+                if (interactable) {
                     currentSelected = interactable;
                 }
             }

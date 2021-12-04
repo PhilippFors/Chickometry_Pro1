@@ -5,6 +5,10 @@ using Utlities;
 
 namespace Interaction.Interactables
 {
+    /// <summary>
+    /// Rotates object on y axis based on mousedelta.
+    /// Disables mouse look while rotating.
+    /// </summary>
     public class MouseBasedRotator : BaseInteractable
     {
         [SerializeField] private float sensitity = 200;

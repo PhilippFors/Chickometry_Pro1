@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace ObjectAbstraction.Wireframe
 {
+    /// <summary>
+    /// Looks for objects in its path and extends a trigger to a certain distance.
+    /// </summary>
     public class WireframeBeam : MonoBehaviour
     {
         public bool isEnabled = true;
