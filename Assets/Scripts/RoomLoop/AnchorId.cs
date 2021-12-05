@@ -4,7 +4,7 @@ namespace RoomLoop
 {
     public class AnchorId : MonoBehaviour
     {
-        public int Id;
+        [SerializeField] private int id;
         
         public bool CheckAchors()
         {
@@ -12,7 +12,7 @@ namespace RoomLoop
             if (hits.Length > 0) {
                 for (int i = 0; i < hits.Length; i++) {
                     var anchor = hits[i].GetComponent<AnchorId>();
-                    if (anchor && anchor != this && anchor.Id != Id) {
+                    if (anchor && anchor != this && anchor.id != id) {
                         return false;
                     }
                 }

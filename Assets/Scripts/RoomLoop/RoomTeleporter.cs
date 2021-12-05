@@ -5,12 +5,14 @@ using UnityEngine;
 
 namespace RoomLoop
 {
-    public class RoomConnector : MonoBehaviour
+    public class RoomTeleporter : MonoBehaviour
     {
-        public bool reverseDirection;
-        public Room roomForward;
-        public Room roomBackward;
-
+        public Room RoomForward => roomForward;
+        public Room RoomBackward => roomBackward;
+        
+        [SerializeField] private Room roomForward;
+        [SerializeField] private Room roomBackward;
+        [SerializeField] private bool reverseDirection;
         [SerializeField] private LayerMask anchorMask;
 
         private AnchorId[] toConnect;
@@ -105,14 +107,14 @@ namespace RoomLoop
         {
             var openAnchors = new List<AnchorId>();
 
-            roomBackward.anchors.ForEach(x =>
+            roomBackward.Anchors.ForEach(x =>
             {
                 if (x.CheckAchors() && !openAnchors.Contains(x)) {
                     openAnchors.Add(x);
                 }
             });
 
-            roomForward.anchors.ForEach(x =>
+            roomForward.Anchors.ForEach(x =>
             {
                 if (x.CheckAchors() && !openAnchors.Contains(x)) {
                     openAnchors.Add(x);

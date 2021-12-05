@@ -3,15 +3,21 @@ using UnityEngine;
 
 namespace RoomLoop
 {
-    public class RoomConnectorTrigger : MonoBehaviour
+    public class RoomTeleportTrigger : MonoBehaviour
     {
         public bool isEnabled = true;
-        public bool forwardDoor;
-        [SerializeField] private RoomConnector roomConnector;
-        [SerializeField] private RoomConnectorTrigger opposite;
-        [SerializeField] private Room room;
+        [SerializeField] private bool forwardDoor;
+        [SerializeField] private RoomTeleporter roomConnector;
+        [SerializeField] private RoomTeleportTrigger opposite;
+        
+        private Room room;
         private bool hasPassed;
-    
+
+        private void Start()
+        {
+            room = GetComponentInParent<Room>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!isEnabled) {
@@ -21,10 +27,10 @@ namespace RoomLoop
 
             var player = other.GetComponentInParent<PlayerMovement>();
             if (player) {
-                if (forwardDoor && roomConnector.roomBackward != room) {
+                if (forwardDoor && roomConnector.RoomBackward != room) {
                     opposite.isEnabled = !roomConnector.Teleport(forwardDoor);
                 }
-                else if (!forwardDoor && roomConnector.roomForward != room) {
+                else if (!forwardDoor && roomConnector.RoomForward != room) {
                     opposite.isEnabled = !roomConnector.Teleport(forwardDoor);
                 }
             }

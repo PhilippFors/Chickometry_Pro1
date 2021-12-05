@@ -827,7 +827,7 @@ Transform:
   - {fileID: 1742860344}
   - {fileID: 876702257}
   m_Father: {fileID: 2120032712}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &251308667
 MonoBehaviour:
@@ -1152,7 +1152,7 @@ GameObject:
   - component: {fileID: 330034382}
   - component: {fileID: 330034381}
   m_Layer: 0
-  m_Name: AbstractForward
+  m_Name: DoorA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,9 +1186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 0
-  roomConnector: {fileID: 437553093}
+  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 1887522806}
-  room: {fileID: 1525442176}
 --- !u!65 &330034382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1328,55 +1327,6 @@ Transform:
   - {fileID: 814164685}
   - {fileID: 1382257007}
   m_Father: {fileID: 251308666}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &437553092
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 437553094}
-  - component: {fileID: 437553093}
-  m_Layer: 0
-  m_Name: RoomSwapper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &437553093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437553092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f69c5623a304d5cbe366115b24d193f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reverseDirection: 1
-  roomForward: {fileID: 1525442176}
-  roomBackward: {fileID: 251308667}
-  anchorMask:
-    serializedVersion: 2
-    m_Bits: 512
---- !u!4 &437553094
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437553092}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 160.62242, y: -0.79643977, z: 30.369255}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2120032712}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &470394374
@@ -1707,7 +1657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b6d92b12c44dcbfe1a973975cf9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
+  id: 0
 --- !u!1 &566570986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2309,7 +2259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b6d92b12c44dcbfe1a973975cf9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
+  id: 0
 --- !u!1 &703322413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,7 +2317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b6d92b12c44dcbfe1a973975cf9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 1
+  id: 1
 --- !u!1 &762776959
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,7 +3029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b6d92b12c44dcbfe1a973975cf9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 1
+  id: 1
 --- !u!1 &1041559129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3472,7 +3422,7 @@ GameObject:
   - component: {fileID: 1235873579}
   - component: {fileID: 1235873578}
   m_Layer: 0
-  m_Name: NormalForward
+  m_Name: DoorA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3506,9 +3456,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 0
-  roomConnector: {fileID: 437553093}
+  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 1520731088}
-  room: {fileID: 251308667}
 --- !u!65 &1235873579
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4525,7 +4474,7 @@ GameObject:
   - component: {fileID: 1520731089}
   - component: {fileID: 1520731088}
   m_Layer: 0
-  m_Name: AbstractBackward
+  m_Name: DoorB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4559,9 +4508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 1
-  roomConnector: {fileID: 437553093}
+  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 1235873578}
-  room: {fileID: 1525442176}
 --- !u!65 &1520731089
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4609,7 +4557,7 @@ Transform:
   - {fileID: 79855582}
   - {fileID: 84411049}
   m_Father: {fileID: 2120032712}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1525442176
 MonoBehaviour:
@@ -5338,7 +5286,7 @@ GameObject:
   - component: {fileID: 1887522807}
   - component: {fileID: 1887522806}
   m_Layer: 0
-  m_Name: NormalBackward
+  m_Name: DoorB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5372,9 +5320,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 1
-  roomConnector: {fileID: 437553093}
+  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 330034381}
-  room: {fileID: 251308667}
 --- !u!65 &1887522807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5860,6 +5807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2120032712}
   - component: {fileID: 2120032711}
+  - component: {fileID: 2120032713}
   m_Layer: 0
   m_Name: RoomPuzzle
   m_TagString: Untagged
@@ -5893,12 +5841,29 @@ Transform:
   m_LocalPosition: {x: 12.68, y: 2.6518302, z: 39.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 437553094}
   - {fileID: 251308666}
   - {fileID: 1525442175}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120032713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120032710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f69c5623a304d5cbe366115b24d193f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomForward: {fileID: 1525442176}
+  roomBackward: {fileID: 251308667}
+  reverseDirection: 0
+  anchorMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!33 &1200220987474391963
 MeshFilter:
   m_ObjectHideFlags: 0

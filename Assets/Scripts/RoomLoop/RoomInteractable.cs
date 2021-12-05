@@ -11,6 +11,7 @@ namespace RoomLoop
         
         private RoomPuzzle roomPuzzle;
         private bool thrown;
+        
         public void Init(RoomPuzzle puzzle) => roomPuzzle = puzzle;
 
         public override void OnThrow()
