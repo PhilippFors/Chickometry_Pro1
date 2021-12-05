@@ -1,37 +1,32 @@
 using Entities.Player;
 using UnityEngine;
 
-public class RoomConnectorTrigger : MonoBehaviour
+namespace RoomLoop
 {
-    public bool isEnabled = true;
-    public bool forwardDoor;
-    [SerializeField] private RoomConnector roomConnector;
-    [SerializeField] private RoomConnectorTrigger opposite;
-    [SerializeField] private Transform room;
-    private bool hasPassed;
-    
-    private void OnTriggerEnter(Collider other)
+    public class RoomConnectorTrigger : MonoBehaviour
     {
-        if (!isEnabled) {
-            isEnabled = true;
-            return;
-        }
-
-        var player = other.GetComponentInParent<PlayerMovement>();
-        if (player) {
-            if (forwardDoor && roomConnector.roomBackward != room) {
-                // if (!hasPassed) {
-                roomConnector.Teleport(forwardDoor);
-                hasPassed = true;
-                opposite.isEnabled = false;
-                // }
+        public bool isEnabled = true;
+        public bool forwardDoor;
+        [SerializeField] private RoomConnector roomConnector;
+        [SerializeField] private RoomConnectorTrigger opposite;
+        [SerializeField] private Room room;
+        private bool hasPassed;
+    
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!isEnabled) {
+                isEnabled = true;
+                return;
             }
-            else if (!forwardDoor && roomConnector.roomForward != room) {
-                // if (!hasPassed) {
-                roomConnector.Teleport(forwardDoor);
-                hasPassed = true;
-                opposite.isEnabled = false;
-                // }
+
+            var player = other.GetComponentInParent<PlayerMovement>();
+            if (player) {
+                if (forwardDoor && roomConnector.roomBackward != room) {
+                    opposite.isEnabled = !roomConnector.Teleport(forwardDoor);
+                }
+                else if (!forwardDoor && roomConnector.roomForward != room) {
+                    opposite.isEnabled = !roomConnector.Teleport(forwardDoor);
+                }
             }
         }
     }

@@ -1,88 +1,132 @@
-﻿using Sirenix.OdinInspector;
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
-public class RoomConnector : MonoBehaviour
+namespace RoomLoop
 {
-    public Transform[] roomForwardAnchors = new Transform[2];
-    public Transform[] roomBackwardsAnchors = new Transform[2];
-
-    public Transform roomForward;
-    public Transform roomBackward;
-    
-    [SerializeField] private LayerMask anchorMask;
-
-    private readonly Transform[] toConnect = new Transform[2];
-    
-    [Button]
-    public void Teleport(bool forward)
+    public class RoomConnector : MonoBehaviour
     {
-        FindOpenAnchor();
+        public bool reverseDirection;
+        public Room roomForward;
+        public Room roomBackward;
 
-        if (forward) {
-            if (CheckForEnd(toConnect[0])) {
-                return;
-            }
-            var diff = toConnect[0].position + (roomBackward.position - toConnect[1].position);
-            roomBackward.position = diff;
-            SwapRooms();
-        }
-        else {
-            if (CheckForEnd(toConnect[1])) {
-                return;
-            }
-            var diff = toConnect[1].position + (roomForward.position - toConnect[0].position);
-            roomForward.position = diff;
-            SwapRooms();
-        }
-    }
+        [SerializeField] private LayerMask anchorMask;
 
-    private bool CheckForEnd(Transform anchor)
-    {
-        var hits = Physics.OverlapSphere(anchor.position, 0.5f, anchorMask, QueryTriggerInteraction.Collide);
-        if (hits.Length > 0) {
-            foreach (var hit in hits) {
-                if (hit.GetComponent<RoomStopper>()) {
-                    return true;
+        private AnchorId[] toConnect;
+
+        [Button]
+        public bool Teleport(bool forward)
+        {
+            FindOpenAnchor();
+
+            if (forward) {
+                if (reverseDirection) {
+                    return MoveForwardRoom();
+                }
+
+                return MoveBackwardRoom();
+            }
+
+            if (reverseDirection) {
+                return MoveBackwardRoom();
+            }
+
+            return MoveForwardRoom();
+        }
+
+        private bool MoveBackwardRoom()
+        {
+            AnchorId otherAnchor = null;
+
+            AnchorId selfAnchor = null;
+            for (int i = 0;
+                i < toConnect.Length;
+                i++) {
+                if (roomBackward.HasAnchor(toConnect[i])) {
+                    selfAnchor = toConnect[i];
+                }
+                else {
+                    otherAnchor = toConnect[i];
                 }
             }
+
+            if (CheckForEnd(otherAnchor.transform)) {
+                return false;
+            }
+
+            var diff = otherAnchor.transform.position +
+                       (roomBackward.transform.position - selfAnchor.transform.position);
+            roomBackward.transform.position = diff;
+            SwapRooms();
+            return true;
         }
 
-        return false;
-    }
-    
-    private void FindOpenAnchor()
-    {
-        for (int i = 0; i < roomForwardAnchors.Length; i++) {
-            var hits = Physics.OverlapSphere(roomForwardAnchors[i].position, 0.5f, anchorMask,
-                QueryTriggerInteraction.Collide);
-            if (hits.Length > 0) {
-                for (int j = 0; j < hits.Length; j++) {
-                    foreach (var tr in roomBackwardsAnchors) {
-                        if (tr != hits[j].transform) {
-                            toConnect[1] = tr;
-                            if (i == 0) {
-                                toConnect[0] = roomForwardAnchors[1];
-                            }
-                            else {
-                                toConnect[0] = roomForwardAnchors[0];
-                            }
+        private bool MoveForwardRoom()
+        {
+            AnchorId otherAnchor = null;
+            AnchorId selfAnchor = null;
 
-                            return;
-                        }
+            for (int i = 0; i < toConnect.Length; i++) {
+                if (roomForward.HasAnchor(toConnect[i])) {
+                    selfAnchor = toConnect[i];
+                }
+                else {
+                    otherAnchor = toConnect[i];
+                }
+            }
+
+            if (CheckForEnd(otherAnchor.transform)) {
+                return false;
+            }
+
+            var diff = otherAnchor.transform.position +
+                       (roomForward.transform.position - selfAnchor.transform.position);
+            roomForward.transform.position = diff;
+            SwapRooms();
+            return true;
+        }
+
+        private bool CheckForEnd(Transform anchor)
+        {
+            var hits = Physics.OverlapSphere(anchor.position, 0.5f, anchorMask, QueryTriggerInteraction.Collide);
+            if (hits.Length > 0) {
+                foreach (var hit in hits) {
+                    if (hit.GetComponent<RoomStopper>()) {
+                        return true;
                     }
                 }
             }
+
+            return false;
         }
-    }
 
-    private void SwapRooms()
-    {
-        var temp = roomForward;
-        roomForward = roomBackward;
-        roomBackward = temp;
+        private void FindOpenAnchor()
+        {
+            var openAnchors = new List<AnchorId>();
 
-        var temp2 = roomForwardAnchors;
-        roomForwardAnchors = roomBackwardsAnchors;
-        roomBackwardsAnchors = temp2;
+            roomBackward.anchors.ForEach(x =>
+            {
+                if (x.CheckAchors() && !openAnchors.Contains(x)) {
+                    openAnchors.Add(x);
+                }
+            });
+
+            roomForward.anchors.ForEach(x =>
+            {
+                if (x.CheckAchors() && !openAnchors.Contains(x)) {
+                    openAnchors.Add(x);
+                }
+            });
+
+            toConnect = openAnchors.ToArray();
+        }
+
+        private void SwapRooms()
+        {
+            var temp = roomForward;
+            roomForward = roomBackward;
+            roomBackward = temp;
+        }
     }
 }
