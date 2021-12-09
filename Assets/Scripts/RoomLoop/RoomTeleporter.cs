@@ -9,43 +9,40 @@ namespace RoomLoop
     {
         public Room RoomForward => roomForward;
         public Room RoomBackward => roomBackward;
-        
+
         [SerializeField] private Room roomForward;
         [SerializeField] private Room roomBackward;
         [SerializeField] private bool reverseDirection;
         [SerializeField] private LayerMask anchorMask;
 
-        private AnchorId[] toConnect;
+        private readonly List<AnchorId> toConnect = new List<AnchorId>();
 
-        [Button]
         public bool Teleport(bool forward)
         {
             FindOpenAnchor();
 
             if (forward) {
                 if (reverseDirection) {
-                    return MoveForwardRoom();
+                    return MoveRoom(roomForward);
                 }
 
-                return MoveBackwardRoom();
+                return MoveRoom(roomBackward);
             }
 
             if (reverseDirection) {
-                return MoveBackwardRoom();
+                return MoveRoom(roomBackward);
             }
 
-            return MoveForwardRoom();
+            return MoveRoom(roomForward);
         }
 
-        private bool MoveBackwardRoom()
+        private bool MoveRoom(Room room)
         {
             AnchorId otherAnchor = null;
-
             AnchorId selfAnchor = null;
-            for (int i = 0;
-                i < toConnect.Length;
-                i++) {
-                if (roomBackward.HasAnchor(toConnect[i])) {
+
+            for (int i = 0; i < toConnect.Count; i++) {
+                if (room.HasAnchor(toConnect[i])) {
                     selfAnchor = toConnect[i];
                 }
                 else {
@@ -53,38 +50,12 @@ namespace RoomLoop
                 }
             }
 
-            if (CheckForEnd(otherAnchor.transform)) {
+            if (!otherAnchor || !selfAnchor || CheckForEnd(otherAnchor.transform)) {
                 return false;
             }
 
-            var diff = otherAnchor.transform.position +
-                       (roomBackward.transform.position - selfAnchor.transform.position);
-            roomBackward.transform.position = diff;
-            SwapRooms();
-            return true;
-        }
-
-        private bool MoveForwardRoom()
-        {
-            AnchorId otherAnchor = null;
-            AnchorId selfAnchor = null;
-
-            for (int i = 0; i < toConnect.Length; i++) {
-                if (roomForward.HasAnchor(toConnect[i])) {
-                    selfAnchor = toConnect[i];
-                }
-                else {
-                    otherAnchor = toConnect[i];
-                }
-            }
-
-            if (CheckForEnd(otherAnchor.transform)) {
-                return false;
-            }
-
-            var diff = otherAnchor.transform.position +
-                       (roomForward.transform.position - selfAnchor.transform.position);
-            roomForward.transform.position = diff;
+            var diff = otherAnchor.transform.position + (room.transform.position - selfAnchor.transform.position);
+            room.transform.position = diff;
             SwapRooms();
             return true;
         }
@@ -105,23 +76,21 @@ namespace RoomLoop
 
         private void FindOpenAnchor()
         {
-            var openAnchors = new List<AnchorId>();
+            toConnect.Clear();
 
             roomBackward.Anchors.ForEach(x =>
             {
-                if (x.CheckAchors() && !openAnchors.Contains(x)) {
-                    openAnchors.Add(x);
+                if (x.CheckAchors() && !toConnect.Contains(x)) {
+                    toConnect.Add(x);
                 }
             });
 
             roomForward.Anchors.ForEach(x =>
             {
-                if (x.CheckAchors() && !openAnchors.Contains(x)) {
-                    openAnchors.Add(x);
+                if (x.CheckAchors() && !toConnect.Contains(x)) {
+                    toConnect.Add(x);
                 }
             });
-
-            toConnect = openAnchors.ToArray();
         }
 
         private void SwapRooms()

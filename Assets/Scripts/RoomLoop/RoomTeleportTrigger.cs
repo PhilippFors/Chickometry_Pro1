@@ -7,15 +7,15 @@ namespace RoomLoop
     {
         public bool isEnabled = true;
         [SerializeField] private bool forwardDoor;
-        [SerializeField] private RoomTeleporter roomConnector;
         [SerializeField] private RoomTeleportTrigger opposite;
         
         private Room room;
-        private bool hasPassed;
+        private RoomTeleporter roomTeleporter;
 
         private void Start()
         {
             room = GetComponentInParent<Room>();
+            roomTeleporter = GetComponentInParent<RoomTeleporter>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -27,11 +27,11 @@ namespace RoomLoop
 
             var player = other.GetComponentInParent<PlayerMovement>();
             if (player) {
-                if (forwardDoor && roomConnector.RoomBackward != room) {
-                    opposite.isEnabled = !roomConnector.Teleport(forwardDoor);
+                if (forwardDoor && roomTeleporter.RoomBackward != room) {
+                    opposite.isEnabled = !roomTeleporter.Teleport(forwardDoor);
                 }
-                else if (!forwardDoor && roomConnector.RoomForward != room) {
-                    opposite.isEnabled = !roomConnector.Teleport(forwardDoor);
+                else if (!forwardDoor && roomTeleporter.RoomForward != room) {
+                    opposite.isEnabled = !roomTeleporter.Teleport(forwardDoor);
                 }
             }
         }

@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalParent: {fileID: 84411049}
-  roomPuzzle: {fileID: 2120032711}
   isAbstractRoom: 1
 --- !u!65 &79855584
 BoxCollider:
@@ -193,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84411049}
   m_Layer: 0
-  m_Name: RoomObjects
+  m_Name: RoomInteractables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,7 +1185,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 0
-  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 1887522806}
 --- !u!65 &330034382
 BoxCollider:
@@ -2758,7 +2756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876702257}
   m_Layer: 0
-  m_Name: RoomObjects
+  m_Name: RoomInteractables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3456,7 +3454,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 0
-  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 1520731088}
 --- !u!65 &1235873579
 BoxCollider:
@@ -4508,7 +4505,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 1
-  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 1235873578}
 --- !u!65 &1520731089
 BoxCollider:
@@ -5037,7 +5033,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalParent: {fileID: 876702257}
-  roomPuzzle: {fileID: 2120032711}
   isAbstractRoom: 0
 --- !u!65 &1742860346
 BoxCollider:
@@ -5320,7 +5315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnabled: 1
   forwardDoor: 1
-  roomConnector: {fileID: 2120032713}
   opposite: {fileID: 330034381}
 --- !u!65 &1887522807
 BoxCollider:

@@ -1,13 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace RoomLoop
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class RoomTrigger : MonoBehaviour
+    public class RoomInteractableTrigger : MonoBehaviour
     {
         [SerializeField] private Transform originalParent;
-        [SerializeField] private RoomPuzzle roomPuzzle;
         [SerializeField] private bool isAbstractRoom;
+        
+        private RoomPuzzle roomPuzzle;
+
+        private void Start()
+        {
+            roomPuzzle = GetComponentInParent<RoomPuzzle>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
