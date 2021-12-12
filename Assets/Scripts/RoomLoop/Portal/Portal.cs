@@ -32,7 +32,7 @@ namespace RoomLoop.Portal
             meshRenderer = GetComponent<MeshRenderer>();
             meshRenderer.material.SetTexture("_PortalTexture", renderTexture);
             meshRenderer.material.SetVector("_Forward", transform.forward);
-        }
+        } 
 
         private void OnDisable()
         {
