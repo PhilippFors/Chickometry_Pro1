@@ -2,12 +2,13 @@ using Entities.Player.PlayerInput;
 using UnityEngine;
 using Utlities.Locators;
 
-namespace Entities.Player {
+namespace Entities.Player
+{
     public class SmoothMouseLook : MonoBehaviourService
     {
         public bool enableLook;
         public Transform CharacterBody => characterBody.transform;
-        
+
         [SerializeField] private GameObject characterBody;
         [SerializeField] private Vector2 clampInDegrees = new Vector2(360, 180);
         [SerializeField] private bool lockCursor;
@@ -19,8 +20,10 @@ namespace Entities.Player {
         private Vector2 targetCharacterDirection;
         private Vector2 mouseAbsolute;
         private Vector2 smoothMouse;
+        private Quaternion yRotation;
 
-        private void Start() {
+        private void Start()
+        {
             targetDirection = transform.localRotation.eulerAngles;
 
             if (characterBody)
@@ -33,16 +36,26 @@ namespace Entities.Player {
             if (characterBody) {
                 targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
             }
+
             mouseAbsolute = Vector2.zero;
         }
-        
-        private void Update() {
+
+        public void ForceLookAt(Quaternion rot)
+        {
+            var delta = Quaternion.Angle(rot, yRotation);
+            mouseAbsolute.x += delta;
+            var targetCharacterOrientation = Quaternion.Euler(targetCharacterDirection);
+            yRotation = Quaternion.AngleAxis(mouseAbsolute.x, Vector3.up);
+            characterBody.transform.localRotation = yRotation * targetCharacterOrientation;
+        }
+
+        private void Update()
+        {
             if (!enableLook) {
                 return;
             }
-            
-            if (lockCursor)
-            {
+
+            if (lockCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
             }
 
@@ -54,25 +67,22 @@ namespace Entities.Player {
 
             smoothMouse.x = Mathf.Lerp(smoothMouse.x, mouseDelta.x, 1f / smoothing.x);
             smoothMouse.y = Mathf.Lerp(smoothMouse.y, mouseDelta.y, 1f / smoothing.y);
-            
+
             mouseAbsolute += smoothMouse;
 
-            if (clampInDegrees.x < 360)
-            {
+            if (clampInDegrees.x < 360) {
                 mouseAbsolute.x = Mathf.Clamp(mouseAbsolute.x, -clampInDegrees.x * 0.5f, clampInDegrees.x * 0.5f);
             }
 
-            if (clampInDegrees.y < 360)
-            {
+            if (clampInDegrees.y < 360) {
                 mouseAbsolute.y = Mathf.Clamp(mouseAbsolute.y, -clampInDegrees.y * 0.5f, clampInDegrees.y * 0.5f);
             }
 
             transform.localRotation = Quaternion.AngleAxis(-mouseAbsolute.y, targetOrientation * Vector3.right) *
                                       targetOrientation;
 
-            if (characterBody)
-            {
-                var yRotation = Quaternion.AngleAxis(mouseAbsolute.x, Vector3.up);
+            if (characterBody) {
+                yRotation = Quaternion.AngleAxis(mouseAbsolute.x, Vector3.up);
                 characterBody.transform.localRotation = yRotation * targetCharacterOrientation;
             }
         }
