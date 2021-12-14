@@ -227,7 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pattern: 3
-  canTeleport: 0
 --- !u!64 &4304236263915070911
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -272,7 +271,6 @@ MonoBehaviour:
       mass: 0
       drag: 0
       useGravity: 0
-      rigidbodyConstraints: 0
   - useMeshCollider: 1
     colliderParent: {fileID: 0}
     mesh: {fileID: 7174268114802588496, guid: cd1120c3b7f2bf54b92b185f910be005, type: 3}
@@ -283,5 +281,4 @@ MonoBehaviour:
       mass: 0
       drag: 0
       useGravity: 0
-      rigidbodyConstraints: 0
   usedMaterial: {fileID: 2100000, guid: f65f9bc264a4bf94ebeee4f216876bd2, type: 2}

@@ -30,7 +30,7 @@ namespace Entities.Player
         {
             Jump();
             
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
             if (isGrounded) {
                 rb.drag = 2;
             }

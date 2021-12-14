@@ -162,7 +162,6 @@ MonoBehaviour:
       mass: 1
       drag: 0
       useGravity: 1
-      rigidbodyConstraints: 0
   - useMeshCollider: 1
     colliderParent: {fileID: 0}
     mesh: {fileID: -6441263851625206158, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
@@ -173,7 +172,6 @@ MonoBehaviour:
       mass: 1
       drag: 0
       useGravity: 1
-      rigidbodyConstraints: 0
   usedMaterial: {fileID: 2100000, guid: 9a3dfb43564cb8b4e9609e19f44839b2, type: 2}
 --- !u!64 &1912560157345487053
 MeshCollider:

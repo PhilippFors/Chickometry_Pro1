@@ -42,8 +42,8 @@ namespace ObjectAbstraction.ModelChanger
         private bool isInThreshhold;
         private bool shootable;
         private int ScreenWidth => Screen.width;
-
         private GameObject previousColliders; // used if not meshcollider can be used
+        
         private void Awake()
         {
             meshCollider = GetComponent<MeshCollider>();
@@ -251,6 +251,7 @@ namespace ObjectAbstraction.ModelChanger
                 models[abstractLayer].ApplyMesh(currentMeshFilter);
                 models[abstractLayer].ApplyTexture(currentMeshFilter.GetComponent<MeshRenderer>());
                 models[abstractLayer].ApplyMeshCollider(meshCollider);
+                models[abstractLayer].ApplyCollider(ref previousColliders);
                 models[abstractLayer].ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
         }

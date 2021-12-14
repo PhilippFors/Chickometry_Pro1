@@ -13,7 +13,7 @@ namespace RoomLoop
             foreach (var obj in objectPairs) {
                 obj.abstractObject.Init(this);
                 obj.normalObject.Init(this);
-                obj.abstractObject.transform.localPosition = obj.normalObject.transform.localPosition;
+                // obj.abstractObject.transform.localPosition = obj.normalObject.transform.localPosition;
             }
         }
 

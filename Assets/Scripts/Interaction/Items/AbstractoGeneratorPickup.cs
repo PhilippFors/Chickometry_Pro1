@@ -1,5 +1,7 @@
 using Interaction.Items;
+using Sirenix.Utilities;
 using UnityEngine;
+using Utlities;
 
 namespace ObjectAbstraction
 {
@@ -11,12 +13,21 @@ namespace ObjectAbstraction
     {
         public override void OnPickup()
         {
-            GetComponent<BoxCollider>().enabled = false;
+            isPickedUp = true;
+            var col = GetComponent<Collider>();
+            col.isTrigger = true;
+
+            var children = GetComponentsInChildren<MeshRenderer>();
+            children.ForEach(x => x.gameObject.layer = LayerIds.InteractablesTop);
         }
 
         public override void OnThrow()
         {
-            GetComponent<BoxCollider>().enabled = true;
+            isPickedUp = false;
+            var col = GetComponent<Collider>();
+            col.isTrigger = false;
+            var children = GetComponentsInChildren<MeshRenderer>();
+            children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
         }
     }
 }
