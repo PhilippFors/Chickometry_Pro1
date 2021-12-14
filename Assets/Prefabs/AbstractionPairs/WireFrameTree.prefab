@@ -152,8 +152,8 @@ MonoBehaviour:
   currentMeshFilter: {fileID: 6484367476256385712}
   nextMeshFilter: {fileID: 699184728302002883}
   models:
-  - usePrefab: 0
-    prefab: {fileID: 0}
+  - useMeshCollider: 1
+    colliderParent: {fileID: 0}
     mesh: {fileID: -5138087954077314773, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
     colliderMesh: {fileID: 0}
     modelTexture: {fileID: 0}
@@ -163,8 +163,8 @@ MonoBehaviour:
       drag: 0
       useGravity: 1
       rigidbodyConstraints: 0
-  - usePrefab: 0
-    prefab: {fileID: 0}
+  - useMeshCollider: 1
+    colliderParent: {fileID: 0}
     mesh: {fileID: -6441263851625206158, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
     colliderMesh: {fileID: 0}
     modelTexture: {fileID: 0}

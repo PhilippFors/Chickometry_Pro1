@@ -13,9 +13,8 @@ namespace ObjectAbstraction.ModelChanger
 
         [SerializeField, HideIf("useMeshCollider")]
         public GameObject colliderParent;
-
-        [SerializeField, ShowIf("useMeshCollider")]
-        private Mesh mesh;
+        
+        [SerializeField] private Mesh mesh;
 
         [SerializeField, ShowIf("useMeshCollider")]
         private Mesh colliderMesh;
@@ -90,7 +89,7 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private float mass = 1;
         [SerializeField] private float drag;
         [SerializeField] private bool useGravity = true;
-        [SerializeField] private RigidbodyConstraints rigidbodyConstraints;
+        private RigidbodyConstraints rigidbodyConstraints;
 
         public void ApplySettings(Rigidbody rb)
         {
