@@ -9,7 +9,6 @@ namespace RoomLoop.Portal
         private readonly List<IPortalTraveller> teleportQueue = new List<IPortalTraveller>();
         private Portal portal;
         private Transform Receiver =>  portal.pairPortal.GetComponentInChildren<PortalTeleporter>().transform;
-        
         private readonly Quaternion halfTurn = Quaternion.Euler(0.0f, 180.0f, 0.0f);
         
         private void Awake()
@@ -26,24 +25,24 @@ namespace RoomLoop.Portal
                         continue;
                     }
                     
-                    var m = Receiver.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GetTransform().localToWorldMatrix;
-                    
-                    //position
-                    Vector3 relativePos = portal.transform.InverseTransformPoint(traveller.GetTransform().position);
+                    var receiverTransform = Receiver;
+                    var m = receiverTransform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GetTransform().localToWorldMatrix;
+
+                    Vector3 relativePos = transform.InverseTransformPoint(traveller.GetTransform().position);
                     relativePos = halfTurn * relativePos;
-                    var newPosition = Receiver.transform.TransformPoint(relativePos);
+                    var newPosition = receiverTransform.TransformPoint(relativePos);
 
                     var rb = traveller.GetComponent<Rigidbody>();
                     Vector3 relativeVel = transform.InverseTransformDirection(rb.velocity); 
                     relativeVel = halfTurn * relativeVel;
-                    var newVelocity = Receiver.TransformDirection(relativeVel);
+                    var newVelocity = receiverTransform.TransformDirection(relativeVel);
                     
                     var portalToPlayer = traveller.GetTransform().position - transform.position;
                     var dot = Vector3.Dot(portalToPlayer, transform.forward);
                     var previousDot = Vector3.Dot(traveller.PreviousPortalOffset, transform.forward);
 
                     if (dot < 0f && previousDot > 0f) {
-                        traveller.Teleport(transform, Receiver.transform, newPosition, m.rotation, newVelocity);
+                        traveller.Teleport(transform, receiverTransform, newPosition, m.rotation, newVelocity);
                         teleportQueue.RemoveAt(i);
                         i--;
                     }

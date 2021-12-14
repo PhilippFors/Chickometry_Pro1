@@ -586,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297365727723493726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.181}
+  m_LocalPosition: {x: -0, y: 0, z: 0.088}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2950705964377831020}
@@ -604,8 +604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77690a12f9d71d44897dd933059f9987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canTravel: 1
-  blocker: {fileID: 3932981463952471917}
 --- !u!65 &4933316988821509674
 BoxCollider:
   m_ObjectHideFlags: 0

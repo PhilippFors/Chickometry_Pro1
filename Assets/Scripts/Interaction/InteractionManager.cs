@@ -35,35 +35,39 @@ namespace Interactables
             FindInteractable();
 
             if (currentSelected) {
-                if (InteractTriggered) {
-                    if (currentSelected.pattern == InteractionPattern.PickUp) {
-                        if (!currentlyHeldItem) {
-                            var pickup = (BasePickUpInteractable) currentSelected;
-
-                            currentlyHeldItem = pickup;
-                            currentlyHeldItem.transform.rotation = itemParent.rotation;
-                            currentlyHeldItem.transform.parent = itemParent;
-                            currentlyHeldItem.transform.localPosition = Vector3.zero;
-                            var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-                            rb.useGravity = false;
-                            constraintCache = rb.constraints;
-                            rb.constraints = RigidbodyConstraints.FreezeAll;
-                            pickup.OnPickup();
-                        }
-                    }
-                    
-                    if (currentSelected.pattern == InteractionPattern.Interact) {
-                        currentSelected.OnInteract();
-                    }
-                }
-
-                if (RightClickTriggered || RightClickIsPressed) {
-                    if (currentSelected.pattern == InteractionPattern.RightClick) {
-                        currentSelected.OnInteract();
-                    }
-                }
+                HandelPickup();
+                HandleInteract();
+                HandleRightClick();
             }
 
+            HandleThrow();
+        }
+
+        private void HandelPickup()
+        {
+            if (!currentlyHeldItem && InteractTriggered && currentSelected.pattern == InteractionPattern.PickUp) {
+                var pickup = (BasePickUpInteractable) currentSelected;
+                currentlyHeldItem = pickup;
+                currentlyHeldItem.transform.rotation = itemParent.rotation;
+                currentlyHeldItem.transform.parent = itemParent;
+                currentlyHeldItem.transform.localPosition = Vector3.zero;
+                var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                rb.useGravity = false;
+                constraintCache = rb.constraints;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+                pickup.OnPickup();
+            }
+        }
+
+        private void HandleInteract()
+        {
+            if (InteractTriggered && currentSelected.pattern == InteractionPattern.Interact) {
+                currentSelected.OnInteract();
+            }
+        }
+
+        private void HandleThrow()
+        {
             if (currentlyHeldItem != null && ThrowTriggered) {
                 currentlyHeldItem.transform.parent = null;
                 currentlyHeldItem.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -77,16 +81,23 @@ namespace Interactables
             }
         }
 
+        private void HandleRightClick()
+        {
+            if ((RightClickTriggered || RightClickIsPressed) &&
+                currentSelected.pattern == InteractionPattern.RightClick) {
+                currentSelected.OnInteract();
+            }
+        }
+
         private void FindInteractable()
         {
             if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit,
                 interactionDistance,
-                interactableMask, QueryTriggerInteraction.Ignore)) {
+                interactableMask,
+                QueryTriggerInteraction.Ignore)) {
                 var interactable = hit.transform.GetComponent<BaseInteractable>();
 
-                if (interactable) {
-                    currentSelected = interactable;
-                }
+                currentSelected = interactable;
             }
             else {
                 currentSelected = null;

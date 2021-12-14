@@ -1,8 +1,8 @@
-using System;
-using Cysharp.Threading.Tasks.Triggers;
 using Interaction.Interactables;
 using RoomLoop.Portal;
+using Sirenix.Utilities;
 using UnityEngine;
+using Utlities;
 
 namespace Interaction.Items
 {
@@ -12,7 +12,12 @@ namespace Interaction.Items
     [RequireComponent(typeof(Rigidbody))]
     public class BasePickUpInteractable : BaseInteractable, IPickUpInteractable, IPortalTraveller
     {
+        public Vector3 PreviousPortalOffset { get; set; }
+        public virtual bool CanTravel => canTeleport;
         public bool IsPickedUp => isPickedUp;
+
+        [SerializeField] protected bool canTeleport;
+        
         protected bool isPickedUp;
         protected Rigidbody rb;
 
@@ -23,7 +28,6 @@ namespace Interaction.Items
 
         public override void OnInteract()
         {
-            Debug.Log($"You just interacted with {name}");
         }
 
         public virtual void OnPickup()
@@ -33,6 +37,9 @@ namespace Interaction.Items
             foreach (var c in col) {
                 c.isTrigger = true; // it just works
             }
+            canTeleport = false;
+            var children = GetComponentsInChildren<MeshRenderer>();
+            children.ForEach(x => x.gameObject.layer = LayerIds.InteractablesTop);
         }
 
         public virtual void OnThrow()
@@ -42,10 +49,11 @@ namespace Interaction.Items
             foreach (var c in col) {
                 c.isTrigger = false;
             }
+            canTeleport = true;
+            var children = GetComponentsInChildren<MeshRenderer>();
+            children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
         }
-
-        public Vector3 PreviousPortalOffset { get; set; }
-        public virtual bool CanTravel => true;
+        
         public virtual void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot, Vector3 velocity)
         {
             transform.position = pos;

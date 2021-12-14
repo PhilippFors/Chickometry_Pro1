@@ -35,7 +35,6 @@ namespace RoomLoop.Portal
         private void OnDisable()
         {
             RenderPipelineManager.beginFrameRendering -= UpdateCamera;
-            portalCam.targetTexture.Release();
         }
 
         private void AssignRenderTexture()
