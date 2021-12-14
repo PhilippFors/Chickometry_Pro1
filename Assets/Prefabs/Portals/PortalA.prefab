@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1975753044613432209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.492, z: 0}
-  m_LocalScale: {x: 1.5496358, y: 2.9996226, z: 0.14229526}
+  m_LocalScale: {x: 1.5496358, y: 2.9996226, z: 0.20271848}
   m_Children: []
   m_Father: {fileID: 2950705964377831020}
   m_RootOrder: 1
@@ -48,7 +48,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975753044613432209}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -265,8 +265,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 400
-  field of view: 70
+  far clip plane: 1000
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairPortal: {fileID: 0}
   portalCam: {fileID: 2950705963962080772}
-  clipOffset: -0.13
+  clipOffset: -0.1
   useClipping: 1
   portalScreen: {fileID: 30316409493594692}
   renderTextureSize: {x: 0, y: 0}
@@ -586,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297365727723493726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0.088}
+  m_LocalPosition: {x: 0, y: 0, z: 0.145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2950705964377831020}

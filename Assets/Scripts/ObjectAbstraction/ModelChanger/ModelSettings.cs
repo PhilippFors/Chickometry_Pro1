@@ -9,11 +9,16 @@ namespace ObjectAbstraction.ModelChanger
     [System.Serializable]
     public class ModelSettings
     {
-        [SerializeField] private bool usePrefab;
+        [SerializeField] private bool useMeshCollider;
 
-        [SerializeField, ShowIf("usePrefab")] private GameObject prefab;
-        [SerializeField, HideIf("usePrefab")] private Mesh mesh;
-        [SerializeField, HideIf("usePrefab")] private Mesh colliderMesh;
+        [SerializeField, HideIf("useMeshCollider")]
+        public GameObject colliderParent;
+
+        [SerializeField, ShowIf("useMeshCollider")]
+        private Mesh mesh;
+
+        [SerializeField, ShowIf("useMeshCollider")]
+        private Mesh colliderMesh;
 
         [SerializeField] private Texture2D modelTexture;
         [SerializeField] private bool useRigidbodySettings;
@@ -21,32 +26,42 @@ namespace ObjectAbstraction.ModelChanger
 
         public void ApplyMesh(MeshFilter filter)
         {
-            if (usePrefab) {
-                var prefabFilter = prefab.GetComponentInChildren<MeshFilter>();
-                if (prefabFilter) {
-                    filter.sharedMesh = prefabFilter.sharedMesh;
-                }
-            }
-            else {
-                filter.sharedMesh = mesh;
-            }
+            filter.sharedMesh = mesh;
         }
 
         public void ApplyMeshCollider(MeshCollider collider)
         {
-            if (usePrefab) {
-                var prefabMeshCol = prefab.GetComponent<MeshCollider>();
-
-                if (prefabMeshCol) {
-                    collider.sharedMesh = prefabMeshCol.sharedMesh;
-                }
-            }
-            else {
+            if (useMeshCollider) {
+                collider.enabled = true;
                 if (colliderMesh) {
                     collider.sharedMesh = colliderMesh;
                 }
                 else {
                     collider.sharedMesh = mesh;
+                }
+            }
+            else {
+                collider.enabled = false;
+            }
+        }
+
+        public void ApplyCollider(ref GameObject previousColliders)
+        {
+            if (!useMeshCollider) {
+                if (previousColliders) {
+                    previousColliders.SetActive(false);
+                }
+
+                colliderParent.SetActive(true);
+                previousColliders = colliderParent;
+            }
+            else {
+                if (previousColliders) {
+                    previousColliders.SetActive(false);
+                }
+
+                if (colliderParent) {
+                    colliderParent.SetActive(false);
                 }
             }
         }

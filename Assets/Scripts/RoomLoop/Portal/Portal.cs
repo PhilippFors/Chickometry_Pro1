@@ -18,18 +18,11 @@ namespace RoomLoop.Portal
 
         private void Awake()
         {
-            RenderPipelineManager.beginFrameRendering += UpdateCamera;
             renderTextureSize.x = Screen.width;
             renderTextureSize.y = Screen.height;
             mainCam = Camera.main;
-        }
-
-        private void OnEnable()
-        {
-            if (portalCam.targetTexture) {
-                portalCam.targetTexture.Release();
-                AssignRenderTexture();
-            }
+            AssignRenderTexture();
+            RenderPipelineManager.beginFrameRendering += UpdateCamera;
         }
 
         private void OnDisable()
@@ -63,10 +56,9 @@ namespace RoomLoop.Portal
                 portalCam.enabled = false;
                 return;
             }
-
             portalCam.enabled = true;
+            
             AssignRenderTexture();
-
             RenderCamera();
         }
 
