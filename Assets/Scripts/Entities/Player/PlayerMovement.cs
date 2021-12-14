@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Entities.Player
 {
-    public class PlayerMovement : PortalTraveller
+    public class PlayerMovement : MonoBehaviour, IPortalTraveller
     {
+        public Vector3 PreviousPortalOffset { get; set; }
+        public bool CanTravel => true;
+        
         [SerializeField] private float moveSpeed;
         [SerializeField] private float jumpStrength;
         [SerializeField] private Transform groundCheck;
@@ -39,8 +42,7 @@ namespace Entities.Player
                 return;
             }
             
-            var moveDir = transform.rotation * new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed *
-                          Time.deltaTime;
+            var moveDir = transform.rotation * new Vector3(moveDirection.x, 0, moveDirection.y) * (moveSpeed * Time.deltaTime);
             
             transform.position += moveDir;
         }
@@ -53,23 +55,15 @@ namespace Entities.Player
             }
         }
 
-        public override void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot)
+        public void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot, Vector3 velocity)
         {
             moveEnabled = false;
-            // StartCoroutine(UpdatePositon(pos));
             var mouselook = GetComponentInChildren<SmoothMouseLook>();
             mouselook.ForceLookAt(rot);
             transform.position = pos;
             Physics.SyncTransforms();
             moveEnabled = true;
 
-        }
-
-        private IEnumerator UpdatePositon(Vector3 pos)
-        {
-            yield return null;
-            transform.position = pos;
-            moveEnabled = true;
         }
     }
 }

@@ -22,11 +22,12 @@ Material:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
   - TransparentBackface
+  - RayTracingPrepass
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _PortalTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 8400000, guid: b05470c21ba41e648aa7d4ca4cc844d9, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -42,6 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_db57e42690e44e72bfc4421a8a57d3ea: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 0
@@ -58,7 +60,12 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _OpaqueCullMode: 2
+    - _RayTracing: 0
+    - _ReceivesSSR: 0
+    - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
     - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
@@ -70,6 +77,7 @@ Material:
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
+    - _SupportDecals: 0
     - _SurfaceType: 0
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
@@ -84,7 +92,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Forward: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

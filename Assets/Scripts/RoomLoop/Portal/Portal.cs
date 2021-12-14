@@ -5,79 +5,100 @@ namespace RoomLoop.Portal
 {
     public class Portal : MonoBehaviour
     {
-        public Camera portalCamera;
         public Transform pairPortal;
-        public float offset = 0.1f;
+
+        [SerializeField] private Camera portalCam;
+        [SerializeField] private float clipOffset;
+        [SerializeField] private bool useClipping;
+        [SerializeField] private MeshRenderer portalScreen;
+        [SerializeField] private Vector2Int renderTextureSize;
 
         private Camera mainCam;
-        private MeshRenderer meshRenderer;
+        private RenderTexture renderTexture;
+
         private void Awake()
         {
-            
+            RenderPipelineManager.beginFrameRendering += UpdateCamera;
+            renderTextureSize.x = Screen.width;
+            renderTextureSize.y = Screen.height;
             mainCam = Camera.main;
         }
 
         private void OnEnable()
         {
-            RenderPipelineManager.beginCameraRendering += UpdateCamera;
-            if (portalCamera.targetTexture) {
-                portalCamera.targetTexture.Release();
+            if (portalCam.targetTexture) {
+                portalCam.targetTexture.Release();
+                AssignRenderTexture();
             }
-
-            portalCamera.projectionMatrix = mainCam.projectionMatrix;
-
-            var renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
-            portalCamera.targetTexture = renderTexture;
-
-            meshRenderer = GetComponent<MeshRenderer>();
-            meshRenderer.material.SetTexture("_PortalTexture", renderTexture);
-            meshRenderer.material.SetVector("_Forward", transform.forward);
-        } 
+        }
 
         private void OnDisable()
         {
-            RenderPipelineManager.beginCameraRendering -= UpdateCamera;
-            portalCamera.targetTexture.Release();
+            RenderPipelineManager.beginFrameRendering -= UpdateCamera;
+            portalCam.targetTexture.Release();
         }
 
-        private void UpdateCamera(ScriptableRenderContext ctx, Camera cam)
+        private void AssignRenderTexture()
         {
-            if (meshRenderer.isVisible && cam.CompareTag("MainCamera")) {
-                portalCamera.projectionMatrix = mainCam.projectionMatrix;
-                var relativePosition = transform.InverseTransformPoint(cam.transform.position);
-                relativePosition = Vector3.Scale(relativePosition, new Vector3(-1, 1, -1));
-                portalCamera.transform.position = pairPortal.TransformPoint(relativePosition);
-                
-                var relativeRotation = transform.InverseTransformDirection(cam.transform.forward);
-                relativeRotation = Vector3.Scale(relativeRotation, new Vector3(-1, 1, -1));
-                portalCamera.transform.forward = pairPortal.TransformDirection(relativeRotation);
-                // var m = transform.localToWorldMatrix * pairPortal.transform.worldToLocalMatrix * mainCam.transform.localToWorldMatrix;
-                // portalCamera.transform.SetPositionAndRotation(m.GetColumn(3), m.rotation);
+            if (portalCam.targetTexture == null || portalCam.targetTexture.width != renderTextureSize.x || portalCam.targetTexture.height != renderTextureSize.y) {
+                renderTexture = new RenderTexture(renderTextureSize.x, renderTextureSize.y, 0);
+                portalCam.targetTexture = renderTexture;
+                portalScreen.material.SetTexture("_PortalTexture", renderTexture);
+                portalScreen.material.SetVector("_Forward", transform.forward);
             }
         }
 
-        // Calculates reflection matrix around the given plane
-        private static void CalculateReflectionMatrix(ref Matrix4x4 reflectionMat, Vector4 plane)
+        public void SetTargetPortal(Portal target)
         {
-            reflectionMat.m00 = (1F - 2F * plane[0] * plane[0]);
-            reflectionMat.m01 = (-2F * plane[0] * plane[1]);
-            reflectionMat.m02 = (-2F * plane[0] * plane[2]);
-            reflectionMat.m03 = (-2F * plane[3] * plane[0]);
+            pairPortal = target.transform;
+        }
 
-            reflectionMat.m10 = (-2F * plane[1] * plane[0]);
-            reflectionMat.m11 = (1F - 2F * plane[1] * plane[1]);
-            reflectionMat.m12 = (-2F * plane[1] * plane[2]);
-            reflectionMat.m13 = (-2F * plane[3] * plane[1]);
+        private void UpdateCamera(ScriptableRenderContext ctx, Camera[] cams)
+        {
+            UpdateCamera();
+        }
 
-            reflectionMat.m20 = (-2F * plane[2] * plane[0]);
-            reflectionMat.m21 = (-2F * plane[2] * plane[1]);
-            reflectionMat.m22 = (1F - 2F * plane[2] * plane[2]);
-            reflectionMat.m23 = (-2F * plane[3] * plane[2]);
+        public void UpdateCamera()
+        {
+            if (!VisibleFromCamera(portalScreen, mainCam) || !portalScreen.isVisible) {
+                portalCam.enabled = false;
+                return;
+            }
 
-            reflectionMat.m30 = 0F;
-            reflectionMat.m31 = 0F;
-            reflectionMat.m32 = 0F;
-            reflectionMat.m33 = 1F;
+            portalCam.enabled = true;
+            AssignRenderTexture();
+
+            RenderCamera();
+        }
+
+        private void RenderCamera()
+        {
+            var relativePosition = transform.InverseTransformPoint(mainCam.transform.position);
+            relativePosition = Quaternion.Euler(0, 180, 0) * relativePosition;
+            portalCam.transform.position = pairPortal.TransformPoint(relativePosition);
+
+            var relativeRotation = transform.InverseTransformDirection(mainCam.transform.forward);
+            relativeRotation = Quaternion.Euler(0, 180, 0) * relativeRotation;
+            portalCam.transform.forward = pairPortal.TransformDirection(relativeRotation);
+
+            var newMatrix = mainCam.projectionMatrix;
+
+            if (useClipping) {
+                Plane p = new Plane(pairPortal.forward, pairPortal.position + pairPortal.forward * clipOffset);
+                Vector4 clipPlaneWorldSpace = new Vector4(p.normal.x, p.normal.y, p.normal.z, p.distance);
+                Vector4 clipPlaneCameraSpace = Matrix4x4.Transpose(Matrix4x4.Inverse(portalCam.worldToCameraMatrix)) *
+                                               clipPlaneWorldSpace;
+
+                newMatrix = mainCam.CalculateObliqueMatrix(clipPlaneCameraSpace);
+            }
+
+            portalCam.projectionMatrix = newMatrix;
+        }
+
+        public bool VisibleFromCamera(Renderer rend, Camera cam)
+        {
+            Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(cam);
+            return GeometryUtility.TestPlanesAABB(frustumPlanes, rend.bounds);
         }
     }
 }

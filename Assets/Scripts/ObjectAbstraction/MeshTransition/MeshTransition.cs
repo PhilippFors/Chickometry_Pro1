@@ -42,10 +42,11 @@ namespace ObjectAbstraction.MeshTransition
         private float elapsedTime;
         private MeshFilter meshFilter;
         private Mesh deformationMesh;
-        private VertexId[] originalVerticesHighPoly;
-        private VertexId[] originalVerticesLowPoly;
+        public VertexId[] originalVerticesHighPoly;
+        public VertexId[] originalVerticesLowPoly;
         private VertexId[] displacedVertices;
         private int[] triangles;
+        private int[] deformedTriangles;
         public List<VertexGroup> vertexGroups = new List<VertexGroup>();
 
         private void Start()
@@ -56,6 +57,8 @@ namespace ObjectAbstraction.MeshTransition
             originalVerticesHighPoly = new VertexId[highPoly.vertices.Length];
             originalVerticesLowPoly = new VertexId[lowPoly.vertices.Length];
             triangles = new int[highPoly.triangles.Length];
+            deformedTriangles = new int[highPoly.triangles.Length];
+            
             for (int i = 0; i < highPoly.vertices.Length; i++) {
                 originalVerticesHighPoly[i] = new VertexId(i, highPoly.vertices[i]);
                 triangles[i] = highPoly.triangles[i];

@@ -127,19 +127,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3814692
+      value: -8.91
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.586815
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7422206
+      value: 16.57
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.0038246475
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalRotation.x
@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70710677
+      value: 0.9999927
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalRotation.z
@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 179.562
       objectReference: {fileID: 0}
     - target: {fileID: 7105781407259761268, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -168,6 +168,10 @@ PrefabInstance:
     - target: {fileID: 7105781407259761278, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105781407991806621, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
+      propertyPath: antialiasing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6435167782267622569, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
