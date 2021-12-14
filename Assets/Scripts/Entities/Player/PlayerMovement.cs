@@ -51,7 +51,7 @@ namespace Entities.Player
         private void Jump()
         {
             if (isGrounded && jumpTriggered) {
-                rb.AddForce(jumpStrength * Vector3.up, ForceMode.Impulse);
+                rb.velocity += jumpStrength * Vector3.up;
             }
         }
 

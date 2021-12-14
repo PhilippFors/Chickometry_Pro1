@@ -56,6 +56,8 @@ namespace Interactables
                 constraintCache = rb.constraints;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 pickup.OnPickup();
+                var playerRb = GetComponent<Rigidbody>();
+                playerRb.mass += rb.mass;
             }
         }
 
@@ -77,6 +79,8 @@ namespace Interactables
                 rb.constraints = constraintCache;
                 rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
                 currentlyHeldItem.OnThrow();
+                var playerRb = GetComponent<Rigidbody>();
+                playerRb.mass -= rb.mass;
                 currentlyHeldItem = null;
             }
         }
