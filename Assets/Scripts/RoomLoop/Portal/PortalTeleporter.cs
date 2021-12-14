@@ -5,31 +5,20 @@ using Utlities;
 namespace RoomLoop.Portal
 {
     public class PortalTeleporter : MonoBehaviour
-    {
-        public bool canTravel;
-        [SerializeField] private Collider blocker;
-        
-        private List<IPortalTraveller> teleportQueue = new List<IPortalTraveller>();
+    {    
+        private readonly List<IPortalTraveller> teleportQueue = new List<IPortalTraveller>();
         private Portal portal;
-        private Transform receiver;
+        private Transform Receiver =>  portal.pairPortal.GetComponentInChildren<PortalTeleporter>().transform;
         
-        private static readonly Quaternion halfTurn = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        private readonly Quaternion halfTurn = Quaternion.Euler(0.0f, 180.0f, 0.0f);
         
         private void Awake()
         {
             portal = GetComponentInParent<Portal>();
-            receiver = portal.pairPortal.GetComponentInChildren<PortalTeleporter>().transform;
         }
 
         void LateUpdate()
         {
-            if (!canTravel) {
-                blocker.enabled = true;
-                return;
-            }
-
-            blocker.enabled = false;
-
             if (teleportQueue.Count > 0) {
                 for (int i = 0; i < teleportQueue.Count; i++) {
                     var traveller = teleportQueue[i];
@@ -37,24 +26,24 @@ namespace RoomLoop.Portal
                         continue;
                     }
                     
-                    var m = receiver.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GetTransform().localToWorldMatrix;
+                    var m = Receiver.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GetTransform().localToWorldMatrix;
                     
                     //position
                     Vector3 relativePos = portal.transform.InverseTransformPoint(traveller.GetTransform().position);
                     relativePos = halfTurn * relativePos;
-                    var newPosition = receiver.transform.TransformPoint(relativePos);
+                    var newPosition = Receiver.transform.TransformPoint(relativePos);
 
                     var rb = traveller.GetComponent<Rigidbody>();
                     Vector3 relativeVel = transform.InverseTransformDirection(rb.velocity); 
                     relativeVel = halfTurn * relativeVel;
-                    var newVelocity = receiver.TransformDirection(relativeVel);
+                    var newVelocity = Receiver.TransformDirection(relativeVel);
                     
                     var portalToPlayer = traveller.GetTransform().position - transform.position;
                     var dot = Vector3.Dot(portalToPlayer, transform.forward);
                     var previousDot = Vector3.Dot(traveller.PreviousPortalOffset, transform.forward);
 
                     if (dot < 0f && previousDot > 0f) {
-                        traveller.Teleport(transform, receiver.transform, newPosition, m.rotation, newVelocity);
+                        traveller.Teleport(transform, Receiver.transform, newPosition, m.rotation, newVelocity);
                         teleportQueue.RemoveAt(i);
                         i--;
                     }
