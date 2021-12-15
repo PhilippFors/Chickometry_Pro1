@@ -1,4 +1,5 @@
-﻿using Interaction.Interactables;
+﻿using Interactables;
+using Interaction.Interactables;
 
 namespace Checkpoints
 {
@@ -21,6 +22,7 @@ namespace Checkpoints
         public void Reset()
         {
             resetter.Reset();
+            CheckpointManager.Instance.ResetSingleBehaviour<InteractionManager>();
         }
     }
 }

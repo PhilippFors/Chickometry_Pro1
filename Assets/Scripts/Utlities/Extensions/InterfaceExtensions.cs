@@ -1,3 +1,4 @@
+using Checkpoints;
 using Interaction.Items;
 using ObjectAbstraction.ModelChanger;
 using RoomLoop.Portal;
@@ -28,6 +29,12 @@ namespace Utlities
         public static T GetComponent<T>(this IPortalTraveller traveller) where T : Component
         {
             var item = (Component) traveller;
+            return item.GetComponent<T>();
+        }
+
+        public static T GetComponent<T>(this IResettableBehaviour behaviour) where T : Component
+        {
+            var item = (Component) behaviour;
             return item.GetComponent<T>();
         }
     }

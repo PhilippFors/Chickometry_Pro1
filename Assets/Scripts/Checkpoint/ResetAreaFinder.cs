@@ -10,7 +10,7 @@ namespace Checkpoints
     public class ResetAreaFinder : MonoBehaviour
     {
         [SerializeField] private LayerMask layerMask;
-        private List<IResettable> resettables = new List<IResettable>();
+        private List<IResettableItem> resettables = new List<IResettableItem>();
         private void Start()
         {
             Find();
@@ -22,7 +22,7 @@ namespace Checkpoints
             var objs = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, layerMask);
 
             foreach (var s in objs) {
-                var resettable = s.GetComponentsInParent<IResettable>();
+                var resettable = s.GetComponentsInParent<IResettableItem>();
                 foreach (var r in resettable) {
                     if (!resettables.Contains(r)) {
                         resettables.Add(r);

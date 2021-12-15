@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Checkpoints;
 using Interaction.Interactables;
 using Sirenix.Utilities;
@@ -10,7 +12,7 @@ namespace Interaction.Items
     /// Base class for all items that the player can pick up.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class BasePickUpInteractable : BaseInteractable, IPickUpInteractable, IResettable
+    public class BasePickUpInteractable : BaseInteractable, IPickUpInteractable, IResettableItem
     {
         public Vector3 OriginalPosition { get; set; }
         public Quaternion OriginalRotation { get; set; }
@@ -51,7 +53,6 @@ namespace Interaction.Items
             var children = GetComponentsInChildren<MeshRenderer>();
             children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
         }
-
 
         public virtual void ResetToCheckpoint()
         {

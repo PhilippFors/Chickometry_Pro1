@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Checkpoints;
 using DG.Tweening;
 using Entities.Player.PlayerInput;
 using Interaction.Interactables;
@@ -11,16 +13,18 @@ namespace Interactables
     /// <summary>
     /// Handles interactions with interactables.
     /// </summary>
-    public class InteractionManager : MonoBehaviour
+    public partial class InteractionManager : MonoBehaviour, IResettableBehaviour
     {
-        [SerializeField] private float maxThrowForce = 10f;       
+        [SerializeField] private float maxThrowForce = 10f;
         [SerializeField] private float minThrowForce = 2f;
         [SerializeField] private float interactionDistance = 2f;
         [SerializeField] private float placeDownDistance = 4f;
+        [SerializeField] private float placeYOffset = 0.5f;
         [SerializeField] private LayerMask interactableMask;
         [SerializeField] private LayerMask placeDownMask;
         [SerializeField] private Transform itemParent;
 
+        private MouseBasedRotator itemRotator;
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
@@ -35,12 +39,25 @@ namespace Interactables
         private float maxPressTime = 2f;
         private float throwTime;
         private float throwForce;
-        
+        private Quaternion ogItemRotation;
+
         private void Awake()
         {
             InputController.Instance.Canceled(InputPatterns.Throw, ThrowRelease);
             mainCam = Camera.main;
             throwForce = minThrowForce;
+            itemRotator = itemParent.GetComponent<MouseBasedRotator>();
+            ogItemRotation = itemParent.localRotation;
+        }
+
+        private void OnEnable()
+        {
+            CheckpointManager.Instance.RegisterBehaviour(this);
+        }
+
+        private void OnDisable()
+        {
+            CheckpointManager.Instance.UnregisterBehaviour(this);
         }
 
         private void Update()
@@ -50,17 +67,12 @@ namespace Interactables
             if (currentSelected) {
                 HandelPickup();
                 HandleInteract();
-                HandleRightClick();
             }
-            
+
+            HandleRightClick();
             HandleThrow();
         }
 
-        private void RotateHeldObject()
-        {
-            
-        }
-        
         private void HandelPickup()
         {
             if (!currentlyHeldItem && InteractTriggered && currentSelected.pattern == InteractionPattern.PickUp) {
@@ -91,6 +103,7 @@ namespace Interactables
             if (currentlyHeldItem && ThrowPressed) {
                 pressTime += Time.deltaTime;
             }
+
             if (pressTime > 0.5f) {
                 if (throwTime < maxPressTime) {
                     throwTime += Time.deltaTime;
@@ -105,12 +118,12 @@ namespace Interactables
         {
             if (currentlyHeldItem != null) {
                 if (pressTime < 0.3f) {
-                    if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit, placeDownDistance, placeDownMask, QueryTriggerInteraction.Ignore)) {
+                    if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit,
+                        placeDownDistance, placeDownMask, QueryTriggerInteraction.Ignore)) {
                         var dist = hit.distance;
                         currentlyHeldItem.transform.parent = null;
                         currentlyHeldItem.OnThrow();
                         StartCoroutine(PlaceDown(dist));
-
                     }
                     else {
                         currentlyHeldItem.transform.parent = null;
@@ -126,12 +139,12 @@ namespace Interactables
                     ReleaseObject();
                 }
             }
-            Debug.Log(throwForce);
 
             ThrowUIController.Instance.HideSlider();
             throwForce = minThrowForce;
             pressTime = 0;
             throwTime = 0;
+            itemParent.localRotation = ogItemRotation;
         }
 
         private void ReleaseObject()
@@ -151,9 +164,10 @@ namespace Interactables
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
             var playerRb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.None;
-            rb.constraints = constraintCache;
-            yield return currentlyHeldItem.transform.DOMove(mainCam.transform.position + mainCam.transform.forward * dist, 0.5f);
+            currentlyHeldItem.transform.DOMove(
+                mainCam.transform.position + new Vector3(0, placeYOffset, 0) + mainCam.transform.forward * dist, 0.5f);
             yield return new WaitForSeconds(0.5f);
+            rb.constraints = constraintCache;
             playerRb.mass -= rb.mass;
             rb.useGravity = true;
             currentlyHeldItem = null;
@@ -161,9 +175,14 @@ namespace Interactables
 
         private void HandleRightClick()
         {
-            if ((RightClickTriggered || RightClickIsPressed) &&
+            if (currentSelected && (RightClickTriggered || RightClickIsPressed) &&
                 currentSelected.pattern == InteractionPattern.RightClick) {
                 currentSelected.OnInteract();
+                return;
+            }
+
+            if (currentlyHeldItem && RightClickIsPressed) {
+                itemRotator.OnInteract();
             }
         }
 
