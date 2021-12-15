@@ -18,7 +18,6 @@ namespace Utlities
 
     /// <summary>
     /// A class that calculates the velocities for every active interactable item;
-    /// Returns a reference to the velocity data when an object is registered.
     /// </summary>
     [RequireComponent(typeof(ServiceID))]
     public class VelocityTracker : MonoBehaviour, IService
@@ -26,7 +25,7 @@ namespace Utlities
         [SerializeField] private int averageOutOverFrames = 5;
         [SerializeField] private float velocitySmoothTime = 0.1f;
 
-        private int currentFrameCounter = 0;
+        private int currentFrameCounter;
         
         private Dictionary<BasePickUpInteractable, VelocityData> velocityObjects = new Dictionary<BasePickUpInteractable, VelocityData>();
         

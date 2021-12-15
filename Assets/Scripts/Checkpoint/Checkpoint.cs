@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Checkpoints
 {
+    /// <summary>
+    /// Waits for the player and activates itself in the checkpoint manager.
+    /// Resetbutton and custom checkpoint position are optional.
+    /// </summary>
     [RequireComponent(typeof(BoxCollider))]
     public class Checkpoint : MonoBehaviour
     {

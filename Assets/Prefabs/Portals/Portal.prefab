@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 2950705964377831020}
   - component: {fileID: 6254616701257390927}
   m_Layer: 0
-  m_Name: PortalA
+  m_Name: Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairPortal: {fileID: 0}
   portalCam: {fileID: 2950705963962080772}
-  clipOffset: -0.1
+  clipOffset: -0.11
   useClipping: 1
   portalScreen: {fileID: 30316409493594692}
   renderTextureSize: {x: 0, y: 0}

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ObjectAbstraction.ModelChanger
 {
     /// <summary>
     /// Stinky poopoo
     /// </summary>
-    [RequireComponent(typeof(MeshCollider))]
+    [RequireComponent(typeof(MeshCollider)), Obsolete]
     public class ModelChanger : MonoBehaviour, IModelChanger
     {
         public bool Shootable => shootable;

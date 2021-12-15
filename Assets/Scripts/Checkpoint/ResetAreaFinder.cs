@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Checkpoints
 {
+    /// <summary>
+    /// Finds all IResettable types in a defined area and caches them
+    /// </summary>
     public class ResetAreaFinder : MonoBehaviour
     {
         [SerializeField] private LayerMask layerMask;

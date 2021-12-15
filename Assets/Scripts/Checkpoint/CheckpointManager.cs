@@ -3,6 +3,9 @@ using UsefulCode.Utilities;
 
 namespace Checkpoints
 {
+    /// <summary>
+    /// Takes in a checkpoint and resets when triggered
+    /// </summary>
     public class CheckpointManager : SingletonBehaviour<CheckpointManager>
     {
         private Checkpoint activeCheckopint;

@@ -9,7 +9,7 @@ using UnityEngine;
 namespace ObjectAbstraction.ModelChanger
 {
     /// <summary>
-    /// Advance version of the model changer with more settings and functionality
+    /// Advanced version of the model changer with more settings and functionality
     /// </summary>
     [RequireComponent(typeof(MeshCollider))]
     public partial class AdvModelChanger : MonoBehaviour, IModelChanger, IResettable

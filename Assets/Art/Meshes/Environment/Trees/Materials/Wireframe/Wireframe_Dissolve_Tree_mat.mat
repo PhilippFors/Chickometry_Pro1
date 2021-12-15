@@ -11,10 +11,10 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 7c6b30b307387d04488e0fa5770a85c7, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
     _SURFACE_TYPE_TRANSPARENT
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
     RenderType: Transparent
@@ -51,7 +51,7 @@ Material:
     - Vector1_1899ce0c24a2472a8a6fe4fda60408a3: 0.43
     - Vector1_5af3fa4a91224495ad72dee32b4f4f87: 0
     - Vector1_71eb39d75e45454baf71622766f3fc04: 0.68
-    - Vector1_8fa1428c5674427b9e4d4a87bccfba3b: 0.157
+    - Vector1_8fa1428c5674427b9e4d4a87bccfba3b: 0.136
     - Vector1_9a35b4c9ee714552a4a3bc492088035c: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 1
@@ -97,14 +97,14 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
     - _UseShadowThreshold: 0
-    - _WireframeBlend: 0.078
+    - _WireframeBlend: 0.08
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_8d826bdc8a994097a88ef2f43f68d015: {r: 0, g: 0.13545215, b: 0.5754717, a: 0.6627451}
-    - Color_8ff95b502fb840029dbbf2d111f264a2: {r: 0, g: 7.924513, b: 9.285779, a: 0.16862746}
+    - Color_8d826bdc8a994097a88ef2f43f68d015: {r: 0, g: 0.13545206, b: 0.57547164, a: 0.74509805}
+    - Color_8ff95b502fb840029dbbf2d111f264a2: {r: 0, g: 10.227451, b: 11.984314, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

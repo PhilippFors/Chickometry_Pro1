@@ -13,10 +13,7 @@ namespace Utlities
 
         public static T Get<T>() where T : Object
         {
-            Object value;
-            var st = typeof(T).ToString();
-
-            services.TryGetValue(st, out value);
+            services.TryGetValue(typeof(T).ToString(), out var value);
             if (!value)
             {
                 Debug.LogError($"Service type '{typeof(T).Name}' does not exist.");

@@ -1,5 +1,8 @@
 ﻿namespace Utlities
 {
+    /// <summary>
+    /// Easily accessible layer ids
+    /// </summary>
     public static class LayerIds
     {
         public const int Default = 0;

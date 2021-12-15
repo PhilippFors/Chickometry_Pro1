@@ -2,6 +2,9 @@
 
 namespace Checkpoints
 {
+    /// <summary>
+    /// Resets a give area when interacted with.
+    /// </summary>
     public class ResetButton : BaseInteractable
     {
         private ResetAreaFinder resetter;
