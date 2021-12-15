@@ -77,9 +77,15 @@ namespace RoomLoop.Portal
             // }
 
             var newMatrix = mainCam.projectionMatrix;
-
+            var dirToCamera = portalCam.transform.position - pairPortal.position;
+            
+            var clip = clipOffset;
+            if (Vector3.Distance(portalCam.transform.position, pairPortal.position) < 0.1f) {
+                clip = 0;
+            }
+            
             if (useClipping) {
-                Plane p = new Plane(pairPortal.forward, pairPortal.position + pairPortal.forward * clipOffset);
+                Plane p = new Plane(pairPortal.forward, pairPortal.position + pairPortal.forward * clip);
                 Vector4 clipPlaneWorldSpace = new Vector4(p.normal.x, p.normal.y, p.normal.z, p.distance);
                 Vector4 clipPlaneCameraSpace = Matrix4x4.Transpose(Matrix4x4.Inverse(portalCam.worldToCameraMatrix)) *
                                                clipPlaneWorldSpace;
