@@ -1,5 +1,5 @@
+using Checkpoints;
 using Interaction.Interactables;
-using RoomLoop.Portal;
 using Sirenix.Utilities;
 using UnityEngine;
 using Utlities;
@@ -10,14 +10,19 @@ namespace Interaction.Items
     /// Base class for all items that the player can pick up.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class BasePickUpInteractable : BaseInteractable, IPickUpInteractable
+    public class BasePickUpInteractable : BaseInteractable, IPickUpInteractable, IResettable
     {
+        public Vector3 OriginalPosition { get; set; }
+        public Quaternion OriginalRotation { get; set; }
         public bool IsPickedUp => isPickedUp;
+        
         protected bool isPickedUp;
         protected Rigidbody rb;
 
         private void Awake()
         {
+            OriginalPosition = transform.position;
+            OriginalRotation = transform.rotation;
             rb = GetComponent<Rigidbody>();
         }
 
@@ -45,6 +50,13 @@ namespace Interaction.Items
             }
             var children = GetComponentsInChildren<MeshRenderer>();
             children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
+        }
+
+
+        public virtual void ResetToCheckpoint()
+        {
+            transform.position = OriginalPosition;
+            transform.rotation = OriginalRotation;
         }
     }
 }

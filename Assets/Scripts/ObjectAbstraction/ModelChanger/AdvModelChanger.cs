@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Checkpoints;
 using Entities.Player.PlayerInput;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace ObjectAbstraction.ModelChanger
     /// Advance version of the model changer with more settings and functionality
     /// </summary>
     [RequireComponent(typeof(MeshCollider))]
-    public class AdvModelChanger : MonoBehaviour, IModelChanger
+    public partial class AdvModelChanger : MonoBehaviour, IModelChanger, IResettable
     {
         public bool Shootable {
             get => shootable;
@@ -46,6 +47,10 @@ namespace ObjectAbstraction.ModelChanger
         
         private void Awake()
         {
+            originalAbstraction = IsAbstract;
+            OriginalPosition = transform.position;
+            OriginalRotation = transform.rotation;
+            
             meshCollider = GetComponent<MeshCollider>();
             var currentMeshRenderer = currentMeshFilter.GetComponent<MeshRenderer>();
             var nextMeshRenderer = nextMeshFilter.GetComponent<MeshRenderer>();

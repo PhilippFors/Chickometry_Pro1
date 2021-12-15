@@ -421,7 +421,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 80
   orthographic: 0
   orthographic size: 5
@@ -660,6 +660,7 @@ GameObject:
   - component: {fileID: 1144667323850829841}
   - component: {fileID: 6435167782267622569}
   - component: {fileID: 4010500658001931475}
+  - component: {fileID: 2465445845593469314}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -789,6 +790,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2465445845593469314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105781407259761278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1d4e5c7eeb4d1e861a13405c523d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7105781407399895582
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,7 +846,6 @@ GameObject:
   - component: {fileID: 3190624219288251194}
   - component: {fileID: 4314873027095143043}
   - component: {fileID: 554661953697511308}
-  - component: {fileID: 4976088919047363956}
   m_Layer: 6
   m_Name: Camera
   m_TagString: MainCamera
@@ -922,7 +934,7 @@ Camera:
     height: 1
   near clip plane: 0.03
   far clip plane: 1000
-  field of view: 80
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -973,18 +985,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &4976088919047363956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7105781407991806592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c11d8a1e3034a989a45c4b25eb848d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7263553202763078088
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace RoomLoop.Portal
 {
@@ -32,7 +33,8 @@ namespace RoomLoop.Portal
 
         private void AssignRenderTexture()
         {
-            if (portalCam.targetTexture == null || portalCam.targetTexture.width != renderTextureSize.x || portalCam.targetTexture.height != renderTextureSize.y) {
+            if (portalCam.targetTexture == null || portalCam.targetTexture.width != renderTextureSize.x ||
+                portalCam.targetTexture.height != renderTextureSize.y) {
                 renderTexture = new RenderTexture(renderTextureSize.x, renderTextureSize.y, 0);
                 portalCam.targetTexture = renderTexture;
                 portalScreen.material.SetTexture("_PortalTexture", renderTexture);
@@ -47,30 +49,32 @@ namespace RoomLoop.Portal
 
         private void UpdateCamera(ScriptableRenderContext ctx, Camera[] cams)
         {
-            UpdateCamera();
-        }
-
-        public void UpdateCamera()
-        {
             if (!VisibleFromCamera(portalScreen, mainCam) || !portalScreen.isVisible) {
                 portalCam.enabled = false;
                 return;
             }
+
             portalCam.enabled = true;
-            
+
             AssignRenderTexture();
+
+            // for (int i = 3; i >= 0; --i) {
             RenderCamera();
+            // }
         }
 
-        private void RenderCamera()
+        private void RenderCamera(int renderIndex = 0, ScriptableRenderContext ctx = default)
         {
+            var cameraTransform = portalCam.transform;
+            // for (int i = 0; i <= renderIndex; ++i) {
             var relativePosition = transform.InverseTransformPoint(mainCam.transform.position);
             relativePosition = Quaternion.Euler(0, 180, 0) * relativePosition;
-            portalCam.transform.position = pairPortal.TransformPoint(relativePosition);
+            cameraTransform.position = pairPortal.TransformPoint(relativePosition);
 
             var relativeRotation = transform.InverseTransformDirection(mainCam.transform.forward);
             relativeRotation = Quaternion.Euler(0, 180, 0) * relativeRotation;
-            portalCam.transform.forward = pairPortal.TransformDirection(relativeRotation);
+            cameraTransform.forward = pairPortal.TransformDirection(relativeRotation);
+            // }
 
             var newMatrix = mainCam.projectionMatrix;
 
@@ -84,6 +88,7 @@ namespace RoomLoop.Portal
             }
 
             portalCam.projectionMatrix = newMatrix;
+            // UniversalRenderPipeline.RenderSingleCamera(ctx, portalCam);
         }
 
         public bool VisibleFromCamera(Renderer rend, Camera cam)

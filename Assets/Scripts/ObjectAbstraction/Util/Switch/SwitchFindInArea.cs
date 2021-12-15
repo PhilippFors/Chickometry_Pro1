@@ -1,4 +1,6 @@
-﻿using ObjectAbstraction.ModelChanger;
+﻿using System.Collections.Generic;
+using Interaction.Interactables;
+using ObjectAbstraction.ModelChanger;
 using ObjectAbstraction.Prototype;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,17 +10,17 @@ namespace ObjectAbstraction
     /// <summary>
     /// Used to define the area in which the Abstraction Switch takes effect.
     /// </summary>
-    public class AbstractoSwitchAreaFinder : MonoBehaviour
+    public class SwitchFindInArea : MonoBehaviour
     {
         [SerializeField] private LayerMask layerMask;
-        // TODO...?: Make it look for things in its area at runtime to update the active objects
+        
         private void Start()
         {
-            FindInArea();
+            Find();
         }
 
         [Button]
-        private void FindInArea()
+        private void Find()
         {
             var col = GetComponent<BoxCollider>();
             var abstractionSwitch = GetComponentInParent<AbstractoSwitch>();
