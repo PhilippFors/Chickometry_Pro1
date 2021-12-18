@@ -28,10 +28,6 @@ namespace Interaction.Items
             rb = GetComponent<Rigidbody>();
         }
 
-        public override void OnInteract()
-        {
-        }
-
         public virtual void OnPickup()
         {
             isPickedUp = true;

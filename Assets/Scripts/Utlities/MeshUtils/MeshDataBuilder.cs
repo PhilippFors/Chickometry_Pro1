@@ -25,11 +25,10 @@ namespace Utlities.MeshUtils
         {
             modelChanger = GetComponentInParent<AdvModelChanger>();
             foreach (var model in modelChanger.Models) {
-                var mesh = model.GetMesh();
-                if (mesh && !meshes.Contains(mesh)) {
-                    meshes.Add(mesh);
-                    SplitMesh(mesh);
-                    SetVertexColors(mesh);
+                if (model && !meshes.Contains(model)) {
+                    meshes.Add(model);
+                    SplitMesh(model);
+                    SetVertexColors(model);
                 }
             }
         }

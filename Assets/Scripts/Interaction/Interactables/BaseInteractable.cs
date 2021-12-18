@@ -16,6 +16,7 @@ namespace Interaction.Interactables
     public abstract class BaseInteractable : MonoBehaviour, IInteractable
     {
         public InteractionPattern pattern;
-        public abstract void OnInteract();
+
+        public virtual void OnInteract() { }
     }
 }

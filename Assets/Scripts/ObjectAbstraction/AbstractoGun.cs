@@ -12,7 +12,6 @@ namespace ObjectAbstraction
     /// </summary>
     public class AbstractoGun : MonoBehaviour
     {
-        private SmoothMouseLook mouseLook;
         [SerializeField] private float coolDown;
         [SerializeField] private LayerMask hitMask;
         [SerializeField] bool canShoot = true;
@@ -20,9 +19,8 @@ namespace ObjectAbstraction
 
         private bool FireTriggered => InputController.Instance.Triggered(InputPatterns.LeftClick);
         private bool FirePressed => InputController.Instance.IsPressed(InputPatterns.LeftClick);
-
         private Transform mainCam;
-        private AdvModelChanger altFireCache;
+        private SmoothMouseLook mouseLook;
 
         private void Start()
         {
@@ -45,47 +43,12 @@ namespace ObjectAbstraction
                     AdvModelChanger advModelChanger = null;
                     
                     if (modelChanger != null) {
-                        advModelChanger = modelChanger.GetComponent<AdvModelChanger>();
-                    }
-                    else {
-                        return;
-                    }
-
-                    if (advModelChanger) {
-                        if (!advModelChanger.SimpleToggle) {
-                            if (!altFireCache) {
-                                altFireCache = advModelChanger;
-                            }
-
-                            if (altFireCache) {
-                                mouseLook.enableLook = false;
-                                mouseLook.transform.LookAt(altFireCache.transform);
-                                var temp = new Vector3(altFireCache.transform.position.x,
-                                    mouseLook.CharacterBody.position.y,
-                                    altFireCache.transform.position.z);
-                                mouseLook.CharacterBody.LookAt(temp);
-
-                                altFireCache.ToggleModels();
-                            }
-                        }
-                        else {
-                            if (canShoot) {
-                                anim.Play();
-                                Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
-                            }
-                        }
-                    }
-                    else if (canShoot) {
-                        anim.Play();
-                        if (modelChanger != null && modelChanger.Shootable) {
+                        if (canShoot) {
+                            anim.Play();
                             Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
                         }
                     }
                 }
-            }
-            else {
-                altFireCache = null;
-                mouseLook.enableLook = true;
             }
         }
 

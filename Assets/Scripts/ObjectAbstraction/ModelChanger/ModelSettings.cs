@@ -14,29 +14,25 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField, HideIf("useMeshCollider")]
         public GameObject colliderParent;
         
-        [SerializeField] private Mesh mesh;
-
-        [SerializeField, ShowIf("useMeshCollider")]
-        private Mesh colliderMesh;
-
-        [SerializeField] private Texture2D modelTexture;
+        [SerializeField, ShowIf("useMeshCollider"), Tooltip("Fill if object has special collider. Otherwise leave empty.")]
+        private Mesh customColliderMesh;
+        
         [SerializeField] private bool useRigidbodySettings;
         [SerializeField] private RigidbodySettings rigidbodySettings;
-
-        public void ApplyMesh(MeshFilter filter)
+        
+        public void ApplyMeshCollider(MeshCollider collider, MeshFilter filter = null)
         {
-            filter.sharedMesh = mesh;
-        }
-
-        public void ApplyMeshCollider(MeshCollider collider)
-        {
+            if (!collider) {
+                return;
+            }
+            
             if (useMeshCollider) {
                 collider.enabled = true;
-                if (colliderMesh) {
-                    collider.sharedMesh = colliderMesh;
+                if (filter) {
+                    collider.sharedMesh = filter.mesh;
                 }
                 else {
-                    collider.sharedMesh = mesh;
+                    collider.sharedMesh = customColliderMesh;
                 }
             }
             else {
@@ -46,6 +42,9 @@ namespace ObjectAbstraction.ModelChanger
 
         public void ApplyCollider(ref GameObject previousColliders)
         {
+            if (!previousColliders) {
+                return;
+            }
             if (!useMeshCollider) {
                 if (previousColliders) {
                     previousColliders.SetActive(false);
@@ -67,20 +66,14 @@ namespace ObjectAbstraction.ModelChanger
 
         public void ApplyRigidbodySettings(Rigidbody rb)
         {
+            if (!rb) {
+                return;
+            }
+            
             if (useRigidbodySettings) {
                 rigidbodySettings.ApplySettings(rb);
             }
         }
-
-        public void ApplyTexture(MeshRenderer renderer)
-        {
-            if (modelTexture) {
-                renderer.sharedMaterial.SetTexture("_MainTex", modelTexture);
-            }
-        }
-
-        public Mesh GetMesh() => mesh;
-        public Texture2D GetTexture() => modelTexture;
     }
 
     [System.Serializable]
@@ -89,14 +82,12 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private float mass = 1;
         [SerializeField] private float drag;
         [SerializeField] private bool useGravity = true;
-        private RigidbodyConstraints rigidbodyConstraints;
 
         public void ApplySettings(Rigidbody rb)
         {
             rb.mass = mass;
             rb.drag = drag;
             rb.useGravity = useGravity;
-            // rb.constraints = rigidbodyConstraints;
         }
     }
 }
