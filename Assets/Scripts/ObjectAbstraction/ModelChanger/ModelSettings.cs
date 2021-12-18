@@ -29,7 +29,7 @@ namespace ObjectAbstraction.ModelChanger
             if (useMeshCollider) {
                 collider.enabled = true;
                 if (filter) {
-                    collider.sharedMesh = filter.mesh;
+                    collider.sharedMesh = filter.sharedMesh;
                 }
                 else {
                     collider.sharedMesh = customColliderMesh;
