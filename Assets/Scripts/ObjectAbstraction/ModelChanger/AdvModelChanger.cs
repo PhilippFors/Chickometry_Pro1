@@ -1,7 +1,9 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Checkpoints;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ObjectAbstraction.ModelChanger
@@ -22,6 +24,10 @@ namespace ObjectAbstraction.ModelChanger
         public MeshRenderer AbstractRend => abstractMat;
         public bool IsAbstract => isAbstract;
 
+        [SerializeField] private bool usePlane;
+        [SerializeField, ShowIf("usePlane")] private GameObject plane;
+        [SerializeField, ShowIf("usePlane")] private float maxYPosition;
+        [SerializeField, ShowIf("usePlane")] private float minYPosition;
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private MeshFilter normalMeshFilter;
@@ -48,10 +54,10 @@ namespace ObjectAbstraction.ModelChanger
         private void Start()
         {
             if (isAbstract) {
-                StartCoroutine(EnableAbstractLayer());
+                StartCoroutine(EnableAbstractLayer(true));
             }
             else {
-                StartCoroutine(EnableNormalLayer());
+                StartCoroutine(EnableNormalLayer(true));
             }
         }
 
@@ -67,24 +73,42 @@ namespace ObjectAbstraction.ModelChanger
             isAbstract = !isAbstract;
         }
 
-        private IEnumerator EnableNormalLayer()
+        private IEnumerator EnableNormalLayer(bool instant = false)
         {
-            yield return StartCoroutine(Transition(false));
+            yield return StartCoroutine(Transition(false, instant));
             normalModel.ApplyMeshCollider(meshCollider, normalMeshFilter);
             normalModel.ApplyCollider(ref previousColliders);
             normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
         }
 
-        private IEnumerator EnableAbstractLayer()
+        private IEnumerator EnableAbstractLayer(bool instant = false)
         {
-            yield return StartCoroutine(Transition(true));
+            yield return StartCoroutine(Transition(true, instant));
             abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
             abstractModel.ApplyCollider(ref previousColliders);
             abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
         }
 
-        private IEnumerator Transition(bool toAbstract)
+        private IEnumerator Transition(bool toAbstract, bool instant = false)
         {
+            if (usePlane) {
+                if (toAbstract) {
+                    if (instant) {
+                        plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.1f);
+                        yield break;
+                    }
+                    plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.5f);
+                    plane.GetComponentInChildren<ParticleSystem>().Play();
+                }
+                else {
+                    if (instant) {
+                        plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.1f);
+                        yield break;
+                    }
+                    plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.5f);
+                    plane.GetComponentInChildren<ParticleSystem>().Play();
+                }
+            }
             if (toAbstract) {
                 MaterialTransitions(normalMat.materials, 1);
                 MaterialTransitions(abstractMat.materials, 0);
@@ -118,6 +142,13 @@ namespace ObjectAbstraction.ModelChanger
                 normalModel.ApplyCollider(ref previousColliders);
                 normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(100, 0, 100, 0.2f);
+            Gizmos.DrawCube(transform.position + new Vector3(0, maxYPosition, 0), new Vector3(2, 0.05f, 2));
+            Gizmos.DrawCube(transform.position + new Vector3(0, minYPosition, 0), new Vector3(2, 0.05f, 2));
         }
     }
 }

@@ -143,6 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f87bc8e164a2480badf72ceea00e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePlane: 0
+  plane: {fileID: 0}
+  maxYPosition: 0
+  minYPosition: 0
   isAbstract: 1
   shootable: 1
   normalMeshFilter: {fileID: 6484367476256385712}
@@ -150,8 +154,7 @@ MonoBehaviour:
   normalModel:
     useMeshCollider: 1
     colliderParent: {fileID: 0}
-    mesh: {fileID: -5138087954077314773, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
-    colliderMesh: {fileID: 0}
+    customColliderMesh: {fileID: 0}
     useRigidbodySettings: 0
     rigidbodySettings:
       mass: 1
@@ -160,8 +163,7 @@ MonoBehaviour:
   abstractModel:
     useMeshCollider: 1
     colliderParent: {fileID: 0}
-    mesh: {fileID: -6441263851625206158, guid: fcf6423c28b9c0f4db9da6bf58e5b8dc, type: 3}
-    colliderMesh: {fileID: 0}
+    customColliderMesh: {fileID: 0}
     useRigidbodySettings: 0
     rigidbodySettings:
       mass: 1
