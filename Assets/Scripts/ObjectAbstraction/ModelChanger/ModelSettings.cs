@@ -42,9 +42,6 @@ namespace ObjectAbstraction.ModelChanger
 
         public void ApplyCollider(ref GameObject previousColliders)
         {
-            if (!previousColliders) {
-                return;
-            }
             if (!useMeshCollider) {
                 if (previousColliders) {
                     previousColliders.SetActive(false);

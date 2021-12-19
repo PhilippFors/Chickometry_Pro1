@@ -19,12 +19,13 @@ namespace ObjectAbstraction.ModelChanger
             get => shootable;
             set => shootable = value;
         }
+
         public List<Mesh> Models => new List<Mesh> {normalMeshFilter.mesh, abstractMeshFilter.mesh};
         public MeshRenderer NormalRend => normalMat;
         public MeshRenderer AbstractRend => abstractMat;
         public bool IsAbstract => isAbstract;
 
-        [SerializeField] private bool usePlane;
+        [SerializeField] private bool useSlicePlane;
         [SerializeField] public bool useSimpleTransition;
         [SerializeField, ShowIf("usePlane")] private GameObject plane;
         [SerializeField, ShowIf("usePlane")] private float maxYPosition;
@@ -46,7 +47,7 @@ namespace ObjectAbstraction.ModelChanger
             originalAbstraction = IsAbstract;
             OriginalPosition = transform.position;
             OriginalRotation = transform.rotation;
-            
+
             meshCollider = GetComponent<MeshCollider>();
             normalMat = normalMeshFilter.GetComponent<MeshRenderer>();
             abstractMat = abstractMeshFilter.GetComponent<MeshRenderer>();
@@ -65,10 +66,10 @@ namespace ObjectAbstraction.ModelChanger
         public void ToggleModels()
         {
             if (isAbstract) {
-                StartCoroutine(EnableNormalLayer());
+                StartCoroutine(EnableNormalLayer(useSimpleTransition));
             }
             else {
-                StartCoroutine(EnableAbstractLayer());
+                StartCoroutine(EnableAbstractLayer(useSimpleTransition));
             }
 
             isAbstract = !isAbstract;
@@ -92,27 +93,13 @@ namespace ObjectAbstraction.ModelChanger
 
         private IEnumerator Transition(bool toAbstract, bool instant = false)
         {
-            if (useSimpleTransition)
-            {
-                if (toAbstract)
-                {
-                    normalMat.enabled = false;
-                    abstractMat.enabled = true;
-                }
-                else
-                {
-                    normalMat.enabled = true;
-                    abstractMat.enabled = false;
-                }
-            }
-            else
-            {
-                if (usePlane) {
+            if (useSlicePlane) {
                 if (toAbstract) {
                     if (instant) {
                         plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.1f);
                         yield break;
                     }
+
                     plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.5f);
                     plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
@@ -121,15 +108,29 @@ namespace ObjectAbstraction.ModelChanger
                         plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.1f);
                         yield break;
                     }
+
                     plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.5f);
                     plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
             }
+            else {
                 if (toAbstract) {
+                    if (instant) {
+                        normalMat.enabled = false;
+                        abstractMat.enabled = true;
+                        yield break;
+                    }
+
                     MaterialTransitions(normalMat.materials, 1);
                     MaterialTransitions(abstractMat.materials, 0);
                 }
                 else {
+                    if (instant) {
+                        normalMat.enabled = true;
+                        abstractMat.enabled = false;
+                        yield break;
+                    }
+
                     MaterialTransitions(normalMat.materials, 0);
                     MaterialTransitions(abstractMat.materials, 1);
                 }
@@ -144,7 +145,7 @@ namespace ObjectAbstraction.ModelChanger
                 mat.DOFloat(endValue, "_CutoffValue", 0.5f);
             }
         }
-        
+
         private void OnValidate()
         {
             meshCollider = GetComponent<MeshCollider>();

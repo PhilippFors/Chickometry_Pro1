@@ -1,4 +1,3 @@
-using System.Collections;
 using Entities.Player.PlayerInput;
 using RoomLoop.Portal;
 using UnityEngine;

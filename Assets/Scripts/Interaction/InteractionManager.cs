@@ -40,6 +40,7 @@ namespace Interactables
         private float throwTime;
         private float throwForce;
         private Quaternion ogItemRotation;
+        private float oldItemMass;
 
         private void Awake()
         {
@@ -71,6 +72,10 @@ namespace Interactables
 
             HandleRightClick();
             HandleThrow();
+
+            if (currentlyHeldItem) {
+                MonitorMass();
+            }
         }
 
         private void HandelPickup()
@@ -88,6 +93,7 @@ namespace Interactables
                 pickup.OnPickup();
                 var playerRb = GetComponent<Rigidbody>();
                 playerRb.mass += rb.mass;
+                oldItemMass = rb.mass;
             }
         }
 
@@ -198,6 +204,17 @@ namespace Interactables
             }
             else {
                 currentSelected = null;
+            }
+        }
+
+        private void MonitorMass()
+        {
+            var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+            if (oldItemMass > rb.mass || oldItemMass < rb.mass) {
+                var playerRb = GetComponent<Rigidbody>();
+                playerRb.mass -= oldItemMass;
+                playerRb.mass += rb.mass;
+                oldItemMass = rb.mass;
             }
         }
     }

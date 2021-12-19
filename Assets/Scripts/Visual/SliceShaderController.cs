@@ -39,19 +39,6 @@ namespace Visual
             var maxPoint = new Vector3(FindMaxX(verts), FindMaxY(verts), FindMaxZ(verts));
             meshRenderer.material.SetVector("_MinPoint", minPoint);
             meshRenderer.material.SetVector("_MaxPoint", maxPoint);
-            
-            // var right = rot * (new Vector3(pos.x + s.x / 2, pos.y, pos.z) - pos) + pos;
-            // var up = rot * (new Vector3(pos.x, pos.y + s.y / 2, pos.z) - pos) + pos;
-            // var forward = rot * (new Vector3(pos.x, pos.y, pos.z + s.z / 2) - pos) + pos;
-            //
-            // Matrix4x4 m = new Matrix4x4();
-            // m.SetRow(0, volume.transform.forward);
-            // m.SetRow(1, volume.transform.up);
-            // m.SetRow(2, volume.transform.right);
-            //
-            // meshRenderer.material.SetVector("_Position", pos);
-            // meshRenderer.material.SetVector("_Size", s);
-            // meshRenderer.material.SetMatrix("_Directions", m);
         }
 
         private float FindMinX(Vector3[] verts)
