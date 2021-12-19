@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
 using Checkpoints;
+using Interactables;
 using Interaction.Interactables;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -17,6 +16,7 @@ namespace Interaction.Items
         public Vector3 OriginalPosition { get; set; }
         public Quaternion OriginalRotation { get; set; }
         public bool IsPickedUp => isPickedUp;
+        public bool canBePickedUp;
         
         protected bool isPickedUp;
         protected Rigidbody rb;
@@ -54,6 +54,11 @@ namespace Interaction.Items
         {
             transform.position = OriginalPosition;
             transform.rotation = OriginalRotation;
+        }
+
+        public virtual void OnUse(BaseInteractable interactable, InteractionManager manager)
+        {
+            
         }
     }
 }

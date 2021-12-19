@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Checkpoints;
 using DG.Tweening;
@@ -70,11 +69,19 @@ namespace Interactables
                 HandleInteract();
             }
 
-            HandleRightClick();
-            HandleThrow();
-
             if (currentlyHeldItem) {
                 MonitorMass();
+                HandleUse();
+            }
+
+            HandleRightClick();
+            HandleThrow();
+        }
+
+        private void HandleUse()
+        {
+            if (currentSelected && InteractTriggered) {
+                currentlyHeldItem.OnUse(currentSelected, this);
             }
         }
 
@@ -82,6 +89,10 @@ namespace Interactables
         {
             if (!currentlyHeldItem && InteractTriggered && currentSelected.pattern == InteractionPattern.PickUp) {
                 var pickup = (BasePickUpInteractable) currentSelected;
+                if (!pickup.canBePickedUp) {
+                    return;
+                }
+
                 currentlyHeldItem = pickup;
                 currentlyHeldItem.transform.rotation = itemParent.rotation;
                 currentlyHeldItem.transform.parent = itemParent;
@@ -132,17 +143,15 @@ namespace Interactables
                         StartCoroutine(PlaceDown(dist));
                     }
                     else {
-                        currentlyHeldItem.transform.parent = null;
+                        ReleaseObject();
                         var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                         rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
-                        ReleaseObject();
                     }
                 }
                 else {
-                    currentlyHeldItem.transform.parent = null;
+                    ReleaseObject();
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                     rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
-                    ReleaseObject();
                 }
             }
 
@@ -153,8 +162,9 @@ namespace Interactables
             itemParent.localRotation = ogItemRotation;
         }
 
-        private void ReleaseObject()
+        public void ReleaseObject()
         {
+            currentlyHeldItem.transform.parent = null;
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
             var playerRb = GetComponent<Rigidbody>();
             playerRb.mass -= rb.mass;
@@ -170,8 +180,7 @@ namespace Interactables
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
             var playerRb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.None;
-            currentlyHeldItem.transform.DOMove(
-                mainCam.transform.position + new Vector3(0, placeYOffset, 0) + mainCam.transform.forward * dist, 0.5f);
+            currentlyHeldItem.transform.DOMove(mainCam.transform.position + new Vector3(0, placeYOffset, 0) + mainCam.transform.forward * dist, 0.5f);
             yield return new WaitForSeconds(0.5f);
             rb.constraints = constraintCache;
             playerRb.mass -= rb.mass;

@@ -27,9 +27,9 @@ namespace ObjectAbstraction.ModelChanger
 
         [SerializeField] private bool useSlicePlane;
         [SerializeField] public bool useSimpleTransition;
-        [SerializeField, ShowIf("usePlane")] private GameObject plane;
-        [SerializeField, ShowIf("usePlane")] private float maxYPosition;
-        [SerializeField, ShowIf("usePlane")] private float minYPosition;
+        [SerializeField, ShowIf("useSlicePlane")] private GameObject plane;
+        [SerializeField, ShowIf("useSlicePlane")] private float maxYPosition;
+        [SerializeField, ShowIf("useSlicePlane")] private float minYPosition;
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private MeshFilter normalMeshFilter;
