@@ -25,6 +25,7 @@ namespace ObjectAbstraction.ModelChanger
         public bool IsAbstract => isAbstract;
 
         [SerializeField] private bool usePlane;
+        [SerializeField] public bool useSimpleTransition;
         [SerializeField, ShowIf("usePlane")] private GameObject plane;
         [SerializeField, ShowIf("usePlane")] private float maxYPosition;
         [SerializeField, ShowIf("usePlane")] private float minYPosition;
@@ -91,7 +92,22 @@ namespace ObjectAbstraction.ModelChanger
 
         private IEnumerator Transition(bool toAbstract, bool instant = false)
         {
-            if (usePlane) {
+            if (useSimpleTransition)
+            {
+                if (toAbstract)
+                {
+                    normalMat.enabled = false;
+                    abstractMat.enabled = true;
+                }
+                else
+                {
+                    normalMat.enabled = true;
+                    abstractMat.enabled = false;
+                }
+            }
+            else
+            {
+                if (usePlane) {
                 if (toAbstract) {
                     if (instant) {
                         plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.1f);
@@ -109,13 +125,14 @@ namespace ObjectAbstraction.ModelChanger
                     plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
             }
-            if (toAbstract) {
-                MaterialTransitions(normalMat.materials, 1);
-                MaterialTransitions(abstractMat.materials, 0);
-            }
-            else {
-                MaterialTransitions(normalMat.materials, 0);
-                MaterialTransitions(abstractMat.materials, 1);
+                if (toAbstract) {
+                    MaterialTransitions(normalMat.materials, 1);
+                    MaterialTransitions(abstractMat.materials, 0);
+                }
+                else {
+                    MaterialTransitions(normalMat.materials, 0);
+                    MaterialTransitions(abstractMat.materials, 1);
+                }
             }
 
             yield return new WaitForSeconds(0.5f);
