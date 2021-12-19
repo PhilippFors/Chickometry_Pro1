@@ -8,7 +8,7 @@ namespace ObjectAbstraction.AbstractoActions
     {
         public override void Execute(Collider other)
         {
-            var beam = other.GetComponent<WireframeBeamReflector>();
+            var beam = other.GetComponentInParent<WireframeBeamReflector>();
             if (beam) {
                 beam.ToggleBeam();
             }

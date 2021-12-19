@@ -8,7 +8,7 @@ namespace ObjectAbstraction.AbstractoActions
     {
         public override void Execute(Collider other)
         {
-            var wireframe = other.GetComponent<WireframeIdentifier>();
+            var wireframe = other.GetComponentInParent<WireframeIdentifier>();
             if (wireframe) {
                 wireframe.ToggleWireFrame();
             }
