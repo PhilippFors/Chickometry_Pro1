@@ -143,15 +143,16 @@ namespace Interactables
                         StartCoroutine(PlaceDown(dist));
                     }
                     else {
-                        ReleaseObject();
                         var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                         rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
+                        ReleaseObject();
+
                     }
                 }
                 else {
-                    ReleaseObject();
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                     rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
+                    ReleaseObject();
                 }
             }
 
