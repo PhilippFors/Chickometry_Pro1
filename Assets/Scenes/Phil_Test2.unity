@@ -6460,7 +6460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f87bc8e164a2480badf72ceea00e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSlicePlane: 0
+  useSlicePlane: 1
   useSimpleTransition: 0
   plane: {fileID: 384406641}
   maxYPosition: 5.58
@@ -6956,7 +6956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1997293452
 Transform:
   m_ObjectHideFlags: 0
