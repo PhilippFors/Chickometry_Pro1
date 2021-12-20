@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2671294535118569025}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &567782396027066900
 MeshRenderer:
@@ -113,7 +113,7 @@ Transform:
   m_Children:
   - {fileID: 5622967504951514042}
   m_Father: {fileID: 2671294535118569025}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1805628249155182683
 BoxCollider:
@@ -265,6 +265,7 @@ Transform:
   m_LocalPosition: {x: -150.9, y: 17.19, z: 145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 6143715233199942980}
   - {fileID: 2027820578557183338}
   - {fileID: 1805628249155182682}
   m_Father: {fileID: 0}
@@ -296,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f87bc8e164a2480badf72ceea00e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usePlane: 0
+  useSlicePlane: 0
   useSimpleTransition: 0
   plane: {fileID: 0}
   maxYPosition: 0
@@ -311,7 +312,7 @@ MonoBehaviour:
     customColliderMesh: {fileID: 0}
     useRigidbodySettings: 1
     rigidbodySettings:
-      mass: 20
+      mass: 50
       drag: 0
       useGravity: 1
   abstractModel:
@@ -320,7 +321,7 @@ MonoBehaviour:
     customColliderMesh: {fileID: 0}
     useRigidbodySettings: 1
     rigidbodySettings:
-      mass: 5
+      mass: 25
       drag: 0
       useGravity: 1
 --- !u!54 &3047596739565276791
@@ -331,7 +332,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3047596739565276784}
   serializedVersion: 2
-  m_Mass: 20
+  m_Mass: 50
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -339,3 +340,48 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &8272346256400436598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6143715233199942980}
+  - component: {fileID: 3811419869393532346}
+  m_Layer: 11
+  m_Name: ChangerCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6143715233199942980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272346256400436598}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 1, z: 0.75}
+  m_Children: []
+  m_Father: {fileID: 2671294535118569025}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &3811419869393532346
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272346256400436598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3985270561007425831, guid: fda9d1d83929e5046b897862c9636016, type: 3}
