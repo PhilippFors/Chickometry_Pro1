@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7113874073629561263}
   - component: {fileID: 4956681171809049467}
   - component: {fileID: 3524895582209285632}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ColliderVis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8864817092538668696}
   - component: {fileID: 8864817092538668701}
   - component: {fileID: 8864817092538668700}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WireFrameSplineFollower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8864817092538668697}
-  m_LocalRotation: {x: 0.0006863132, y: -0.7084452, z: 0.00068891933, w: 0.7057652}
+  m_LocalRotation: {x: 0.0006836493, y: -0.70844424, z: 0.0006862435, w: 0.70576614}
   m_LocalPosition: {x: 29.759773, y: 2.2298203, z: 16.751791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -116,7 +116,7 @@ Transform:
   - {fileID: 7113874073629561263}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.111, y: -90.217, z: 0}
 --- !u!65 &8864817092538668699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
     keys: []
   sampleCollection:
     samples:
-    - position: {x: 29.759773, y: 2.2298203, z: 16.751791}
+    - position: {x: 29.759775, y: 2.2298203, z: 16.751791}
       up: {x: 0, y: 1, z: 0}
       forward: {x: -0.99999094, y: -0.001944875, z: -0.0037900258}
       color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,7 +177,7 @@ MonoBehaviour:
     clipTo: 1
     loopSamples: 1
   clipFromSample:
-    position: {x: 29.759773, y: 2.2298203, z: 16.751791}
+    position: {x: 29.759775, y: 2.2298203, z: 16.751791}
     up: {x: 0, y: 1, z: 0}
     forward: {x: -0.99999094, y: -0.001944875, z: -0.0037900258}
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -234,14 +234,14 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 8864817092538668698}
   _result:
-    position: {x: 29.759773, y: 2.2298203, z: 16.751791}
+    position: {x: 29.759775, y: 2.2298203, z: 16.751791}
     up: {x: 0, y: 1, z: 0}
     forward: {x: -0.99999094, y: -0.001944875, z: -0.0037900258}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0
   _finalResult:
-    position: {x: 29.759773, y: 2.2298203, z: 16.751791}
+    position: {x: 29.759775, y: 2.2298203, z: 16.751791}
     up: {x: 0, y: 1, z: 0}
     forward: {x: -0.99999094, y: -0.001944875, z: -0.0037900258}
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 8864817093509336368}
   - component: {fileID: 8864817093509336373}
   - component: {fileID: 8864817093509336370}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Checkpoints;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Visual;
 
 namespace ObjectAbstraction.ModelChanger
 {
@@ -26,8 +27,9 @@ namespace ObjectAbstraction.ModelChanger
         public bool IsAbstract => isAbstract;
 
         [SerializeField] private bool useSlicePlane;
-        [SerializeField] public bool useSimpleTransition;
-        [SerializeField, ShowIf("useSlicePlane")] private GameObject plane;
+        [SerializeField] private bool useSimpleTransition;
+        [SerializeField] private float transitionDuration = 0.5f;
+        [SerializeField, ShowIf("useSlicePlane")] private CubeTransitionController plane;
         [SerializeField, ShowIf("useSlicePlane")] private float maxYPosition;
         [SerializeField, ShowIf("useSlicePlane")] private float minYPosition;
         [SerializeField] private bool isAbstract;
@@ -99,8 +101,10 @@ namespace ObjectAbstraction.ModelChanger
                         plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.1f);
                         yield break;
                     }
-
-                    plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.5f);
+                    
+                    plane.Enable();
+                    yield return new WaitForSeconds(0.3f);
+                    plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), transitionDuration).onComplete += () => plane.Disable();
                     plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
                 else {
@@ -108,8 +112,10 @@ namespace ObjectAbstraction.ModelChanger
                         plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.1f);
                         yield break;
                     }
-
-                    plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.5f);
+                    
+                    plane.Enable();
+                    yield return new WaitForSeconds(0.3f);
+                    plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), transitionDuration).onComplete += () => plane.Disable();
                     plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
             }
@@ -142,7 +148,7 @@ namespace ObjectAbstraction.ModelChanger
         public void MaterialTransitions(Material[] mats, float endValue)
         {
             foreach (var mat in mats) {
-                mat.DOFloat(endValue, "_CutoffValue", 0.5f);
+                mat.DOFloat(endValue, "_CutoffValue", transitionDuration);
             }
         }
 

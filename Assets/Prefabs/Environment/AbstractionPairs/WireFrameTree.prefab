@@ -143,7 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f87bc8e164a2480badf72ceea00e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usePlane: 0
+  useSlicePlane: 0
+  useSimpleTransition: 0
+  transitionDuration: 0.5
   plane: {fileID: 0}
   maxYPosition: 0
   minYPosition: 0

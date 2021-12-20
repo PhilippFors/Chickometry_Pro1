@@ -47,8 +47,10 @@ namespace ObjectAbstraction.ModelChanger
                     previousColliders.SetActive(false);
                 }
 
-                colliderParent.SetActive(true);
-                previousColliders = colliderParent;
+                if (colliderParent) {
+                    colliderParent.SetActive(true);
+                    previousColliders = colliderParent;
+                }
             }
             else {
                 if (previousColliders) {
