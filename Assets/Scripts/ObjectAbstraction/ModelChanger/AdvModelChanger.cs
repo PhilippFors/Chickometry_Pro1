@@ -105,7 +105,6 @@ namespace ObjectAbstraction.ModelChanger
                     plane.Enable();
                     yield return new WaitForSeconds(0.3f);
                     plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), transitionDuration).onComplete += () => plane.Disable();
-                    plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
                 else {
                     if (instant) {
@@ -116,7 +115,6 @@ namespace ObjectAbstraction.ModelChanger
                     plane.Enable();
                     yield return new WaitForSeconds(0.3f);
                     plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), transitionDuration).onComplete += () => plane.Disable();
-                    plane.GetComponentInChildren<ParticleSystem>().Play();
                 }
             }
             else {

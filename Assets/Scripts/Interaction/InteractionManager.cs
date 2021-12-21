@@ -80,8 +80,11 @@ namespace Interactables
 
         private void HandleUse()
         {
-            if (currentSelected && InteractTriggered) {
-                currentlyHeldItem.OnUse(currentSelected, this);
+            if (InteractTriggered) {
+                currentlyHeldItem.OnUse(this);
+                if (currentSelected) {
+                    currentlyHeldItem.OnUseWithInteractable(currentSelected, this);
+                }
             }
         }
 
@@ -170,6 +173,7 @@ namespace Interactables
             var playerRb = GetComponent<Rigidbody>();
             playerRb.mass -= rb.mass;
             rb.useGravity = true;
+            rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints = constraintCache;
             currentlyHeldItem.OnThrow();
@@ -207,7 +211,7 @@ namespace Interactables
             if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out var hit,
                 interactionDistance,
                 interactableMask,
-                QueryTriggerInteraction.Ignore)) {
+                QueryTriggerInteraction.Collide)) {
                 var interactable = hit.transform.GetComponent<BaseInteractable>();
 
                 currentSelected = interactable;

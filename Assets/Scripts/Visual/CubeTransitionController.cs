@@ -12,7 +12,7 @@ namespace Visual
     public class CubeTransitionController : MonoBehaviour
     {
         public int cubeAmount;
-        public float absoluteScale = 1;
+        public float startScale = 1;
         public Vector2 range;
         public GameObject cubePrefab;
         public BoxCollider excludeBounds;
@@ -24,7 +24,7 @@ namespace Visual
             foreach (var rend in cubes) {
                 var seed = new Vector2(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
                 rend.material.SetVector("_RandomSeed", seed);
-                rend.material.SetFloat("_AbsoluteScale", absoluteScale);
+                rend.material.SetFloat("_AbsoluteScale", startScale);
                 rend.material.SetVector("_RandomRange", range);
                 rend.gameObject.SetActive(false);
             }

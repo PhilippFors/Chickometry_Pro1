@@ -17,7 +17,7 @@ namespace Interaction.Items
         public Quaternion OriginalRotation { get; set; }
         public bool IsPickedUp => isPickedUp;
         public bool canBePickedUp;
-        
+
         protected bool isPickedUp;
         protected Rigidbody rb;
 
@@ -35,6 +35,7 @@ namespace Interaction.Items
             foreach (var c in col) {
                 c.isTrigger = true; // it just works
             }
+
             var children = GetComponentsInChildren<MeshRenderer>();
             children.ForEach(x => x.gameObject.layer = LayerIds.InteractablesTop);
         }
@@ -46,6 +47,7 @@ namespace Interaction.Items
             foreach (var c in col) {
                 c.isTrigger = false;
             }
+
             var children = GetComponentsInChildren<MeshRenderer>();
             children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
         }
@@ -56,9 +58,12 @@ namespace Interaction.Items
             transform.rotation = OriginalRotation;
         }
 
-        public virtual void OnUse(BaseInteractable interactable, InteractionManager manager)
+        public virtual void OnUseWithInteractable(BaseInteractable interactable, InteractionManager manager)
         {
-            
+        }
+
+        public virtual void OnUse(InteractionManager manager)
+        {
         }
     }
 }
