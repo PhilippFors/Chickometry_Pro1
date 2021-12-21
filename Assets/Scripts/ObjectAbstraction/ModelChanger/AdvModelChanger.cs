@@ -58,10 +58,10 @@ namespace ObjectAbstraction.ModelChanger
         private void Start()
         {
             if (isAbstract) {
-                StartCoroutine(EnableAbstractLayer(true));
+                StartCoroutine(EnableAbstractLayer(useSimpleTransition));
             }
             else {
-                StartCoroutine(EnableNormalLayer(true));
+                StartCoroutine(EnableNormalLayer(useSimpleTransition));
             }
         }
 

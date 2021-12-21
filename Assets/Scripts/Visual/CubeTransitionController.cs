@@ -41,8 +41,7 @@ namespace Visual
         public void Disable()
         {
             foreach (var rend in cubes) {
-                rend.gameObject.SetActive(false);
-                rend.material.DOFloat(0, "_AbsoluteScale", 0.5f);
+                rend.material.DOFloat(0, "_AbsoluteScale", 0.5f).onComplete += () => rend.gameObject.SetActive(false);
             }
         }
         
