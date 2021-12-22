@@ -36,10 +36,27 @@ namespace Interaction.Items
                 c.isTrigger = true; // it just works
             }
 
-            var children = GetComponentsInChildren<MeshRenderer>();
-            children.ForEach(x => x.gameObject.layer = LayerIds.InteractablesTop);
+            ChangeLayer(true);
         }
 
+        protected void ChangeLayer(bool pickUp)
+        {
+            var children = GetComponentsInChildren<MeshRenderer>();
+            children.ForEach(x =>
+            {
+                
+                    if (!x.GetComponent<IgnoreLayerChange>()) {
+                        if (pickUp) {
+                            x.gameObject.layer = LayerIds.InteractablesTop;
+                        }
+                        else {
+                            x.gameObject.layer = LayerIds.Interactable;
+                        }
+                    }
+
+            });
+        }
+        
         public virtual void OnThrow()
         {
             isPickedUp = false;
@@ -48,8 +65,7 @@ namespace Interaction.Items
                 c.isTrigger = false;
             }
 
-            var children = GetComponentsInChildren<MeshRenderer>();
-            children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
+            ChangeLayer(false);
         }
 
         public virtual void ResetToCheckpoint()

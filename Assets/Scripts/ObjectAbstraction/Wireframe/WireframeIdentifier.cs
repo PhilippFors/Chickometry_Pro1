@@ -1,61 +1,71 @@
 using DG.Tweening;
 using ObjectAbstraction.ModelChanger;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using Utlities.MeshUtils;
 
 namespace ObjectAbstraction.Wireframe
 {
     /// <summary>
     /// Used to detect if an object can be turned into a wireframe.
     /// </summary>
+    [RequireComponent(typeof(MeshDataBuilder))]
     public class WireframeIdentifier : MonoBehaviour
     {
         [SerializeField] private float minWireFrameBlend = 0.1f;
         [SerializeField] private int defaultLayer = 1;
         [SerializeField] private int wireframeLayer = 8;
-
+        [SerializeField] private float transitionDuration = 0.2f;
+            
         private AdvModelChanger modelChanger;
         private bool isWireframe;
         private int wireframeBlendID => Shader.PropertyToID("_WireframeBlend");
-        
+
         private void Start()
         {
             modelChanger = GetComponent<AdvModelChanger>();
         }
-        
+
         public void ToggleWireFrame()
         {
             if (isWireframe) {
                 if (modelChanger.IsAbstract) {
-                    MaterialTransitions(modelChanger.AbstractRend.materials, minWireFrameBlend);
-                    gameObject.layer = defaultLayer;
-                    modelChanger.Shootable = true;
+                    DisableWireframe(modelChanger.AbstractRend.materials);
                 }
                 else {
-                    MaterialTransitions(modelChanger.NormalRend.materials, minWireFrameBlend);
-                    gameObject.layer = defaultLayer;
-                    modelChanger.Shootable = true;
+                    DisableWireframe(modelChanger.NormalRend.materials);
                 }
             }
             else {
                 if (modelChanger.IsAbstract) {
-                    MaterialTransitions(modelChanger.AbstractRend.materials, 1);
-                    gameObject.layer = wireframeLayer;
-                    modelChanger.Shootable = false;
+                    EnableWireFrame(modelChanger.AbstractRend.materials);
                 }
                 else {
-                    MaterialTransitions(modelChanger.NormalRend.materials, 1);
-                    gameObject.layer = wireframeLayer;
-                    modelChanger.Shootable = false;
+                    EnableWireFrame(modelChanger.NormalRend.materials);
                 }
             }
 
             isWireframe = !isWireframe;
         }
-        
-        public void MaterialTransitions(Material[] mats, float endValue, float duration = 0.2f)
+
+        private void EnableWireFrame(Material[] mats)
+        {
+            MaterialTransitions(mats, 1);
+            gameObject.layer = wireframeLayer;
+            modelChanger.Shootable = false;
+        }
+
+        private void DisableWireframe(Material[] mats)
+        {
+            MaterialTransitions(mats, minWireFrameBlend);
+            gameObject.layer = defaultLayer;
+            modelChanger.Shootable = true;
+        }
+
+        public void MaterialTransitions(Material[] mats, float endValue)
         {
             foreach (var mat in mats) {
-                mat.DOFloat(endValue, wireframeBlendID, duration);
+                mat.DOFloat(endValue, wireframeBlendID, transitionDuration);
             }
         }
     }

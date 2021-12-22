@@ -17,8 +17,7 @@ namespace ObjectAbstraction
             var col = GetComponent<Collider>();
             col.isTrigger = true;
 
-            var children = GetComponentsInChildren<MeshRenderer>();
-            children.ForEach(x => x.gameObject.layer = LayerIds.InteractablesTop);
+            ChangeLayer(true);
         }
 
         public override void OnThrow()
@@ -26,8 +25,7 @@ namespace ObjectAbstraction
             isPickedUp = false;
             var col = GetComponent<Collider>();
             col.isTrigger = false;
-            var children = GetComponentsInChildren<MeshRenderer>();
-            children.ForEach(x => x.gameObject.layer = LayerIds.Interactable);
+            ChangeLayer(false);
         }
     }
 }

@@ -7,12 +7,16 @@ using UnityEngine;
 
 namespace Utlities.MeshUtils
 {
+    /// <summary>
+    /// Any vertices are doubled so each triangle has it's own vertex.
+    /// Generate Barycentric coordinates that can be used by a shader to generate a wireframe look.
+    /// </summary>
     [DefaultExecutionOrder(-51)]
     public class MeshDataBuilder : MonoBehaviour
     {
         private static HashSet<Mesh> meshes = new HashSet<Mesh>();
         private AdvModelChanger modelChanger;
-        private void OnEnable()
+        private void Awake()
         {
             GenerateMeshData();
         }

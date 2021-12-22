@@ -26,14 +26,14 @@ namespace Visual
                 rend.material.SetVector("_RandomSeed", seed);
                 rend.material.SetFloat("_AbsoluteScale", startScale);
                 rend.material.SetVector("_RandomRange", range);
-                rend.gameObject.SetActive(false);
+                // rend.gameObject.SetActive(false);
             }
         }
 
         public void Enable()
         {
             foreach (var rend in cubes) {
-                rend.gameObject.SetActive(true);
+                // rend.gameObject.SetActive(true);
                 rend.material.DOFloat(1, "_AbsoluteScale", 0.5f);
             }
         }
@@ -41,7 +41,7 @@ namespace Visual
         public void Disable()
         {
             foreach (var rend in cubes) {
-                rend.material.DOFloat(0, "_AbsoluteScale", 0.5f).onComplete += () => rend.gameObject.SetActive(false);
+                rend.material.DOFloat(0, "_AbsoluteScale", 0.5f);
             }
         }
         

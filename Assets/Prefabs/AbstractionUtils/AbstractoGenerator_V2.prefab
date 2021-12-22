@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7092454993423345545}
   - component: {fileID: 7092454993423345547}
   - component: {fileID: 7092454993423345544}
+  - component: {fileID: 12762054928135662}
   m_Layer: 7
   m_Name: Radius
   m_TagString: Untagged
@@ -81,6 +82,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &12762054928135662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092454993423345550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8dec434ca7b3c4e8e18954ad1cebcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7092454993526259859
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7092454993924466636}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.5, y: 7.3600006, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
