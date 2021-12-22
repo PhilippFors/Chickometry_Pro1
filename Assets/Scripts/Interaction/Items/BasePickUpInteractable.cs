@@ -3,6 +3,7 @@ using Interactables;
 using Interaction.Interactables;
 using Sirenix.Utilities;
 using UnityEngine;
+using Utilities;
 using Utlities;
 
 namespace Interaction.Items
@@ -44,19 +45,27 @@ namespace Interaction.Items
             var children = GetComponentsInChildren<MeshRenderer>();
             children.ForEach(x =>
             {
-                
-                    if (!x.GetComponent<IgnoreLayerChange>()) {
-                        if (pickUp) {
-                            x.gameObject.layer = LayerIds.InteractablesTop;
-                        }
-                        else {
-                            x.gameObject.layer = LayerIds.Interactable;
-                        }
-                    }
+                var layerOv = x.GetComponent<LayerChangeOverride>();
 
+                if (pickUp) {
+                    if (layerOv && layerOv.overrideLayer != -1) {
+                        x.gameObject.layer = layerOv.overrideLayer;
+                    }
+                    else {
+                        x.gameObject.layer = LayerIds.InteractablesTop;
+                    }
+                }
+                else {
+                    if (layerOv && layerOv.overrideLayer != -1) {
+                        x.gameObject.layer = layerOv.defaultLayer;
+                    }
+                    else {
+                        x.gameObject.layer = LayerIds.Interactable;
+                    }
+                }
             });
         }
-        
+
         public virtual void OnThrow()
         {
             isPickedUp = false;
