@@ -383,7 +383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6351068454093346867
 Transform:
   m_ObjectHideFlags: 0
@@ -568,6 +568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1769925509068507922}
+  - component: {fileID: 6408506482518274441}
   m_Layer: 6
   m_Name: ItemParent
   m_TagString: Untagged
@@ -582,13 +583,29 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5074541593647760881}
-  m_LocalRotation: {x: -0.08290065, y: 0.68323976, z: 0.016380316, w: 0.72528803}
-  m_LocalPosition: {x: -0.936, y: -0.1, z: 0.86}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.928, y: -0.224, z: 0.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7105781407991806595}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -8.2, y: 86.952, z: -5.189}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6408506482518274441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5074541593647760881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1483a4ead7b2648bdb4bde9144797f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pattern: 0
+  isInteractable: 0
+  sensitity: 200
+  useYAxis: 1
 --- !u!1 &5163543781809551472
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +918,7 @@ MonoBehaviour:
   minThrowForce: 6
   interactionDistance: 2.5
   placeDownDistance: 4
+  placeYOffset: 0.8
   interactableMask:
     serializedVersion: 2
     m_Bits: 128
@@ -923,7 +941,7 @@ MonoBehaviour:
   coolDown: 0.6
   hitMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2048
   canShoot: 1
   anim: {fileID: 7105781406633950127}
 --- !u!114 &6435167782267622569
@@ -1107,7 +1125,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3063
+    m_Bits: 4087
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1135,16 +1153,15 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras:
-  - {fileID: 5164769852171832989}
+  m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
+  m_Antialiasing: 2
+  m_AntialiasingQuality: 1
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
