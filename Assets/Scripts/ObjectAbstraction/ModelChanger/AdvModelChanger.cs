@@ -22,16 +22,23 @@ namespace ObjectAbstraction.ModelChanger
         }
 
         public List<Mesh> Models => new List<Mesh> {normalMeshFilter.mesh, abstractMeshFilter.mesh};
-        public MeshRenderer NormalRend => normalMat;
-        public MeshRenderer AbstractRend => abstractMat;
+        public MeshRenderer NormalRend => normalRend;
+        public MeshRenderer AbstractRend => abstractRend;
         public bool IsAbstract => isAbstract;
 
         [SerializeField] private bool useSlicePlane;
         [SerializeField] private bool useSimpleTransition;
         [SerializeField] private float transitionDuration = 0.5f;
-        [SerializeField, ShowIf("useSlicePlane")] private CubeTransitionController plane;
-        [SerializeField, ShowIf("useSlicePlane")] private float maxYPosition;
-        [SerializeField, ShowIf("useSlicePlane")] private float minYPosition;
+
+        [SerializeField, ShowIf("useSlicePlane")]
+        private CubeTransitionController plane;
+
+        [SerializeField, ShowIf("useSlicePlane")]
+        private float maxYPosition;
+
+        [SerializeField, ShowIf("useSlicePlane")]
+        private float minYPosition;
+
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private MeshFilter normalMeshFilter;
@@ -39,8 +46,8 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private ModelSettings normalModel;
         [SerializeField] private ModelSettings abstractModel;
 
-        private MeshRenderer normalMat;
-        private MeshRenderer abstractMat;
+        private MeshRenderer normalRend;
+        private MeshRenderer abstractRend;
         private MeshCollider meshCollider;
         private GameObject previousColliders;
 
@@ -51,99 +58,90 @@ namespace ObjectAbstraction.ModelChanger
             OriginalRotation = transform.rotation;
 
             meshCollider = GetComponent<MeshCollider>();
-            normalMat = normalMeshFilter.GetComponent<MeshRenderer>();
-            abstractMat = abstractMeshFilter.GetComponent<MeshRenderer>();
+            normalRend = normalMeshFilter.GetComponent<MeshRenderer>();
+            abstractRend = abstractMeshFilter.GetComponent<MeshRenderer>();
         }
 
         private void Start()
         {
+            if (useSlicePlane) {
+                plane.Init(isAbstract, new Vector2(minYPosition, maxYPosition));
+                return;
+            }
+
             if (isAbstract) {
-                StartCoroutine(EnableAbstractLayer(useSimpleTransition));
+                EnableAbstractLayer(useSimpleTransition);
             }
             else {
-                StartCoroutine(EnableNormalLayer(useSimpleTransition));
+                EnableNormalLayer(useSimpleTransition);
             }
         }
 
         public void ToggleModels()
         {
             if (isAbstract) {
-                StartCoroutine(EnableNormalLayer(useSimpleTransition));
+                EnableNormalLayer(useSimpleTransition);
             }
             else {
-                StartCoroutine(EnableAbstractLayer(useSimpleTransition));
+                EnableAbstractLayer(useSimpleTransition);
             }
 
             isAbstract = !isAbstract;
         }
 
-        private IEnumerator EnableNormalLayer(bool instant = false)
+        private void EnableNormalLayer(bool instant = false)
         {
-            yield return StartCoroutine(Transition(false, instant));
             normalModel.ApplyMeshCollider(meshCollider, normalMeshFilter);
             normalModel.ApplyCollider(ref previousColliders);
             normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
+            Transition(false, instant);
         }
 
-        private IEnumerator EnableAbstractLayer(bool instant = false)
+        private void EnableAbstractLayer(bool instant = false)
         {
-            yield return StartCoroutine(Transition(true, instant));
             abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
             abstractModel.ApplyCollider(ref previousColliders);
             abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
+            Transition(true, instant);
         }
 
-        private IEnumerator Transition(bool toAbstract, bool instant = false)
+        private void Transition(bool toAbstract, bool instant = false)
         {
             if (useSlicePlane) {
-                if (toAbstract) {
-                    if (instant) {
-                        plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), 0.1f);
-                        yield break;
-                    }
-                    
-                    plane.Enable();
-                    yield return new WaitForSeconds(0.3f);
-                    plane.transform.DOMove(transform.position + new Vector3(0, minYPosition, 0), transitionDuration).onComplete += () => plane.Disable();
+                if (instant) {
+                    plane.StartTransition(toAbstract, 0.05f, 0.1f,
+                        new Vector2(minYPosition, maxYPosition));
+                    return;
                 }
-                else {
-                    if (instant) {
-                        plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), 0.1f);
-                        yield break;
-                    }
-                    
-                    plane.Enable();
-                    yield return new WaitForSeconds(0.3f);
-                    plane.transform.DOMove(transform.position + new Vector3(0, maxYPosition, 0), transitionDuration).onComplete += () => plane.Disable();
-                }
+
+                plane.StartTransition(toAbstract, 0.2f, transitionDuration,
+                    new Vector2(minYPosition, maxYPosition));
             }
             else {
                 if (toAbstract) {
                     if (instant) {
-                        normalMat.enabled = false;
-                        abstractMat.enabled = true;
-                        yield break;
+                        normalRend.enabled = false;
+                        abstractRend.enabled = true;
+                        return;
                     }
 
-                    MaterialTransitions(normalMat.materials, 1);
-                    MaterialTransitions(abstractMat.materials, 0);
+                    MaterialTransitions(normalRend.materials, 1);
+                    MaterialTransitions(abstractRend.materials, 0);
                 }
                 else {
                     if (instant) {
-                        normalMat.enabled = true;
-                        abstractMat.enabled = false;
-                        yield break;
+                        normalRend.enabled = true;
+                        abstractRend.enabled = false;
+                        return;
                     }
 
-                    MaterialTransitions(normalMat.materials, 0);
-                    MaterialTransitions(abstractMat.materials, 1);
+                    MaterialTransitions(normalRend.materials, 0);
+                    MaterialTransitions(abstractRend.materials, 1);
                 }
             }
-
-            yield return new WaitForSeconds(0.5f);
         }
 
-        public void MaterialTransitions(Material[] mats, float endValue)
+        private void MaterialTransitions(Material[] mats, float endValue)
         {
             foreach (var mat in mats) {
                 mat.DOFloat(endValue, "_CutoffValue", transitionDuration);
@@ -154,7 +152,6 @@ namespace ObjectAbstraction.ModelChanger
         {
             meshCollider = GetComponent<MeshCollider>();
             if (isAbstract) {
-                EnableAbstractLayer();
                 abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
                 abstractModel.ApplyCollider(ref previousColliders);
                 abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());

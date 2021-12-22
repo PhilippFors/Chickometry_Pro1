@@ -20,7 +20,7 @@ namespace Entities.Companion
         private IModelChanger switcher;
         private NavData navData;
         private Vector3[] currentPoints = new Vector3[0];
-        private int pointIndex = 0;
+        private int pointIndex;
 
         private void Awake() {
             if (!player) {
@@ -41,7 +41,11 @@ namespace Entities.Companion
                 return;
             }
 
-            UpdatePath();
+            navData.UpdatePath(transform.position, player.position, ref currentPoints);
+            
+            if (navData.pathStatus == PathStatus.PathReady) {
+                pointIndex = 0;
+            }
             
             if (currentPoints.Length == 0) {
                 return;
@@ -56,21 +60,6 @@ namespace Entities.Companion
 
             transform.LookAt(lookAt);
             rb.MovePosition(transform.position + (transform.forward * (speed * Time.deltaTime)));
-        }
-
-        private void UpdatePath() {
-            navData.source = transform.position;
-            navData.target = player.position;
-
-            if (navData.pathStatus != PathStatus.PathPending) {
-                AiPathManager.RequestPath(navData);
-            }
-
-            if (navData.pathStatus == PathStatus.PathReady) {
-                currentPoints = navData.Path;
-                pointIndex = 0;
-                navData.pathStatus = PathStatus.NoPath;
-            }
         }
 
         private Vector3 GetNextPoint() {

@@ -51,7 +51,7 @@ namespace Interaction.Items
                     if (layerOv && layerOv.overrideLayer != -1) {
                         x.gameObject.layer = layerOv.overrideLayer;
                     }
-                    else {
+                    else if(!layerOv){
                         x.gameObject.layer = LayerIds.InteractablesTop;
                     }
                 }
@@ -59,7 +59,7 @@ namespace Interaction.Items
                     if (layerOv && layerOv.overrideLayer != -1) {
                         x.gameObject.layer = layerOv.defaultLayer;
                     }
-                    else {
+                    else if(!layerOv) {
                         x.gameObject.layer = LayerIds.Interactable;
                     }
                 }

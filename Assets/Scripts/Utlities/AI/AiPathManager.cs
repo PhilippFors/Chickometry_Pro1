@@ -16,7 +16,7 @@ namespace Utilities.AI
     /// Wrapper for important data for handling navigation.
     /// </summary>
     public class NavData
-    {
+    { 
         public NavData()
         {
             navMeshPath = new NavMeshPath();
@@ -29,6 +29,20 @@ namespace Utilities.AI
         public Vector3 target;
         public Vector3[] Path => navMeshPath.corners;
         public PathStatus pathStatus;
+        
+        public void UpdatePath(Vector3 source, Vector3 target, ref Vector3[] points) {
+            this.source = source;
+            this.target = target;
+
+            if (pathStatus != PathStatus.PathPending) {
+                AiPathManager.RequestPath(this);
+            }
+
+            if (pathStatus == PathStatus.PathReady) {
+                points = Path;
+                pathStatus = PathStatus.NoPath;
+            }
+        }
     }
 
     /// <summary>
