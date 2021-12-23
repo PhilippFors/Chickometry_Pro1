@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using ObjectAbstraction.ModelChanger;
@@ -29,12 +30,12 @@ namespace Visual
 
         private void Start()
         {
-            foreach (var rend in cubes) {
-                var seed = new Vector2(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
-                rend.material.SetVector(RandomSeedId, seed);
-                rend.material.SetFloat(AbsoluteScaleId, startScale);
-                rend.material.SetVector(RandomRangeId, range);
-            }
+            // foreach (var rend in cubes) {
+            //     var seed = new Vector2(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
+            //     rend.material.SetVector(RandomSeedId, seed);
+            //     rend.material.SetFloat(AbsoluteScaleId, startScale);
+            //     rend.material.SetVector(RandomRangeId, range);
+            // }
 
             parentModelChanger = GetComponentInParent<AdvModelChanger>().transform;
         }
@@ -42,6 +43,11 @@ namespace Visual
         public void Init(bool toAbstract, Vector2 minMaxY)
         {
             transform.position = parentModelChanger.position + new Vector3(0, toAbstract ? minMaxY.x : minMaxY.y);
+        }
+
+        private void Update()
+        {
+            Shader.SetGlobalVector("_TransitionPosition", transform.position);
         }
 
         public void StartTransition(bool toAbstract, float startTime, float transitionDuration, Vector2 minMaxY)
@@ -55,7 +61,7 @@ namespace Visual
 
         private IEnumerator MovePlane(bool toAbstract, float startTime, float transitionDuration, Vector2 minMaxY)
         {
-            Enable(startTime);
+            // Enable(startTime);
 
             Tween t;
             if (toAbstract) {
@@ -66,8 +72,8 @@ namespace Visual
             }
 
             yield return t.WaitForCompletion();
-
-            Disable(startTime);
+            //
+            // Disable(startTime);
         }
 
         private void Enable(float startTime = 0.2f)

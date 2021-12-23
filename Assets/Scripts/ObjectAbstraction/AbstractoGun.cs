@@ -40,7 +40,6 @@ namespace ObjectAbstraction
                 if (Physics.Raycast(mainCam.position, mainCam.forward, out var hit, Mathf.Infinity, hitMask,
                     QueryTriggerInteraction.Ignore)) {
                     var modelChanger = hit.transform.GetComponentInParent<IModelChanger>();
-                    AdvModelChanger advModelChanger = null;
                     
                     if (modelChanger != null) {
                         if (canShoot) {
