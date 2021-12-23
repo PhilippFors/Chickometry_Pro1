@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using UnityEngine.SocialPlatforms;
 
 namespace ObjectAbstraction.MeshTransition
 {
@@ -58,7 +56,7 @@ namespace ObjectAbstraction.MeshTransition
             originalVerticesLowPoly = new VertexId[lowPoly.vertices.Length];
             triangles = new int[highPoly.triangles.Length];
             deformedTriangles = new int[highPoly.triangles.Length];
-            
+
             for (int i = 0; i < highPoly.vertices.Length; i++) {
                 originalVerticesHighPoly[i] = new VertexId(i, highPoly.vertices[i]);
                 triangles[i] = highPoly.triangles[i];
@@ -95,12 +93,10 @@ namespace ObjectAbstraction.MeshTransition
                     for (int i = 0; i < vertexGroups.Count; i++) {
                         var index = vertexGroups[i].closestHighPoly.Id;
 
-                        displacedVertices[index].vertex = Vector3.Lerp(displacedVertices[index].vertex,
-                            vertexGroups[i].mainLowPoly, elapsedTime / transitionDuration);
+                        displacedVertices[index].vertex = Vector3.Lerp(displacedVertices[index].vertex, vertexGroups[i].mainLowPoly, elapsedTime / transitionDuration);
 
-                        // foreach (var par in vertexGroups[i].connectedVertices) {
-                        //     displacedVertices[par].vertex = Vector3.Lerp(displacedVertices[par].vertex,
-                        //         Vector3.zero, elapsedTime / transitionDuration);
+                        // foreach (var connected in vertexGroups[i].connectedVertices) {
+                        //     displacedVertices[connected].vertex = Vector3.Lerp(displacedVertices[connected].vertex, vertexGroups[i].closestHighPoly.vertex, elapsedTime / transitionDuration);
                         // }
                     }
 
@@ -149,7 +145,7 @@ namespace ObjectAbstraction.MeshTransition
             for (int i = 0; i < originalVerticesHighPoly.Length; i++) {
                 tempHighPoly.Add(new VertexId(originalVerticesHighPoly[i].Id, originalVerticesHighPoly[i].vertex));
             }
-            
+
             for (int i = 0; i < originalVerticesLowPoly.Length; i++) {
                 var vertGroup = new VertexGroup();
                 var closestDistance = float.PositiveInfinity;
@@ -160,9 +156,10 @@ namespace ObjectAbstraction.MeshTransition
                 int closestIndex = 0;
                 for (int j = 0; j < tempHighPoly.Count; j++) {
                     var highPolyId = tempHighPoly[j];
-                    var dist = Vector3.Distance(LocalToWorld(highPolyId.vertex),LocalToWorld(lowPolyId.vertex));
+                    var dist = Vector3.Distance(LocalToWorld(highPolyId.vertex), LocalToWorld(lowPolyId.vertex));
                     if (dist < closestDistance) {
                         closestVertex = new VertexId(highPolyId.Id, highPolyId.vertex);
+                        closestDistance = dist;
                         closestIndex = j;
                     }
                 }
@@ -187,12 +184,15 @@ namespace ObjectAbstraction.MeshTransition
                     int closestIndex = 0;
                     for (int j = 0; j < tempHighPoly.Count; j++) {
                         var otherHighPolyId = tempHighPoly[j];
-                        if (otherHighPolyId.Id != highPolyId.Id) {
-                            var dist = Vector3.Distance(LocalToWorld(highPolyId.vertex), LocalToWorld(otherHighPolyId.vertex));
-                            if (dist < closestDistance) {
-                                closestVertex = new VertexId(otherHighPolyId.Id, otherHighPolyId.vertex);
-                                closestIndex = j;
-                            }
+                        if (otherHighPolyId.Id == highPolyId.Id) {
+                            continue;
+                        }
+
+                        var dist = Vector3.Distance(highPolyId.vertex, otherHighPolyId.vertex);
+                        if (dist < closestDistance) {
+                            closestVertex = new VertexId(otherHighPolyId.Id, otherHighPolyId.vertex);
+                            closestDistance = dist;
+                            closestIndex = j;
                         }
                     }
 
@@ -212,8 +212,9 @@ namespace ObjectAbstraction.MeshTransition
 
         private Vector3 LocalToWorld(Vector3 v)
         {
-            return transform.localToWorldMatrix * v;
+            return transform.TransformPoint(v);
         }
+
         private Vector3[] GetAllVertices(VertexId[] vertices)
         {
             var verts = new Vector3[vertices.Length];
@@ -222,6 +223,32 @@ namespace ObjectAbstraction.MeshTransition
             }
 
             return verts;
+        }
+
+        [Header("Debug")] public bool showDirectVert;
+        [Min(0)] public int highPolyVert;
+        [Min(0)] public int lowPolyVert;
+        [Min(0)] public int vertexGroup;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            if (showDirectVert) {
+                Gizmos.color = Color.red;
+                if (lowPolyVert < originalVerticesLowPoly.Length)
+                    Gizmos.DrawSphere(originalVerticesLowPoly[lowPolyVert].vertex, 0.1f);
+                Gizmos.color = Color.blue;
+                if (highPolyVert < originalVerticesHighPoly.Length)
+                    Gizmos.DrawSphere(originalVerticesHighPoly[highPolyVert].vertex, 0.1f);
+            }
+            else {
+                if (vertexGroup < vertexGroups.Count) {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawSphere(vertexGroups[vertexGroup].mainLowPoly, 0.1f);
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawSphere(vertexGroups[vertexGroup].closestHighPoly.vertex, 0.1f);
+                }
+            }
         }
     }
 }
