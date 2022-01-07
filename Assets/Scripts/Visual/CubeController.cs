@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Visual
 {
@@ -8,15 +6,11 @@ namespace Visual
     {
         public float startScale = 1;
         private MeshRenderer rend;
-        private int RandomSeedId => Shader.PropertyToID("_RandomSeed");
         private int AbsoluteScaleId => Shader.PropertyToID("_AbsoluteScale");
-        private int RandomRangeId => Shader.PropertyToID("_RandomRange");
         private void Awake()
         {
             rend = GetComponent<MeshRenderer>();
             
-            var seed = new Vector2(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
-            rend.material.SetVector(RandomSeedId, seed);
             rend.material.SetFloat(AbsoluteScaleId, startScale);
         }
 

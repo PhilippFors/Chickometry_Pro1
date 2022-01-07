@@ -10,7 +10,7 @@ Material:
   m_Name: FAE_PalmBranch
   m_Shader: {fileID: -6465566751694194690, guid: 85827a98514358f438446da0fc64b0f0, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_b4006a3e19b340fd9b35b75dc9cf5cfb:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: -1740792211, guid: 45b75d02ba260ba43bc95331f81b8058, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -84,6 +88,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_16bbfee654b44f6082432d469ca838a4: 0
+    - Vector1_e55158b3e0994c88a658ae1b5ae64177: 1.5
     - _AmbientOcclusion: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5

@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Utilities.Math;
 using UnityEngine;
 
 namespace Visual
@@ -15,10 +16,10 @@ namespace Visual
         {
             KillChildren();
             for (int i = 0; i < cubeAmount; i++) {
-                var pos = FindRandomInArea();
+                var pos = MathUtils.FindRandomInArea(gameObject, bounds);
                 if (excludeBounds) {
                     while (excludeBounds.bounds.Contains(pos)) {
-                        pos = FindRandomInArea();
+                        pos = MathUtils.FindRandomInArea(gameObject, bounds);
                     }
                 }
 
@@ -37,21 +38,6 @@ namespace Visual
                     Destroy(cubes[i].gameObject);
                 }
             }
-        }
-
-        private Vector3 FindRandomInArea()
-        {
-            return new Vector3(
-                Random.Range(
-                    gameObject.transform.position.x - gameObject.transform.localScale.x * bounds.size.x * 0.5f,
-                    gameObject.transform.position.x + gameObject.transform.localScale.x * bounds.size.x * 0.5f),
-                Random.Range(
-                    gameObject.transform.position.y - gameObject.transform.localScale.y * bounds.size.y * 0.5f,
-                    gameObject.transform.position.y + gameObject.transform.localScale.y * bounds.size.y * 0.5f),
-                Random.Range(
-                    gameObject.transform.position.z - gameObject.transform.localScale.z * bounds.size.z * 0.5f,
-                    gameObject.transform.position.z + gameObject.transform.localScale.z * bounds.size.z * 0.5f)
-            );
         }
     }
 }

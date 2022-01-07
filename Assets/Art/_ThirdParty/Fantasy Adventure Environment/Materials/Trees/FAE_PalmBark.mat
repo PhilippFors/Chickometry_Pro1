@@ -10,7 +10,7 @@ Material:
   m_Name: FAE_PalmBark
   m_Shader: {fileID: -6465566751694194690, guid: cd32417db29324f4f8f49c2a0e918511, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 5
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_1699dfefe7c5441c9bf7f17f6f18be60:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 22ceaf592da8fca41b7e4858b1cd3153, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -32,6 +36,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EdgeVertexGlitchDisplacementSub_5a023c39c1eb4cd2a64c242aea91a86f_Texture2D3ff929ed4e894cdd82b8a6362f94dcd1_2225583857:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -88,6 +96,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 0
+    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 0
+    - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0.5
     - _AmbientOcclusion: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
