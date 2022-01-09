@@ -2,12 +2,17 @@
 
 namespace Interaction.Interactables
 {
-    public class KeyEndPart : SnapInteractable
+    public class KeyEndPart : RoomSnapInteractable
     {
+        public bool realKey;
         [SerializeField] private SocketInteractable keySocket;
-
+        
         public override void OnInteract()
         {
+            if (!isInteractable) {
+                return;
+            }
+            
             if (keySocket.keyInSocket) {
                 Debug.Log("You got a key part");
                 canBePickedUp = true;
@@ -18,6 +23,9 @@ namespace Interaction.Interactables
             }
             else if(keySocket.socketOccupied){
                 Debug.Log("Playing something");
+            }
+            else {
+                Debug.Log("Penis");
             }
         }
     }

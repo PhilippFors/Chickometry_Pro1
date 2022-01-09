@@ -1,11 +1,10 @@
 ﻿using Interactables;
-using Interaction.Items;
 using RoomLoop;
 using UnityEngine;
 
 namespace Interaction.Interactables
 {
-    public class SnapInteractable : BasePickUpInteractable
+    public class RoomSnapInteractable : RoomInteractable
     {
         public Transform attachPoint;
         [SerializeField] private SocketInteractable currentSocket;
@@ -24,7 +23,22 @@ namespace Interaction.Interactables
                 var socket = (SocketInteractable) interactable;
                 if (socket.Activate(this, manager)) {
                     currentSocket = socket;
+                    ReturnObject();
                 }
+            }
+        }
+
+        public override void MakeInvisible()
+        {
+            if (currentSocket) {
+                currentSocket.socketOccupied = false;
+            }
+        }
+
+        public override void MakeVisible()
+        {
+            if (currentSocket) {
+                currentSocket.socketOccupied = true;
             }
         }
     }

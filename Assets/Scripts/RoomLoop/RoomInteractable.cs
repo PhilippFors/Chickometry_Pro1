@@ -13,15 +13,15 @@ namespace RoomLoop
         public bool isInOriginalRoom = true;
 
         [SerializeField] protected bool canTeleport;
-        private RoomPuzzle roomPuzzle;
+        private RoomPuzzleController roomPuzzle;
         private bool thrown;
 
-        public void Init(RoomPuzzle puzzle) => roomPuzzle = puzzle;
+        public void Init(RoomPuzzleController puzzle) => roomPuzzle = puzzle;
 
         public override void OnPickup()
         {
             base.OnPickup();
-            
+
             if (isInOriginalRoom) {
                 roomPuzzle.RemoveObject(this);
             }
@@ -40,14 +40,21 @@ namespace RoomLoop
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.transform.CompareTag("Floor")) {
-                if (isInOriginalRoom) {
-                    roomPuzzle.ReturnObject(this);
-                }
+            if (other.transform.CompareTag("Floor") && thrown) {
+                ReturnObject();
+            }
 
-                if (thrown && isInOriginalRoom) {
-                    roomPuzzle.UpdatePosition(this);
-                }
+            thrown = false;
+        }
+
+        public void ReturnObject()
+        {
+            if (isInOriginalRoom) {
+                roomPuzzle.ReturnObject(this);
+            }
+
+            if (thrown && isInOriginalRoom) {
+                roomPuzzle.UpdatePosition(this);
             }
 
             thrown = false;
@@ -58,6 +65,14 @@ namespace RoomLoop
             transform.position = pos;
             transform.rotation = rot;
             rb.velocity = velocity;
+        }
+
+        public virtual void MakeInvisible()
+        {
+        }
+
+        public virtual void MakeVisible()
+        {
         }
     }
 }

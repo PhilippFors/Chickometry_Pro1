@@ -329,20 +329,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "a86ecff214714661a745f869012a6013"
-                },
-                "m_SlotId": 0
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "9fe3f629a3f8486180e99ca45c476bc5"
-                },
-                "m_SlotId": -2069383439
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "d039fe364f7344f291a2505aaacabb11"
                 },
                 "m_SlotId": 0
@@ -2058,7 +2044,7 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "EdgeVertexGlitchDisplacementSub",
+    "m_Name": "EdgeVertexDisplacementSub",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -2070,9 +2056,6 @@
         }
     },
     "m_Slots": [
-        {
-            "m_Id": "cc5a4eaef25a4095aa25be8b9b0785ff"
-        },
         {
             "m_Id": "6346d057562e477e85005ef66efef5fb"
         },
@@ -2460,24 +2443,6 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Texture2DInputMaterialSlot",
-    "m_ObjectId": "cc5a4eaef25a4095aa25be8b9b0785ff",
-    "m_Id": -2069383439,
-    "m_DisplayName": "Main Texture",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Texture2D_3ff929ed4e894cdd82b8a6362f94dcd1",
-    "m_StageCapability": 3,
-    "m_BareResource": false,
-    "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
-        "m_Guid": ""
-    },
-    "m_DefaultType": 0
 }
 
 {

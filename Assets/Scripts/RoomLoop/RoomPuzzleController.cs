@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Sirenix.Utilities;
 using UnityEngine;
 
 namespace RoomLoop
 {
-    public class RoomPuzzle : MonoBehaviour
+    public class RoomPuzzleController : MonoBehaviour
     {
         [SerializeField] private List<AbstractionObjectPair> objectPairs = new List<AbstractionObjectPair>();
 
@@ -13,7 +12,6 @@ namespace RoomLoop
             foreach (var obj in objectPairs) {
                 obj.abstractObject.Init(this);
                 obj.normalObject.Init(this);
-                // obj.abstractObject.transform.localPosition = obj.normalObject.transform.localPosition;
             }
         }
 
@@ -21,13 +19,22 @@ namespace RoomLoop
         {
             if (obj.isAbstract) {
                 var pair = objectPairs.Find(x => x.abstractObject == obj);
+
                 var norm = pair.normalObject;
+                if (norm == null) {
+                    return;
+                }
                 norm.gameObject.SetActive(false);
+                norm.MakeInvisible();
             }
             else {
                 var pair = objectPairs.Find(x => x.normalObject == obj);
                 var abstr = pair.abstractObject;
+                if (abstr == null) {
+                    return;
+                }
                 abstr.gameObject.SetActive(false);
+                abstr.MakeInvisible();
             }
         }
 
@@ -36,12 +43,20 @@ namespace RoomLoop
             if (obj.isAbstract) {
                 var pair = objectPairs.Find(x => x.abstractObject == obj);
                 var norm = pair.normalObject;
+                if (norm == null) {
+                    return;
+                }
                 norm.gameObject.SetActive(true);
+                norm.MakeVisible();
             }
             else {
                 var pair = objectPairs.Find(x => x.normalObject == obj);
                 var abstr = pair.abstractObject;
+                if (abstr == null) {
+                    return;
+                }
                 abstr.gameObject.SetActive(true);
+                abstr.MakeVisible();
             }
         }
 

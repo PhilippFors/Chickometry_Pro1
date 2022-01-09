@@ -21,7 +21,7 @@ namespace Interaction.Interactables
             waterParticlesPlay.Play();
         }
 
-        public override bool Activate(SnapInteractable interactable, InteractionManager manager)
+        public override bool Activate(RoomSnapInteractable interactable, InteractionManager manager)
         {
             base.Activate(interactable, manager);
             isInteractable = true;
