@@ -5,6 +5,8 @@ namespace RoomLoop
 {
     public class RoomPuzzleController : MonoBehaviour
     {
+        [SerializeField] private Transform normalRoom;
+        [SerializeField] private Transform abstractRoom;
         [SerializeField] private List<AbstractionObjectPair> objectPairs = new List<AbstractionObjectPair>();
 
         private void Awake()
@@ -24,6 +26,7 @@ namespace RoomLoop
                 if (norm == null) {
                     return;
                 }
+
                 norm.gameObject.SetActive(false);
                 norm.MakeInvisible();
             }
@@ -33,6 +36,7 @@ namespace RoomLoop
                 if (abstr == null) {
                     return;
                 }
+
                 abstr.gameObject.SetActive(false);
                 abstr.MakeInvisible();
             }
@@ -46,6 +50,7 @@ namespace RoomLoop
                 if (norm == null) {
                     return;
                 }
+
                 norm.gameObject.SetActive(true);
                 norm.MakeVisible();
             }
@@ -55,6 +60,7 @@ namespace RoomLoop
                 if (abstr == null) {
                     return;
                 }
+
                 abstr.gameObject.SetActive(true);
                 abstr.MakeVisible();
             }
@@ -65,12 +71,16 @@ namespace RoomLoop
             if (obj.isAbstract) {
                 var pair = objectPairs.Find(x => x.abstractObject == obj);
                 var norm = pair.normalObject;
-                norm.transform.localPosition = obj.transform.localPosition;
+                var diff = obj.transform.position - abstractRoom.position;
+                norm.transform.position = normalRoom.position + diff + new Vector3(0, 0.5f, 0);
+                norm.transform.rotation = obj.transform.rotation;
             }
             else {
                 var pair = objectPairs.Find(x => x.normalObject == obj);
                 var abstr = pair.abstractObject;
-                abstr.transform.localPosition = obj.transform.localPosition;
+                var diff = obj.transform.position - normalRoom.position;
+                abstr.transform.position = abstractRoom.position + diff + new Vector3(0, 0.5f, 0);
+                abstr.transform.rotation = obj.transform.rotation;
             }
         }
     }

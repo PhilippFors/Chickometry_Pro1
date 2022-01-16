@@ -2,7 +2,7 @@
 
 namespace Interaction.Interactables
 {
-    public class KeyEndPart : RoomSnapInteractable
+    public class KeyInteractable : RoomSnapInteractable
     {
         public bool realKey;
         [SerializeField] private SocketInteractable keySocket;
@@ -27,6 +27,10 @@ namespace Interaction.Interactables
             else {
                 Debug.Log("Penis");
             }
+        }
+
+        public override void MakeVisible()
+        {
         }
     }
 }

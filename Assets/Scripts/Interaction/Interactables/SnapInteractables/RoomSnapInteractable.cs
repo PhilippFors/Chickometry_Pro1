@@ -30,13 +30,21 @@ namespace Interaction.Interactables
 
         public override void MakeInvisible()
         {
-            if (currentSocket) {
+            if (currentSocket && !currentSocket.socketOccupied) {
                 currentSocket.socketOccupied = false;
             }
         }
 
         public override void MakeVisible()
         {
+            var hits = Physics.OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Interactable"), QueryTriggerInteraction.Collide);
+            foreach (var hit in hits) {
+                var socket = hit.GetComponent<SocketInteractable>();
+                if (socket) {
+                    socket.AttachObject(this);
+                }
+            }
+            
             if (currentSocket) {
                 currentSocket.socketOccupied = true;
             }

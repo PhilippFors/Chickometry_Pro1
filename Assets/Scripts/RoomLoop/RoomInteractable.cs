@@ -11,11 +11,12 @@ namespace RoomLoop
         public Transform currentParent;
         public bool isAbstract;
         public bool isInOriginalRoom = true;
+        [HideInInspector] public bool thrown;
 
         [SerializeField] protected bool canTeleport;
+        
         private RoomPuzzleController roomPuzzle;
-        private bool thrown;
-
+        
         public void Init(RoomPuzzleController puzzle) => roomPuzzle = puzzle;
 
         public override void OnPickup()
