@@ -16,7 +16,7 @@ namespace RoomLoop.Portal
             portal = GetComponentInParent<Portal>();
         }
 
-        void LateUpdate()
+        void Update()
         {
             if (teleportQueue.Count > 0) {
                 for (int i = 0; i < teleportQueue.Count; i++) {

@@ -1,4 +1,5 @@
 ﻿using Interactables;
+using Interactables.Util;
 using UnityEngine;
 
 namespace Interaction.Interactables
@@ -6,11 +7,7 @@ namespace Interaction.Interactables
     public class WaterPump : SocketInteractable
     {
         [SerializeField] private ParticleSystem waterParticlesPlay;
-
-        private void Start()
-        {
-            isInteractable = false;
-        }
+        [SerializeField] private TimedPlantActivator activator;
 
         public override void OnInteract()
         {
@@ -19,6 +16,11 @@ namespace Interaction.Interactables
             }
             
             waterParticlesPlay.Play();
+            
+            if (!activator) {
+                return;
+            }
+            activator.ActivateTimer();
         }
 
         public override bool Activate(RoomSnapInteractable interactable, InteractionManager manager)

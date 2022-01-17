@@ -5,8 +5,8 @@ namespace Interaction.Items.ProgressionItems
 {
     public class KeyMergeController : MonoBehaviour
     {
-        [SerializeField] private RoomLoopKey normalKey;
         [SerializeField] private RoomLoopKey abstractKey;
+        [SerializeField] private RoomLoopKey normalKey;
         [SerializeField] private Transform mainKeyTransformAbstract;
         [SerializeField] private Transform mainKeyTransformNormal;
         [SerializeField] private SocketInteractable[] abstractSockets;
@@ -14,7 +14,7 @@ namespace Interaction.Items.ProgressionItems
         [SerializeField] private RoomSnapInteractable[] abstractKeyParts;
         [SerializeField] private RoomSnapInteractable[] normalKeyParts;
 
-        private bool[] keys = new bool[3];
+        private bool[] filledKeys = new bool[3];
 
         private void Start()
         {
@@ -40,7 +40,7 @@ namespace Interaction.Items.ProgressionItems
 
         private bool CheckForAllKeys()
         {
-            foreach (var b in keys) {
+            foreach (var b in filledKeys) {
                 if (!b) {
                     return false;
                 }
@@ -54,22 +54,13 @@ namespace Interaction.Items.ProgressionItems
             for (int i = 0; i < abstractSockets.Length; i++) {
                 if (abstractSockets[i].gameObject.activeSelf && abstractSockets[i] == socket ||
                     normalSockets[i].gameObject.activeSelf && normalSockets[i] == socket) {
-                    keys[i] = true;
+                    filledKeys[i] = true;
                     AttachToSocket(normalSockets[i], normalKeyParts[i]);
                     AttachToSocket(abstractSockets[i], abstractKeyParts[i]);
 
-                    DisableKeys(normalKeyParts[i].gameObject, mainKeyTransformNormal);
-                    DisableKeys(abstractKeyParts[i].gameObject, mainKeyTransformAbstract);
+                    DisableKey(normalKeyParts[i].gameObject, mainKeyTransformNormal);
+                    DisableKey(abstractKeyParts[i].gameObject, mainKeyTransformAbstract);
                 }
-
-                // if (abstractSockets[i] == socket) {
-                //     abstractKeyParts[i].thrown = true;
-                //     abstractKeyParts[i].ReturnObject();
-                // }
-                // else if (normalSockets[i] == socket) {
-                //     normalKeyParts[i].thrown = true;
-                //     normalKeyParts[i].ReturnObject();
-                // }
             }
 
             if (CheckForAllKeys()) {
@@ -78,7 +69,7 @@ namespace Interaction.Items.ProgressionItems
         }
 
 
-        private void DisableKeys(GameObject key, Transform newParent)
+        private void DisableKey(GameObject key, Transform newParent)
         {
             key.GetComponent<Rigidbody>().isKinematic = true;
             key.GetComponent<Collider>().enabled = false;

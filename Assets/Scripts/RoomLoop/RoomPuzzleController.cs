@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Interaction.Interactables;
 using UnityEngine;
 
 namespace RoomLoop
@@ -81,6 +82,20 @@ namespace RoomLoop
                 var diff = obj.transform.position - normalRoom.position;
                 abstr.transform.position = abstractRoom.position + diff + new Vector3(0, 0.5f, 0);
                 abstr.transform.rotation = obj.transform.rotation;
+            }
+        }
+
+        public void SyncPair(RoomInteractable obj)
+        {
+            if (obj.isAbstract) {
+                var pair = objectPairs.Find(x => x.abstractObject == obj);
+                var norm = pair.normalObject;
+                norm.Sync(obj);
+            }
+            else {
+                var pair = objectPairs.Find(x => x.normalObject == obj);
+                var abstr = pair.abstractObject;
+                abstr.Sync(obj);
             }
         }
     }

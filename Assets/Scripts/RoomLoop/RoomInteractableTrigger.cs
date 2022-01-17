@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interaction.Interactables;
+using UnityEngine;
 
 namespace RoomLoop
 {

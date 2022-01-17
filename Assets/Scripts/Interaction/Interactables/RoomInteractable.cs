@@ -1,21 +1,18 @@
 ﻿using Interaction.Items;
-using RoomLoop.Portal;
+using RoomLoop;
 using UnityEngine;
 
-namespace RoomLoop
+namespace Interaction.Interactables
 {
-    public class RoomInteractable : BasePickUpInteractable, IPortalTraveller
+    public class RoomInteractable : BasePickUpInteractable
     {
         public Vector3 PreviousPortalOffset { get; set; }
-        public virtual bool CanTravel => canTeleport;
         public Transform currentParent;
         public bool isAbstract;
         public bool isInOriginalRoom = true;
         [HideInInspector] public bool thrown;
 
-        [SerializeField] protected bool canTeleport;
-        
-        private RoomPuzzleController roomPuzzle;
+        protected RoomPuzzleController roomPuzzle;
         
         public void Init(RoomPuzzleController puzzle) => roomPuzzle = puzzle;
 
@@ -27,7 +24,6 @@ namespace RoomLoop
                 roomPuzzle.RemoveObject(this);
             }
 
-            canTeleport = false;
         }
 
         public override void OnThrow()
@@ -35,13 +31,12 @@ namespace RoomLoop
             base.OnThrow();
 
             thrown = true;
-            canTeleport = true;
             transform.parent = currentParent;
         }
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.transform.CompareTag("Floor") && thrown) {
+            if (thrown) {
                 ReturnObject();
             }
 
@@ -75,5 +70,7 @@ namespace RoomLoop
         public virtual void MakeVisible()
         {
         }
+        
+        public virtual void Sync(RoomInteractable interactable){}
     }
 }

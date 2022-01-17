@@ -30,7 +30,7 @@ namespace Interaction.Interactables
 
         public override void MakeInvisible()
         {
-            if (currentSocket && !currentSocket.socketOccupied) {
+            if (currentSocket && currentSocket.socketOccupied) {
                 currentSocket.socketOccupied = false;
             }
         }
