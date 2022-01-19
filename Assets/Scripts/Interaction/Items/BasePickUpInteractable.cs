@@ -34,7 +34,9 @@ namespace Interaction.Items
             isPickedUp = true;
             var col = GetComponentsInChildren<Collider>(true);
             foreach (var c in col) {
-                c.isTrigger = true; // it just works
+                if (!c.GetComponent<IgnoreColliderChange>()) {
+                    c.isTrigger = true; // it just works
+                }
             }
 
             ChangeLayer(true);
@@ -71,7 +73,9 @@ namespace Interaction.Items
             isPickedUp = false;
             var col = GetComponentsInChildren<Collider>(true);
             foreach (var c in col) {
-                c.isTrigger = false;
+                if (!c.GetComponent<IgnoreColliderChange>()) {
+                    c.isTrigger = false; // it just works
+                }
             }
 
             ChangeLayer(false);

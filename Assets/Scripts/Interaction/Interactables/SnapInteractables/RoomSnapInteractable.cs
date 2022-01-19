@@ -1,5 +1,4 @@
 ﻿using Interactables;
-using RoomLoop;
 using UnityEngine;
 
 namespace Interaction.Interactables

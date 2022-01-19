@@ -20,7 +20,7 @@ namespace Interaction.Interactables
         {
             base.OnPickup();
 
-            if (isInOriginalRoom) {
+            if (roomPuzzle && isInOriginalRoom) {
                 roomPuzzle.RemoveObject(this);
             }
 
