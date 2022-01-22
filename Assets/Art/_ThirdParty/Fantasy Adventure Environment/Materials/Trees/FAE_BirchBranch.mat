@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_b4006a3e19b340fd9b35b75dc9cf5cfb:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Alpha:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -132,6 +136,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_16bbfee654b44f6082432d469ca838a4: 0
+    - Vector1_e55158b3e0994c88a658ae1b5ae64177: 1.5
     - _AO: 1
     - _Alphacutoff: 0.415
     - _AmbientOcclusion: 0.645
@@ -200,9 +206,9 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.16983688, g: 1, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HueVariation: {r: 1, g: 0, b: 0.06547117, a: 0.78039217}
+    - _HueVariation: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.78039217}
     - _SSSColor: {r: 0.9368154, g: 1, b: 0.3455882, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
     - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.41, a: 1}

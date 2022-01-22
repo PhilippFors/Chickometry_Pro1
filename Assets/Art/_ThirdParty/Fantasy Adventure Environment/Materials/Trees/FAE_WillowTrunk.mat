@@ -10,7 +10,7 @@ Material:
   m_Name: FAE_WillowTrunk
   m_Shader: {fileID: -6465566751694194690, guid: cd32417db29324f4f8f49c2a0e918511, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_1699dfefe7c5441c9bf7f17f6f18be60:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 06f7f421fac668f4ab7f892a15a6e8c6, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -84,6 +88,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 0
+    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 2
+    - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0.5
     - _AmbientOcclusion: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5

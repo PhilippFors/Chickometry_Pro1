@@ -71,35 +71,47 @@ Material:
         m_Texture: {fileID: 2800000, guid: 39618f4b1a43f7b4e9dad30dd15e9fab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1942CF3A: 4
+    - Vector1_1942CF3A: 1.6
     - Vector1_67814CC1: 0.1
     - Vector1_7DFD32F9: 0.13
-    - Vector1_BE75C478: -12.79
-    - Vector1_E23F9E57: 0.876
-    - Vector1_E796673B: 6.97
+    - Vector1_BE75C478: 5.47
+    - Vector1_E23F9E57: 0.678
+    - Vector1_E796673B: 7.39
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Depth: 5.6
+    - _Depth: 19.9
     - _Depthdarkness: 0.58
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeFade: 1
-    - _FlowSpeed: 1.02
+    - _FlowSpeed: 0.53
     - _Fresnelexponent: 4
-    - _Glossiness: 0.806
+    - _Glossiness: 0.74
     - _HighlightPanning: 0
     - _Metallic: 0
-    - _Metallicness: 0.265
+    - _Metallicness: 0.626
     - _Mode: 0
-    - _NormalStrength: 1
+    - _NormalStrength: 0.837
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RefractionAmount: 0.0586
+    - _RefractionAmount: 0.0855
     - _RimDistance: 0
-    - _RimRize: 2
+    - _RimRize: 3.43
     - _RimSize: 4
-    - _RimTiling: 4.9
+    - _RimTiling: 1
     - _Rimfalloff: 0.25
     - _Rimtiling: 0.79
     - _SrcBlend: 1
@@ -107,7 +119,7 @@ Material:
     - _SurfaceHightlighttiling: 0.25
     - _Surfacehightlightsize: 0
     - _TesselationEdgeLengt: 0.15
-    - _Tiling: 0.27
+    - _Tiling: 0.12
     - _Transparency: 0.534
     - _UVSec: 0
     - _UseIntersectionHighlight: 1
@@ -123,6 +135,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WaterColor: {r: 0.21323532, g: 0.67444223, b: 1, a: 1}
+    - _WaterColor: {r: 0.10849059, g: 1, b: 0.9232524, a: 1}
     - _WaterShallowColor: {r: 0, g: 0.9394503, b: 1, a: 1}
   m_BuildTextureStacks: []
