@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Visual
 {
+    /// <summary>
+    /// Generate a set amount of cubes in a defined volume
+    /// </summary>
     public class VolumeCubeGenerator : MonoBehaviour
     {
         public int cubeAmount;

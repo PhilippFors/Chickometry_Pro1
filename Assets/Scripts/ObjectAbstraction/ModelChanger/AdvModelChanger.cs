@@ -31,7 +31,7 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private float transitionDuration = 0.5f;
 
         [SerializeField, ShowIf("useSlicePlane")]
-        private CubeTransitionController plane;
+        private TransitionController plane;
 
         [SerializeField, ShowIf("useSlicePlane")]
         private float maxYPosition;

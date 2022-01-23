@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Visual
 {
+    /// <summary>
+    /// Controls the slice plane parameters on the mesh it is assigned to
+    /// </summary>
     public class SliceShaderController : MonoBehaviour
     {
         public bool reverse;
@@ -9,12 +12,17 @@ namespace Visual
         public MeshRenderer meshRenderer;
         public BoxCollider volume;
 
-        // Update is called once per frame
+        private void Awake()
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+            meshRenderer.material.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
+        }
+
         void Update()
         {
-            GetMinMax();
-            meshRenderer.material.SetVector("_PlanePos", plane.transform.position);
-            meshRenderer.material.SetVector("_PlaneDir", plane.transform.forward);
+            // GetMinMax();
+            meshRenderer.material.SetVector("_SlicePlanePos", plane.transform.position);
+            meshRenderer.material.SetVector("_SlicePlaneDir", plane.transform.forward);
             meshRenderer.material.SetFloat("_Reverse", reverse ? 1 : 0);
         }
 
