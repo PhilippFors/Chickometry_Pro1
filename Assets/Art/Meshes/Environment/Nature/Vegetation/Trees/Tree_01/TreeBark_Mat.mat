@@ -23,6 +23,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 61a3270c4d8878644a0cf42159f9e789, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_d2a0e76bbef54a5fa694385bcc69bf16_Texture2Dbd82a118ee5c44548e7744cd95402304_4131117674:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchShaderSub_e4e92c2dd5434ccd8e01ca956e2eb118_Texture2D45aa8a533b144a9b9c1acd62dc70e6d8_3976009163:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 641c8ac0c215a24429b1a9cdbeeb7568, type: 3}
         m_Scale: {x: 3, y: 3}
@@ -84,9 +92,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_0a0b203953d94fe4bf330386803b85ff: 0.7
+    - Vector1_1: 0.2
+    - Vector1_125e8f371cbd4d2890ee391876afae4f: 2
     - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 5
-    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 1.81
+    - Vector1_76f87e6ecc0f455ebc7808c49637fbb0: 1.76
+    - Vector1_84a2ef05dcf6416882317d2c3d98ddf7: 0.89
+    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 2.42
     - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0.71
+    - Vector1_cece7f719ab547cf9f1983fb3840f704: 6.92
+    - Vector1_d515358ae6cc4de988f5461708932c58: 0.5
+    - Vector1_dedb2ced46c04e348a20c7b6157f3c32: 0.15
     - _AlphaClip: 0
     - _AmbientOcclusion: 0.461
     - _Blend: 0
@@ -117,6 +133,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 1.605559, g: 0.0756546, b: 0.0756546, a: 0}
     - _BaseColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
