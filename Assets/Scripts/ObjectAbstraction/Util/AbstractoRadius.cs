@@ -13,12 +13,14 @@ namespace ObjectAbstraction
     public class AbstractoRadius : MonoBehaviour
     {
         [SerializeField] private AbstractoAction action;
+
         [SerializeField] private float radius = 1;
+
         // [SerializeField] private Transform radiusVis;
         [SerializeField] private bool permanentChange;
         [SerializeField] private bool hasTimer;
         [SerializeField] private float timer;
-        
+
         private List<IModelChanger> changers = new List<IModelChanger>();
         private AbstractoGrenadeThrower grenadeThrower;
 
@@ -80,14 +82,16 @@ namespace ObjectAbstraction
             var modelChanger = other.gameObject.GetComponentInParent<IModelChanger>();
             if (modelChanger != null && changers.Contains(modelChanger) && !permanentChange) {
                 action.Execute(other);
-                StartCoroutine(WaitRemove(modelChanger));
             }
+            StartCoroutine(WaitRemove(modelChanger));
         }
 
         private IEnumerator WaitRemove(IModelChanger modelChanger)
         {
-            yield return new WaitForSeconds(0.1f);
-            changers.Remove(modelChanger);
+            if (modelChanger != null) {
+                yield return new WaitForSeconds(0.1f);
+                changers.Remove(modelChanger);
+            }
         }
 
         private void ToggleAll()
