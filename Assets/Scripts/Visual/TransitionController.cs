@@ -17,33 +17,33 @@ namespace Visual
         [SerializeField] private Transform plane;
         [SerializeField] private VolumeCubeGenerator cubeGenerator;
         [SerializeField] private float cubeScale = 1;
+        [SerializeField] private float maxYPosition;
+        [SerializeField] private float minYPosition;
         [SerializeField] private float minDistance = 0.5f;
         [SerializeField] private float maxDistance = 3.5f;
         [SerializeField] private float cubeStartScale;
-        [SerializeField] private bool drawGizmos;
+        [SerializeField] private int batchAmount = 50;
+        [Header("Gizmos"), SerializeField] private bool drawGizmos;
+        [SerializeField] private float gizmoSize;
 
         private BoxCollider bounds;
         private Coroutine coroutine;
         private Transform parentModelChanger;
         private Dictionary<int, MeshRenderer> currentRenderers = new Dictionary<int, MeshRenderer>();
         private bool isTransitioning;
-        public int batchAmount = 50;
         private int batchCount;
         private bool updateRunning;
+        private Vector3 toAbstractPos => parentModelChanger.position + (-plane.transform.forward * minYPosition);
+        private Vector3 toNormalPos => parentModelChanger.position + (-plane.transform.forward * maxYPosition);
+
         private void OnValidate()
         {
-            // if (cubes) {
-            //     currentRenderers = cubes.GetComponentsInChildren<MeshRenderer>();
-            // }
-        }
-
-        private void Awake()
-        {
-            // currentRenderers = cubes.GetComponentsInChildren<MeshRenderer>();
-            // foreach (var r in currentRenderers) {
-                // r.material.SetFloat("_AbsoluteScale", cubeStartScale);
-                // r.material.SetFloat("_MaxDistance", maxDistance);
-            // }
+            if (!parentModelChanger) {
+                var p = GetComponentInParent<AdvModelChanger>();
+                if (p) {
+                    parentModelChanger = p.transform;
+                }
+            }
         }
 
         private void Start()
@@ -51,9 +51,9 @@ namespace Visual
             parentModelChanger = GetComponentInParent<AdvModelChanger>().transform;
         }
 
-        public void Init(bool toAbstract, Vector2 minMaxY)
+        public void Init(bool toAbstract)
         {
-            transform.position = parentModelChanger.position + new Vector3(0, toAbstract ? minMaxY.x : minMaxY.y);
+            transform.position = toAbstract ? toAbstractPos : toNormalPos;
         }
 
         private void Update()
@@ -68,17 +68,20 @@ namespace Visual
                 }
             }
         }
-        
+
         private async UniTaskVoid UpdateCubeSpawns()
         {
             updateRunning = true;
             var maxDist = maxDistance + 0.5f;
             var positions = cubeGenerator.CubePositions;
-            for(int i = 0; i < positions.Count; i++) {
+            for (int i = 0; i < positions.Count; i++) {
                 batchCount++;
-                var pos = cubeGenerator.transform.TransformPoint(positions[i]);
-                var dist = Mathf.Abs(pos.y - plane.position.y);
                 
+                var pos = cubeGenerator.transform.TransformPoint(positions[i]);
+                pos = parentModelChanger.worldToLocalMatrix.MultiplyPoint3x4(pos);
+                var planePos = parentModelChanger.worldToLocalMatrix.MultiplyPoint3x4(plane.position);
+                var dist = Mathf.Abs(pos.y - planePos.y);
+
                 if (dist > maxDist && currentRenderers.ContainsKey(i)) {
                     var cube = currentRenderers[i];
                     cube.transform.parent = null;
@@ -86,18 +89,18 @@ namespace Visual
                     CubePool.Instance.ReleaseObject(cube.GetComponent<CubeController>());
                     continue;
                 }
-                
+
                 if (dist < maxDist && !currentRenderers.ContainsKey(i)) {
                     var cube = CubePool.Instance.GetObject();
                     cube.transform.parent = cubeGenerator.transform;
                     cube.transform.localPosition = positions[i];
-                    cube.transform.rotation = plane.rotation;
+                    cube.transform.localRotation = plane.localRotation;
                     cube.transform.localScale = new Vector3(cubeScale, cubeScale, cubeScale);
                     var renderer = cube.GetComponent<MeshRenderer>();
                     currentRenderers.Add(i, renderer);
                     SetCubeMaterial(renderer);
                 }
-                
+
                 if (batchCount >= batchAmount) {
                     UniTask.Yield();
                     batchCount = 0;
@@ -110,41 +113,42 @@ namespace Visual
         private void SetCubeMaterial(MeshRenderer r)
         {
             r.material.SetVector("_TransitionPosition", plane.position);
-            r.material.SetVector("_SelfPosition", r.transform.position);
             r.material.SetFloat("_AbsoluteScale", cubeStartScale);
             r.material.SetFloat("_MaxDistance", maxDistance);
             r.material.SetFloat("_MinDistance", minDistance);
+            r.material.SetMatrix("_WorldToLocal", parentModelChanger.worldToLocalMatrix);
         }
 
-        public void StartTransition(bool toAbstract, float startTime, float transitionDuration, Vector2 minMaxY)
+        public void StartTransition(bool toAbstract, float transitionDuration)
         {
             if (coroutine != null) {
                 StopCoroutine(coroutine);
                 isTransitioning = false;
             }
 
-            coroutine = StartCoroutine(MovePlane(toAbstract, startTime, transitionDuration, minMaxY));
+            coroutine = StartCoroutine(MovePlane(toAbstract, transitionDuration));
         }
 
-        private IEnumerator MovePlane(bool toAbstract, float startTime, float transitionDuration, Vector2 minMaxY)
+        private IEnumerator MovePlane(bool isAbstract, float transitionDuration)
         {
             isTransitioning = true;
-            var dir = plane.forward * Mathf.Abs(minMaxY.x - minMaxY.y);
+            var dir = plane.forward * Mathf.Abs(minYPosition - maxYPosition);
             Tween t;
-            if (toAbstract) {
-                t = transform.DOMove(parentModelChanger.position + dir, transitionDuration);
+            if (isAbstract) {
+                t = transform.DOMove(toNormalPos, transitionDuration);
             }
             else {
-                t = transform.DOMove(parentModelChanger.position - dir, transitionDuration);
+                t = transform.DOMove(toAbstractPos, transitionDuration);
             }
 
             yield return t.WaitForCompletion();
-            
+
             foreach (var pair in currentRenderers) {
                 var cube = pair.Value;
                 cube.transform.parent = null;
                 CubePool.Instance.ReleaseObject(cube.GetComponent<CubeController>());
             }
+
             currentRenderers.Clear();
             isTransitioning = false;
         }
@@ -160,6 +164,13 @@ namespace Visual
                 Gizmos.color = new Color(0, 100, 250, 0.05f);
                 Gizmos.DrawCube(r, new Vector3(cubeScale, cubeScale, cubeScale));
             }
+
+            Gizmos.matrix = parentModelChanger.localToWorldMatrix;
+            Gizmos.color = new Color(100, 0, 100, 0.2f);
+            Gizmos.DrawCube(new Vector3(0, maxYPosition, 0),
+                new Vector3(gizmoSize, 0.05f, gizmoSize));
+            Gizmos.DrawCube(new Vector3(0, minYPosition, 0),
+                new Vector3(gizmoSize, 0.05f, gizmoSize));
         }
     }
 }

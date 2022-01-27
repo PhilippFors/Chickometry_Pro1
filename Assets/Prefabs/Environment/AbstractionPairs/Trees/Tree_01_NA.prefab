@@ -162,8 +162,6 @@ MonoBehaviour:
   useSimpleTransition: 0
   transitionDuration: 3.5
   plane: {fileID: 4515578219963253662}
-  maxYPosition: 21
-  minYPosition: -6
   isAbstract: 0
   shootable: 1
   normalMeshFilter: {fileID: 8208329444245350080}
@@ -186,6 +184,7 @@ MonoBehaviour:
       mass: 1
       drag: 0
       useGravity: 1
+  gizmoSize: 0
 --- !u!1 &4118254498835618030
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +338,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: gizmoSize
+      value: 5.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: drawGizmos
       value: 1
       objectReference: {fileID: 0}
@@ -349,6 +352,14 @@ PrefabInstance:
     - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: maxDistance
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: maxYPosition
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: minYPosition
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: cubeGenerator

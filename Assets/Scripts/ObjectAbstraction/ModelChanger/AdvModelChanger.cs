@@ -33,12 +33,6 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField, ShowIf("useSlicePlane")]
         private TransitionController plane;
 
-        [SerializeField, ShowIf("useSlicePlane")]
-        private float maxYPosition;
-
-        [SerializeField, ShowIf("useSlicePlane")]
-        private float minYPosition;
-
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private MeshFilter normalMeshFilter;
@@ -46,6 +40,8 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private ModelSettings normalModel;
         [SerializeField] private ModelSettings abstractModel;
 
+        [Header("Gizmo"), SerializeField] private float gizmoSize;
+        
         private MeshRenderer normalRend;
         private MeshRenderer abstractRend;
         private MeshCollider meshCollider;
@@ -65,7 +61,7 @@ namespace ObjectAbstraction.ModelChanger
         private void Start()
         {
             if (useSlicePlane) {
-                plane.Init(isAbstract, new Vector2(minYPosition, maxYPosition));
+                plane.Init(isAbstract);
                 return;
             }
 
@@ -109,13 +105,11 @@ namespace ObjectAbstraction.ModelChanger
         {
             if (useSlicePlane) {
                 if (instant) {
-                    plane.StartTransition(toAbstract, 0.05f, 0.1f,
-                        new Vector2(minYPosition, maxYPosition));
+                    plane.StartTransition(toAbstract, 0.1f);
                     return;
                 }
 
-                plane.StartTransition(toAbstract, 0.2f, transitionDuration,
-                    new Vector2(minYPosition, maxYPosition));
+                plane.StartTransition(toAbstract, transitionDuration);
             }
             else {
                 if (toAbstract) {
@@ -165,9 +159,8 @@ namespace ObjectAbstraction.ModelChanger
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = new Color(100, 0, 100, 0.2f);
-            Gizmos.DrawCube(transform.position + new Vector3(0, maxYPosition, 0), new Vector3(2, 0.05f, 2));
-            Gizmos.DrawCube(transform.position + new Vector3(0, minYPosition, 0), new Vector3(2, 0.05f, 2));
+            Gizmos.matrix = transform.localToWorldMatrix;
+
         }
     }
 }
