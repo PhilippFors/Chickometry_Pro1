@@ -9,44 +9,49 @@ namespace Visual
     {
         public bool reverse;
         public GameObject plane;
-        public MeshRenderer meshRenderer;
-        public BoxCollider volume;
+        private MeshRenderer meshRenderer;
+        // public BoxCollider volume;
 
         private void Awake()
         {
             meshRenderer = GetComponent<MeshRenderer>();
-            meshRenderer.material.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
+            foreach (var mat in meshRenderer.materials) {
+                mat.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
+                mat.SetVector("_SlicePlanePos", plane.transform.position);
+            }
         }
 
         void Update()
         {
             // GetMinMax();
-            meshRenderer.material.SetVector("_SlicePlanePos", plane.transform.position);
-            meshRenderer.material.SetVector("_SlicePlaneDir", plane.transform.forward);
-            meshRenderer.material.SetFloat("_Reverse", reverse ? 1 : 0);
+            foreach (var mat in meshRenderer.materials) {
+                mat.SetVector("_SlicePlanePos", plane.transform.position);
+                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
+                mat.SetFloat("_Reverse", reverse ? 1 : 0);
+            }
         }
 
         private void GetMinMax()
         {
-            var pos = volume.transform.position;
-            var size = volume.size;
-            var scale = volume.transform.localScale;
-            var rot = volume.transform.rotation;
-            var s = Vector3.Scale(size, scale);
-            var verts = new[] {
-                rot * (new Vector3(pos.x + s.x / 2, pos.y + s.y / 2, pos.z - s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x + s.x / 2, pos.y + s.y / 2, pos.z + s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x - s.x / 2, pos.y + s.y / 2, pos.z + s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x - s.x / 2, pos.y + s.y / 2, pos.z - s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x + s.x / 2, pos.y - s.y / 2, pos.z - s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x + s.x / 2, pos.y - s.y / 2, pos.z + s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x - s.x / 2, pos.y - s.y / 2, pos.z + s.z / 2) - pos) + pos,
-                rot * (new Vector3(pos.x - s.x / 2, pos.y - s.y / 2, pos.z - s.z / 2) - pos) + pos,
-            };
-            var minPoint = new Vector3(FindMinX(verts), FindMinY(verts), FindMinZ(verts));
-            var maxPoint = new Vector3(FindMaxX(verts), FindMaxY(verts), FindMaxZ(verts));
-            meshRenderer.material.SetVector("_MinPoint", minPoint);
-            meshRenderer.material.SetVector("_MaxPoint", maxPoint);
+            // var pos = volume.transform.position;
+            // var size = volume.size;
+            // var scale = volume.transform.localScale;
+            // var rot = volume.transform.rotation;
+            // var s = Vector3.Scale(size, scale);
+            // var verts = new[] {
+            //     rot * (new Vector3(pos.x + s.x / 2, pos.y + s.y / 2, pos.z - s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x + s.x / 2, pos.y + s.y / 2, pos.z + s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x - s.x / 2, pos.y + s.y / 2, pos.z + s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x - s.x / 2, pos.y + s.y / 2, pos.z - s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x + s.x / 2, pos.y - s.y / 2, pos.z - s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x + s.x / 2, pos.y - s.y / 2, pos.z + s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x - s.x / 2, pos.y - s.y / 2, pos.z + s.z / 2) - pos) + pos,
+            //     rot * (new Vector3(pos.x - s.x / 2, pos.y - s.y / 2, pos.z - s.z / 2) - pos) + pos,
+            // };
+            // var minPoint = new Vector3(FindMinX(verts), FindMinY(verts), FindMinZ(verts));
+            // var maxPoint = new Vector3(FindMaxX(verts), FindMaxY(verts), FindMaxZ(verts));
+            // meshRenderer.material.SetVector("_MinPoint", minPoint);
+            // meshRenderer.material.SetVector("_MaxPoint", maxPoint);
         }
 
         private float FindMinX(Vector3[] verts)

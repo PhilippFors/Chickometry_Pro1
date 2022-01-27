@@ -27,8 +27,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_6f5ef6ecdbc94c9993c0e6e46e11cacf:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_b4df1cdeccd14e6ba2601d4926b27780:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_fe2af8c7bad042e1971d6e48ce89289b:
         m_Texture: {fileID: 2800000, guid: 641c8ac0c215a24429b1a9cdbeeb7568, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_125de1da3e69422496eb23a5e8633e9f_Texture2D47d7883c78564256ac68903f8550a478_2199319159:
+        m_Texture: {fileID: 2800000, guid: 61a3270c4d8878644a0cf42159f9e789, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_125de1da3e69422496eb23a5e8633e9f_Texture2Dbd82a118ee5c44548e7744cd95402304_4131117674:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_32093058db0344e6bbecb8fe21a3704d_Texture_1:
@@ -64,7 +80,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_7606c24369834d0fa2c041da3fe3df3d: 0
     - Vector1_1: 0.65
+    - Vector1_33e44a55b4174c899967e944e7d4d7fe: 0.5
+    - Vector1_3fc88c9ac71b409495dfa60431fd534a: 1
     - Vector1_43a8d632d954436b83be4e63b08292c6: 0.5
     - Vector1_4e32a18e72f54a9cbf7269a0d6f07b0f: 0.15
     - Vector1_7226b4a102fa4d82b9c36bc673c3e257: 0.2
@@ -75,8 +94,11 @@ Material:
     - Vector1_d82e8f8bc5ac44debede4430d1fbb815: 0.25
     - Vector1_e6b7208adf3e410ca459e9369654a0ff: 0
     - Vector1_ea62681efacb414e8b66cbd6cc561973: 3
+    - Vector1_eb9e8632549648869f3037256ea72cf5: 0.6
+    - Vector1_f06d80ad2ec74ba096a99eb192328def: 1
     - Vector1_f1e6356e06d34f2ead7c6138703dadc3: 0.33
     - Vector1_f2ea60931f074c5c9c3e88788ce04097: 1
+    - Vector1_fabd22ca769140c59a8f224dd3194fc5: 5
     - Vector1_fed39385788b43a88191502cd986e41f: 0.82
     m_Colors:
     - Color_96ab5326eb3a49e1839fa05329b93197: {r: 6.66398, g: 12.890978, b: 0.21849117, a: 0}

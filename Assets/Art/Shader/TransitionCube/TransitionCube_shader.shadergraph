@@ -16,16 +16,10 @@
             "m_Id": "dfa59ba28ac04ee5b5670b7bd540e278"
         },
         {
-            "m_Id": "856ae21f405e4bb1b07819eaec4646bd"
-        },
-        {
             "m_Id": "0646f257ef9943e09ba29193e71999e7"
         },
         {
             "m_Id": "f8a7c385f02c48c697abc735e6676b20"
-        },
-        {
-            "m_Id": "1e24f1c797ba45aca5ac5cb31ef99336"
         },
         {
             "m_Id": "9daf73d2ead34dbb87c346aaa4059128"
@@ -35,6 +29,12 @@
         },
         {
             "m_Id": "0f1c18864c2c4af3955db7eec8a9f0d9"
+        },
+        {
+            "m_Id": "1e24f1c797ba45aca5ac5cb31ef99336"
+        },
+        {
+            "m_Id": "856ae21f405e4bb1b07819eaec4646bd"
         }
     ],
     "m_Keywords": [],
@@ -963,10 +963,10 @@
     "m_Guid": {
         "m_GuidSerialized": "a50bda86-a755-4ac7-bdb1-a0b5e6f0038e"
     },
-    "m_Name": "SelfPos",
+    "m_Name": "SelfPosition",
     "m_DefaultReferenceName": "Vector3_1e24f1c797ba45aca5ac5cb31ef99336",
     "m_OverrideReferenceName": "_SelfPosition",
-    "m_GeneratePropertyBlock": false,
+    "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 1,
@@ -2062,7 +2062,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "7af5c0a34c9f404b88bfadb22e729bdc",
     "m_Id": 0,
-    "m_DisplayName": "SelfPos",
+    "m_DisplayName": "SelfPosition",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2177,10 +2177,10 @@
     "m_Name": "TransitionPosition",
     "m_DefaultReferenceName": "Vector3_856ae21f405e4bb1b07819eaec4646bd",
     "m_OverrideReferenceName": "_TransitionPosition",
-    "m_GeneratePropertyBlock": false,
+    "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 1,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_Value": {
         "x": 0.0,
@@ -3522,13 +3522,13 @@
     },
     "m_Name": "maxDistance",
     "m_DefaultReferenceName": "Vector1_f8a7c385f02c48c697abc735e6676b20",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_MaxDistance",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 1.0,
+    "m_Value": 3.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,

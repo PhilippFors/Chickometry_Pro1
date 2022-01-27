@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Utilities.Math;
 using UnityEngine;
 
@@ -9,10 +11,21 @@ namespace Visual
     /// </summary>
     public class VolumeCubeGenerator : MonoBehaviour
     {
+        public List<Vector3> CubePositions => cubePositions;
         public int cubeAmount;
+        public float cubeScale = 1;
         public BoxCollider bounds;
         public GameObject cubePrefab;
         public BoxCollider excludeBounds;
+        [SerializeField] private List<Vector3> cubePositions = new List<Vector3>();
+
+
+        private void Awake()
+        {
+            for (int i = 0; i < cubePositions.Count; i++) {
+                // cubePositions[i] = transform.InverseTransformPoint(cubePositions[i]);
+            }
+        }
 
         [Button]
         private void Generate()
@@ -26,21 +39,25 @@ namespace Visual
                     }
                 }
 
-                Instantiate(cubePrefab, pos, Quaternion.identity, bounds.transform).GetComponent<MeshRenderer>();
+                pos = transform.InverseTransformPoint(pos);
+                cubePositions.Add(pos);
+                // var cube = Instantiate(cubePrefab, pos, Quaternion.identity, bounds.transform);
+                // cube.transform.localScale = new Vector3(cubeScale, cubeScale, cubeScale);
             }
         }
 
         private void KillChildren()
         {
-            var cubes = bounds.GetComponentsInChildren<MeshRenderer>();
-            for (int i = 0; i < cubes.Length; i++) {
-                if (!Application.isPlaying) {
-                    DestroyImmediate(cubes[i].gameObject);
-                }
-                else {
-                    Destroy(cubes[i].gameObject);
-                }
-            }
+            cubePositions.Clear();
+            // var cubes = bounds.GetComponentsInChildren<MeshRenderer>();
+            // for (int i = 0; i < cubes.Length; i++) {
+            //     if (!Application.isPlaying) {
+            //         DestroyImmediate(cubes[i].gameObject);
+            //     }
+            //     else {
+            //         Destroy(cubes[i].gameObject);
+            //     }
+            // }
         }
     }
 }
