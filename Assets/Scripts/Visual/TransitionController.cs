@@ -135,10 +135,10 @@ namespace Visual
             var dir = plane.forward * Mathf.Abs(minYPosition - maxYPosition);
             Tween t;
             if (isAbstract) {
-                t = transform.DOMove(toNormalPos, transitionDuration);
+                t = transform.DOMove(toAbstractPos, transitionDuration);
             }
             else {
-                t = transform.DOMove(toAbstractPos, transitionDuration);
+                t = transform.DOMove(toNormalPos, transitionDuration);
             }
 
             yield return t.WaitForCompletion();
