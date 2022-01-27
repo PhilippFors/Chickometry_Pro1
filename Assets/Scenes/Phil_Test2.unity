@@ -5384,6 +5384,7 @@ MonoBehaviour:
   maxDistance: 0
   cubeStartScale: 1
   drawGizmos: 1
+  batchAmount: 50
 --- !u!114 &400038567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7027,6 +7028,10 @@ PrefabInstance:
     - target: {fileID: 1716690049, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
       propertyPath: pruneTolerance
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474567267835730237, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
+      propertyPath: coolDown
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8112322590979492629, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
       propertyPath: m_Name
@@ -10042,6 +10047,10 @@ PrefabInstance:
     - target: {fileID: 1919734869311549424, guid: cb94b7c4dc7fe8c429d275553e92a183, type: 3}
       propertyPath: m_Name
       value: Tree_01_NA (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919734869311549424, guid: cb94b7c4dc7fe8c429d275553e92a183, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb94b7c4dc7fe8c429d275553e92a183, type: 3}
@@ -14655,6 +14664,10 @@ PrefabInstance:
     - target: {fileID: 1919734869311549424, guid: cb94b7c4dc7fe8c429d275553e92a183, type: 3}
       propertyPath: m_Name
       value: Tree_01_NA (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919734869311549424, guid: cb94b7c4dc7fe8c429d275553e92a183, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb94b7c4dc7fe8c429d275553e92a183, type: 3}

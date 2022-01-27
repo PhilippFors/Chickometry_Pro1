@@ -148,8 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6ea7b88cad448a9b7d75804bd19028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSize: 150
+  initialSize: 180
   prefab: {fileID: 4583608346980592821, guid: f176f46516d2eb34e825e77937e892fc, type: 3}
+  pruneTime: 2
+  pruneTolerance: 10
 --- !u!1 &8112322590979492629
 GameObject:
   m_ObjectHideFlags: 0

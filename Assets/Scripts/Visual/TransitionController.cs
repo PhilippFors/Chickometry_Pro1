@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using ObjectAbstraction.ModelChanger;
 using ObjectPooling;
@@ -26,8 +27,9 @@ namespace Visual
         private Transform parentModelChanger;
         private Dictionary<int, MeshRenderer> currentRenderers = new Dictionary<int, MeshRenderer>();
         private bool isTransitioning;
-        private int frameDelay = 2;
-        private int frameCount;
+        public int batchAmount = 50;
+        private int batchCount;
+        private bool updateRunning;
         private void OnValidate()
         {
             // if (cubes) {
@@ -46,7 +48,6 @@ namespace Visual
 
         private void Start()
         {
-            frameCount = frameDelay;
             parentModelChanger = GetComponentInParent<AdvModelChanger>().transform;
         }
 
@@ -58,24 +59,23 @@ namespace Visual
         private void Update()
         {
             if (isTransitioning) {
-                // if (frameCount >= frameDelay) {
-                    UpdateCubeSpawns();
-                //     frameCount = 0;
-                // }
+                if (!updateRunning) {
+                    UpdateCubeSpawns().Forget();
+                }
 
                 foreach (var pair in currentRenderers) {
                     pair.Value.material.SetVector("_TransitionPosition", plane.position);
                 }
-
-                frameCount++;
             }
         }
-
-        private void UpdateCubeSpawns()
+        
+        private async UniTaskVoid UpdateCubeSpawns()
         {
+            updateRunning = true;
             var maxDist = maxDistance + 0.5f;
             var positions = cubeGenerator.CubePositions;
             for(int i = 0; i < positions.Count; i++) {
+                batchCount++;
                 var pos = cubeGenerator.transform.TransformPoint(positions[i]);
                 var dist = Mathf.Abs(pos.y - plane.position.y);
                 
@@ -84,6 +84,7 @@ namespace Visual
                     cube.transform.parent = null;
                     currentRenderers.Remove(i);
                     CubePool.Instance.ReleaseObject(cube.GetComponent<CubeController>());
+                    continue;
                 }
                 
                 if (dist < maxDist && !currentRenderers.ContainsKey(i)) {
@@ -93,7 +94,14 @@ namespace Visual
                     cube.transform.localScale = new Vector3(cubeScale, cubeScale, cubeScale);
                     SpawnCube(i, cube.GetComponent<MeshRenderer>());
                 }
+                
+                if (batchCount >= batchAmount) {
+                    UniTask.Yield();
+                    batchCount = 0;
+                }
             }
+
+            updateRunning = false;
         }
 
         private void SpawnCube(int id, MeshRenderer r)
@@ -111,7 +119,6 @@ namespace Visual
             if (coroutine != null) {
                 StopCoroutine(coroutine);
                 isTransitioning = false;
-                frameCount = frameDelay;
             }
 
             coroutine = StartCoroutine(MovePlane(toAbstract, startTime, transitionDuration, minMaxY));
@@ -137,7 +144,6 @@ namespace Visual
             }
             currentRenderers.Clear();
             isTransitioning = false;
-            frameCount = frameDelay;
         }
 
         private void OnDrawGizmos()
