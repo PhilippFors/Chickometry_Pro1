@@ -91,8 +91,11 @@ namespace Visual
                     var cube = CubePool.Instance.GetObject();
                     cube.transform.parent = cubeGenerator.transform;
                     cube.transform.localPosition = positions[i];
+                    cube.transform.rotation = plane.rotation;
                     cube.transform.localScale = new Vector3(cubeScale, cubeScale, cubeScale);
-                    SpawnCube(i, cube.GetComponent<MeshRenderer>());
+                    var renderer = cube.GetComponent<MeshRenderer>();
+                    currentRenderers.Add(i, renderer);
+                    SetCubeMaterial(renderer);
                 }
                 
                 if (batchCount >= batchAmount) {
@@ -104,9 +107,8 @@ namespace Visual
             updateRunning = false;
         }
 
-        private void SpawnCube(int id, MeshRenderer r)
+        private void SetCubeMaterial(MeshRenderer r)
         {
-            currentRenderers.Add(id, r);
             r.material.SetVector("_TransitionPosition", plane.position);
             r.material.SetVector("_SelfPosition", r.transform.position);
             r.material.SetFloat("_AbsoluteScale", cubeStartScale);
@@ -127,12 +129,13 @@ namespace Visual
         private IEnumerator MovePlane(bool toAbstract, float startTime, float transitionDuration, Vector2 minMaxY)
         {
             isTransitioning = true;
+            var dir = plane.forward * Mathf.Abs(minMaxY.x - minMaxY.y);
             Tween t;
             if (toAbstract) {
-                t = transform.DOMove(parentModelChanger.position + new Vector3(0, minMaxY.x, 0), transitionDuration);
+                t = transform.DOMove(parentModelChanger.position + dir, transitionDuration);
             }
             else {
-                t = transform.DOMove(parentModelChanger.position + new Vector3(0, minMaxY.y, 0), transitionDuration);
+                t = transform.DOMove(parentModelChanger.position - dir, transitionDuration);
             }
 
             yield return t.WaitForCompletion();
