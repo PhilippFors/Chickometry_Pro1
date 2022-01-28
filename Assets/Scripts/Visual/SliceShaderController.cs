@@ -17,6 +17,7 @@ namespace Visual
             meshRenderer = GetComponent<MeshRenderer>();
             foreach (var mat in meshRenderer.materials) {
                 mat.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
+                mat.SetFloat("_RandomSwitchEdge", Random.Range(0.25f, 0.65f));
                 mat.SetVector("_SlicePlanePos", plane.transform.position);
             }
         }
