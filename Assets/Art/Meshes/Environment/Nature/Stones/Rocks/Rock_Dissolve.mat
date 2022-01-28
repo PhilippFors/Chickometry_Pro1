@@ -73,21 +73,21 @@ Material:
     m_Floats:
     - Boolean_7606c24369834d0fa2c041da3fe3df3d: 0
     - Vector1_1: 1.19
-    - Vector1_33e44a55b4174c899967e944e7d4d7fe: 0.676
+    - Vector1_33e44a55b4174c899967e944e7d4d7fe: 1
     - Vector1_3fc88c9ac71b409495dfa60431fd534a: 2.4
     - Vector1_43a8d632d954436b83be4e63b08292c6: 0.24
-    - Vector1_4e32a18e72f54a9cbf7269a0d6f07b0f: 0.77
-    - Vector1_7226b4a102fa4d82b9c36bc673c3e257: 0.127
+    - Vector1_4e32a18e72f54a9cbf7269a0d6f07b0f: 0.68
+    - Vector1_7226b4a102fa4d82b9c36bc673c3e257: 0.311
     - Vector1_90c18cc97b934e3d9f1ce73f8d96d099: 0.738
     - Vector1_976a8fd5e8d547678fdc9055af0eadb5: 0.486
     - Vector1_993e7df66a85480fa9d7548f5a0b648d: 0.068
-    - Vector1_d82e8f8bc5ac44debede4430d1fbb815: 0.59
+    - Vector1_d82e8f8bc5ac44debede4430d1fbb815: 0.5
     - Vector1_e6b7208adf3e410ca459e9369654a0ff: 0.83
-    - Vector1_ea62681efacb414e8b66cbd6cc561973: 0.73
+    - Vector1_ea62681efacb414e8b66cbd6cc561973: 1.14
     - Vector1_eb9e8632549648869f3037256ea72cf5: 7.22
     - Vector1_f06d80ad2ec74ba096a99eb192328def: 0
     - Vector1_f21399ae4ca3404ba14ff6a93826c1e9: 0
-    - Vector1_fabd22ca769140c59a8f224dd3194fc5: 5
+    - Vector1_fabd22ca769140c59a8f224dd3194fc5: 6.19
     - Vector1_fed39385788b43a88191502cd986e41f: 2.65
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 1
@@ -106,6 +106,7 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _OpaqueCullMode: 2
+    - _RandomSwitchEdge: 0.4
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
@@ -139,7 +140,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_96ab5326eb3a49e1839fa05329b93197: {r: 10.64887, g: 1.55068, b: 1.55068, a: 0}
+    - Color_96ab5326eb3a49e1839fa05329b93197: {r: 11.266363, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 0.30188674, g: 0.30188674, b: 0.30188674, a: 1}

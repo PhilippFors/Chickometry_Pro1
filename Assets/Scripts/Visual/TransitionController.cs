@@ -25,7 +25,8 @@ namespace Visual
         [SerializeField] private float cubeStartScale;
         [SerializeField] private int batchAmount = 50;
         [Header("Gizmos"), SerializeField] private bool drawGizmos;
-        [SerializeField] private float gizmoSize;
+        [SerializeField] private float gizmoSize = 1f;
+        [SerializeField] private float gizmoTransparency = 0.2f;
         
         private Coroutine coroutine;
         private Transform parentModelChanger;
@@ -161,7 +162,7 @@ namespace Visual
 
             Gizmos.matrix = cubeGenerator.transform.localToWorldMatrix;
             foreach (var r in cubeGenerator.CubePositions) {
-                Gizmos.color = new Color(0, 100, 250, 0.05f);
+                Gizmos.color = new Color(0, 100, 250, gizmoTransparency);
                 Gizmos.DrawCube(r, new Vector3(cubeScale, cubeScale, cubeScale));
             }
 

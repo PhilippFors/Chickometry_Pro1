@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UsefulCode.Utilities;
@@ -15,7 +14,7 @@ namespace ObjectPooling
         [SerializeField] protected T prefab;
         [SerializeField] protected float pruneTime;
         [SerializeField] protected int pruneTolerance;
-        private static int InstanceIdCounter = 0;
+        private static int InstanceIdCounter;
 
         private float timer;
         private void Awake()
@@ -48,17 +47,16 @@ namespace ObjectPooling
             }
         }
 
-        public T GetObject()
+        public T GetObject(bool setActive = true)
         {
             T result = null;
             if (pool.Count == 0) {
-                result = InstantiateObject(true);
+                result = InstantiateObject(setActive);
             }
             else {
                 var obj = pool.Dequeue();
                 GameObject go = obj.gameObject;
-                go.SetActive(true);
-                go.name = $"{go.name} [{InstanceIdCounter++}]";
+                go.SetActive(setActive);
                 result = obj;
             }
 
@@ -84,6 +82,7 @@ namespace ObjectPooling
             var newObj = Instantiate(prefab, transform);
             newObj.transform.SetParent(null);
             newObj.gameObject.SetActive(setActive);
+            newObj.name = $"{newObj.name} [{InstanceIdCounter++}]";
             return newObj;
         }
     }

@@ -13,19 +13,9 @@ namespace Visual
     {
         public List<Vector3> CubePositions => cubePositions;
         public int cubeAmount;
-        public float cubeScale = 1;
         public BoxCollider bounds;
-        public GameObject cubePrefab;
         public BoxCollider excludeBounds;
         [SerializeField] private List<Vector3> cubePositions = new List<Vector3>();
-
-
-        private void Awake()
-        {
-            for (int i = 0; i < cubePositions.Count; i++) {
-                // cubePositions[i] = transform.InverseTransformPoint(cubePositions[i]);
-            }
-        }
 
         [Button]
         private void Generate()

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2648248973994968303}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53762245, y: -1.7644384, z: -1.4914503}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8325893196493440466}
@@ -191,7 +191,7 @@ MonoBehaviour:
   minYPosition: 0
   minDistance: 0.5
   maxDistance: 3.5
-  cubeStartScale: 0
-  batchAmount: 50
+  cubeStartScale: 1
+  batchAmount: 30
   drawGizmos: 0
-  gizmoSize: 0
+  gizmoSize: 1

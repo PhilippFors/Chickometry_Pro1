@@ -56,14 +56,15 @@ namespace ObjectAbstraction.ModelChanger
         {
             if (useSlicePlane) {
                 plane.Init(isAbstract);
-                return;
             }
 
             if (isAbstract) {
-                EnableAbstractLayer(useSimpleTransition);
+                EnableNormalLayer(true);
+                EnableAbstractLayer(true);
             }
             else {
-                EnableNormalLayer(useSimpleTransition);
+                EnableAbstractLayer(true);
+                EnableNormalLayer(true);
             }
         }
 
@@ -80,17 +81,17 @@ namespace ObjectAbstraction.ModelChanger
         }
 
         private void EnableNormalLayer(bool instant = false)
-        {
-            normalModel.ApplyMeshCollider(meshCollider, normalMeshFilter);
+        {            
             normalModel.ApplyCollider(ref previousColliders);
+            normalModel.ApplyMeshCollider(meshCollider, normalMeshFilter);
             normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             Transition(false, instant);
         }
 
         private void EnableAbstractLayer(bool instant = false)
         {
-            abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
             abstractModel.ApplyCollider(ref previousColliders);
+            abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
             abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             Transition(true, instant);
         }
