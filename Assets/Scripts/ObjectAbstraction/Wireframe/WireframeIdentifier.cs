@@ -16,14 +16,19 @@ namespace ObjectAbstraction.Wireframe
         [SerializeField] private int defaultLayer = 1;
         [SerializeField] private int wireframeLayer = 8;
         [SerializeField] private float transitionDuration = 0.2f;
-            
+        [SerializeField] private bool isWireframeOnStart;
+        
         private AdvModelChanger modelChanger;
         private bool isWireframe;
         private int wireframeBlendID => Shader.PropertyToID("_WireframeBlend");
-
+        private Collider abstractableCol;
         private void Start()
         {
             modelChanger = GetComponent<AdvModelChanger>();
+            if (isWireframeOnStart) {
+                isWireframe = false;
+                ToggleWireFrame();
+            }
         }
 
         public void ToggleWireFrame()
@@ -51,14 +56,30 @@ namespace ObjectAbstraction.Wireframe
         private void EnableWireFrame(Material[] mats)
         {
             MaterialTransitions(mats, 1);
-            gameObject.layer = wireframeLayer;
+            var objs = GetComponentsInChildren<Collider>();
+            foreach (var o in objs) {
+                if (o.gameObject.layer == 11) {
+                    abstractableCol = o;
+                }
+                o.gameObject.layer = wireframeLayer;
+            }
+
             modelChanger.Shootable = false;
         }
 
         private void DisableWireframe(Material[] mats)
         {
             MaterialTransitions(mats, minWireFrameBlend);
-            gameObject.layer = defaultLayer;
+            var objs = GetComponentsInChildren<Collider>();
+            foreach (var o in objs) {
+                if (o == abstractableCol) {
+                    o.gameObject.layer = 11;
+                }
+                else {
+                    o.gameObject.layer = defaultLayer;
+                }
+            }
+            
             modelChanger.Shootable = true;
         }
 
