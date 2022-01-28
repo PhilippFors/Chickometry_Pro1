@@ -63,6 +63,7 @@ MonoBehaviour:
   bounds: {fileID: 7747136788121427583}
   cubePrefab: {fileID: 7360853255301366340, guid: f176f46516d2eb34e825e77937e892fc, type: 3}
   excludeBounds: {fileID: 7332636409352145786}
+  cubePositions: []
 --- !u!1 &3600449213713647708
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +184,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 635556944176571434}
-  cubes: {fileID: 2648248973994968303}
+  cubeGenerator: {fileID: 4000167403376587543}
+  cubeScale: 1
+  transitionDuration: 1
+  maxYPosition: 0
+  minYPosition: 0
+  minDistance: 0.5
+  maxDistance: 3.5
   cubeStartScale: 0
+  batchAmount: 50
   drawGizmos: 0
+  gizmoSize: 0

@@ -16,12 +16,14 @@ namespace ObjectAbstraction.Wireframe
         [SerializeField] private float maxLength = 10;
         [SerializeField] private float growSpeed = 5;
         [SerializeField] private BoxCollider col;
+        [SerializeField] private Transform geo;
+        [SerializeField] private ParticleSystem[] particleSystems;
         [SerializeField] private LayerMask mask;
         [SerializeField] private List<WireframeBeamReflector> excludeReflectors;
         [SerializeField] private List<GameObject> ignore;
 
         private WireframeBeamReflector currentReflector;
-        private float minLength = 0.2f;
+        private float minLength = 0f;
 
         private void Start()
         {
@@ -33,12 +35,21 @@ namespace ObjectAbstraction.Wireframe
         private void Update()
         {
             ChangeLength(length);
-
+            
+            if (length > minLength) {
+                EnableParticles();
+            }
+            else {
+                StopParticles();
+            }
+            
             if (!isEnabled) {
+                ChangeLength(minLength);
                 return;
             }
 
-            var hits = Physics.RaycastAll(transform.position, transform.forward, maxLength, mask, QueryTriggerInteraction.Ignore);
+            var hits = Physics.RaycastAll(transform.position, transform.forward, maxLength, mask,
+                QueryTriggerInteraction.Ignore);
 
             ProcessHits(hits);
         }
@@ -49,12 +60,12 @@ namespace ObjectAbstraction.Wireframe
                 Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? 0 : 1);
                 WireframeBeamReflector hitReflector = null;
                 var maxDist = maxLength;
-                
+
                 for (int i = 0; i < hits.Length; i++) {
                     if (ignore.Contains(hits[i].transform.gameObject)) {
                         continue;
                     }
-                    
+
                     var wIdentifier = hits[i].transform.GetComponent<WireframeIdentifier>();
                     var wReflector = hits[i].transform.GetComponentInChildren<WireframeBeamReflector>();
 
@@ -72,7 +83,7 @@ namespace ObjectAbstraction.Wireframe
                 }
 
                 length = maxDist;
-                
+
                 if (!hitReflector) {
                     DisableReflector();
                 }
@@ -82,7 +93,7 @@ namespace ObjectAbstraction.Wireframe
 
                 length = maxLength;
             }
-            
+
             EnableReflector();
         }
 
@@ -100,12 +111,27 @@ namespace ObjectAbstraction.Wireframe
                 currentReflector.EnableBeams();
             }
         }
-        
+
+        private void EnableParticles()
+        {
+            foreach (var p in particleSystems) {
+                p.Play();
+            }
+        }
+
+        private void StopParticles()
+        {
+            foreach (var p in particleSystems) {
+                p.Stop();
+            }
+        }
+
         private void ChangeLength(float value)
         {
             var v = Mathf.Lerp(col.size.z, value, growSpeed * Time.deltaTime);
             col.size = new Vector3(col.size.x, col.size.y, v);
             col.center = new Vector3(0, 0, v / 2f);
+            geo.transform.localScale = new Vector3(v, geo.transform.localScale.y, geo.transform.localScale.z);
         }
 
         private void OnValidate()

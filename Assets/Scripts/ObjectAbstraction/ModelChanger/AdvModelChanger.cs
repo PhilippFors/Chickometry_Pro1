@@ -28,11 +28,7 @@ namespace ObjectAbstraction.ModelChanger
 
         [SerializeField] private bool useSlicePlane;
         [SerializeField] private bool useSimpleTransition;
-        [SerializeField] private float transitionDuration = 0.5f;
-
-        [SerializeField, ShowIf("useSlicePlane")]
-        private TransitionController plane;
-
+        [SerializeField, ShowIf("useSlicePlane")] private TransitionController plane;
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private MeshFilter normalMeshFilter;
@@ -40,8 +36,6 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private ModelSettings normalModel;
         [SerializeField] private ModelSettings abstractModel;
 
-        [Header("Gizmo"), SerializeField] private float gizmoSize;
-        
         private MeshRenderer normalRend;
         private MeshRenderer abstractRend;
         private MeshCollider meshCollider;
@@ -109,7 +103,7 @@ namespace ObjectAbstraction.ModelChanger
                     return;
                 }
 
-                plane.StartTransition(toAbstract, transitionDuration);
+                plane.StartTransition(toAbstract);
             }
             else {
                 if (toAbstract) {
@@ -138,7 +132,7 @@ namespace ObjectAbstraction.ModelChanger
         private void MaterialTransitions(Material[] mats, float endValue)
         {
             foreach (var mat in mats) {
-                mat.DOFloat(endValue, "_CutoffValue", transitionDuration);
+                mat.DOFloat(endValue, "_CutoffValue", 0.5f);
             }
         }
 

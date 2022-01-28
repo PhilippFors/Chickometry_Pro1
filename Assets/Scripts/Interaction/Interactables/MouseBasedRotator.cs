@@ -1,4 +1,5 @@
-﻿using Entities.Player;
+﻿using System;
+using Entities.Player;
 using Entities.Player.PlayerInput;
 using UnityEngine;
 using Utlities;
@@ -13,6 +14,8 @@ namespace Interaction.Interactables
     {
         [SerializeField] private float sensitity = 200;
         [SerializeField] private bool useYAxis;
+        public Vector2 absolute;
+
         private float MouseDeltaX => InputController.Instance.GetValue<Vector2>(InputPatterns.MouseDelta).x;
         private float MouseDeltaY => InputController.Instance.GetValue<Vector2>(InputPatterns.MouseDelta).y;
         private float Width => Screen.width;
@@ -22,13 +25,16 @@ namespace Interaction.Interactables
 
         private Vector2 targetDirection;
         private Vector2 targetCharacterDirection;
-        private Vector2 absolute;
+        private Quaternion yRotation;
+        private Quaternion rotation;
+        
         private void Start()
         {
             targetDirection = transform.localRotation.eulerAngles;
-
+            // yRotation = Quaternion.Euler(0, transform.rotation.y, 0);
             mouseLook = ServiceLocator.Get<SmoothMouseLook>();
             InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => EnableMouseLook();
+            // ResetTargeDirection();
         }
         
         public override void OnInteract()
@@ -37,19 +43,21 @@ namespace Interaction.Interactables
 
             mouseLook.enableLook = false;
             absolute.x += MouseDeltaX / Width * sensitity;
+            absolute.y += MouseDeltaY / Height * sensitity;
+
             Quaternion rot;
             Quaternion rotY = Quaternion.identity;
             // var currentRot = transform.rotation.eulerAngles;
             // currentRot += new Vector3(deltaY, deltaX, 0);
             // transform.rotation = Quaternion.Euler(currentRot);
 
-            if (useYAxis) {
-                absolute.y += MouseDeltaY / Height * sensitity;
-                rotY = Quaternion.AngleAxis(absolute.y, targetOrientation * Vector3.right) * targetOrientation;
-            }
-
             rot = Quaternion.AngleAxis(absolute.x, Vector3.up);
-            transform.localRotation = rot * rotY * targetOrientation;
+
+            if (useYAxis) {
+                rotY = Quaternion.AngleAxis(-absolute.y, targetOrientation * Vector3.right);
+            }
+            transform.localRotation = rotY * rot * targetOrientation;
+
         }
 
         private void EnableMouseLook()

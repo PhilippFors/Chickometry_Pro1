@@ -17,6 +17,7 @@ namespace Visual
         [SerializeField] private Transform plane;
         [SerializeField] private VolumeCubeGenerator cubeGenerator;
         [SerializeField] private float cubeScale = 1;
+        [SerializeField] private float transitionDuration = 1;
         [SerializeField] private float maxYPosition;
         [SerializeField] private float minYPosition;
         [SerializeField] private float minDistance = 0.5f;
@@ -25,16 +26,15 @@ namespace Visual
         [SerializeField] private int batchAmount = 50;
         [Header("Gizmos"), SerializeField] private bool drawGizmos;
         [SerializeField] private float gizmoSize;
-
-        private BoxCollider bounds;
+        
         private Coroutine coroutine;
         private Transform parentModelChanger;
         private Dictionary<int, MeshRenderer> currentRenderers = new Dictionary<int, MeshRenderer>();
         private bool isTransitioning;
         private int batchCount;
         private bool updateRunning;
-        private Vector3 toAbstractPos => parentModelChanger.position + (-plane.transform.forward * minYPosition);
-        private Vector3 toNormalPos => parentModelChanger.position + (-plane.transform.forward * maxYPosition);
+        private Vector3 ToAbstractPos => parentModelChanger.position + (-plane.transform.forward * minYPosition);
+        private Vector3 ToNormalPos => parentModelChanger.position + (-plane.transform.forward * maxYPosition);
 
         private void OnValidate()
         {
@@ -53,7 +53,7 @@ namespace Visual
 
         public void Init(bool toAbstract)
         {
-            transform.position = toAbstract ? toAbstractPos : toNormalPos;
+            transform.position = toAbstract ? ToAbstractPos : ToNormalPos;
         }
 
         private void Update()
@@ -119,26 +119,26 @@ namespace Visual
             r.material.SetMatrix("_WorldToLocal", parentModelChanger.worldToLocalMatrix);
         }
 
-        public void StartTransition(bool toAbstract, float transitionDuration)
+        public void StartTransition(bool toAbstract, float duration = -1)
         {
             if (coroutine != null) {
                 StopCoroutine(coroutine);
                 isTransitioning = false;
             }
 
-            coroutine = StartCoroutine(MovePlane(toAbstract, transitionDuration));
+            coroutine = StartCoroutine(MovePlane(toAbstract, duration > 0 ? duration : transitionDuration));
         }
 
-        private IEnumerator MovePlane(bool isAbstract, float transitionDuration)
+        private IEnumerator MovePlane(bool isAbstract, float duration)
         {
             isTransitioning = true;
             var dir = plane.forward * Mathf.Abs(minYPosition - maxYPosition);
             Tween t;
             if (isAbstract) {
-                t = transform.DOMove(toAbstractPos, transitionDuration);
+                t = transform.DOMove(ToAbstractPos, duration);
             }
             else {
-                t = transform.DOMove(toNormalPos, transitionDuration);
+                t = transform.DOMove(ToNormalPos, duration);
             }
 
             yield return t.WaitForCompletion();
@@ -167,10 +167,8 @@ namespace Visual
 
             Gizmos.matrix = parentModelChanger.localToWorldMatrix;
             Gizmos.color = new Color(100, 0, 100, 0.2f);
-            Gizmos.DrawCube(new Vector3(0, maxYPosition, 0),
-                new Vector3(gizmoSize, 0.05f, gizmoSize));
-            Gizmos.DrawCube(new Vector3(0, minYPosition, 0),
-                new Vector3(gizmoSize, 0.05f, gizmoSize));
+            Gizmos.DrawCube(new Vector3(0, maxYPosition, 0), new Vector3(gizmoSize, 0.08f, gizmoSize));
+            Gizmos.DrawCube(new Vector3(0, minYPosition, 0), new Vector3(gizmoSize, 0.08f, gizmoSize));
         }
     }
 }
