@@ -20,7 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_b4006a3e19b340fd9b35b75dc9cf5cfb:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 61a3270c4d8878644a0cf42159f9e789, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_916470c239a9408f94631cde3c96b8e4_Texture2Dbd82a118ee5c44548e7744cd95402304_4131117674:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchShaderSub_b56dac86f85549c99ca93a4a756bde23_Texture2D45aa8a533b144a9b9c1acd62dc70e6d8_3976009163:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Alpha:
@@ -116,8 +124,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_16bbfee654b44f6082432d469ca838a4: 3
-    - Vector1_e55158b3e0994c88a658ae1b5ae64177: 100000
+    - Vector1_0cf263f448234eda8c3f89f899b194b7: 0.63
+    - Vector1_139f6a0ef7574ebd914a14bed26c13f7: 0.05
+    - Vector1_16bbfee654b44f6082432d469ca838a4: 3.9
+    - Vector1_35394217ec2040f0bc2d0ad6454f1c60: 0
+    - Vector1_7a58c105809944e0ac70da33a1d5f42e: 0.2
+    - Vector1_a6b8ac9fe09d45f7b510a016aaa3a14b: 1
+    - Vector1_c654d9d74cbc4a899a2a11ea3ad938db: 0.5
+    - Vector1_cb91d238dd194e0c8a231d8699966bc6: 1
+    - Vector1_e43739bea0794b3ab46d06e497b35dbf: 0.93
+    - Vector1_e51bc021b7b04787a9fa7c7cf58e1ea5: 1
+    - Vector1_e55158b3e0994c88a658ae1b5ae64177: 2.43
     - _AO: 1
     - _Alphacutoff: 0.547
     - _AmbientOcclusion: 1
@@ -142,6 +159,8 @@ Material:
     - _Mode: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RandomSwitchEdge: 0.4
+    - _Reverse: 0
     - _RimBrightness: 1.5
     - _Shadows: 0.855
     - _Shininess: 0.1
@@ -154,6 +173,7 @@ Material:
     - _Subsurface: 0.373
     - _SubsurfaceAmount: 0.96
     - _SubsurfaceSize: 6.56
+    - _TimeSpeed: 1
     - _TransAmbient: 0.2
     - _TransDirect: 1
     - _TransNormalDistortion: 0.1
@@ -172,11 +192,14 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - Color_199569acabc649b381d8b578b28047af: {r: 1.6055588, g: 0.10087281, b: 0.10087281, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 1, g: 0.51724136, b: 0, a: 0.19607843}
     - _MainColor: {r: 0.5441177, g: 0.9052481, b: 1, a: 0}
     - _ObjectPosition: {r: 0, g: 22.15737, b: 0, a: 0}
+    - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
+    - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
     - _Transmisioncolor: {r: 1, g: 0.9724137, b: 0, a: 0}
     - _TransmissionColor: {r: 0.6965517, g: 1, b: 0, a: 0.059}

@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: cd32417db29324f4f8f49c2a0e918511, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -92,18 +92,20 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_0a0b203953d94fe4bf330386803b85ff: 0
-    - Vector1_1: 0
-    - Vector1_125e8f371cbd4d2890ee391876afae4f: 0
-    - Vector1_27e8266fa0124a4f93a65909822750f6: 0
-    - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 0
-    - Vector1_76f87e6ecc0f455ebc7808c49637fbb0: 0
+    - Vector1_0a0b203953d94fe4bf330386803b85ff: 7
+    - Vector1_1: 1
+    - Vector1_125e8f371cbd4d2890ee391876afae4f: 0.3
+    - Vector1_27e8266fa0124a4f93a65909822750f6: 1.45
+    - Vector1_39ebbf50cc5e4700a816c28f99536859: 0.633
+    - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 1.41
+    - Vector1_76f87e6ecc0f455ebc7808c49637fbb0: 1.5
     - Vector1_84a2ef05dcf6416882317d2c3d98ddf7: 0
-    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 0
-    - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0
-    - Vector1_cece7f719ab547cf9f1983fb3840f704: 0
-    - Vector1_d515358ae6cc4de988f5461708932c58: 0
-    - Vector1_dedb2ced46c04e348a20c7b6157f3c32: 0
+    - Vector1_87fe0c2e339b4c1fad3a95ad259aa6d7: 0.617
+    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 1.41
+    - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0.5
+    - Vector1_cece7f719ab547cf9f1983fb3840f704: 5
+    - Vector1_d515358ae6cc4de988f5461708932c58: 0.5
+    - Vector1_dedb2ced46c04e348a20c7b6157f3c32: 0.1
     - _AlphaClip: 0
     - _AmbientOcclusion: 1
     - _Blend: 0
@@ -137,7 +139,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 1.605559, g: 0.0756546, b: 0.0756546, a: 0}
+    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 2.79544, g: 0.13172232, b: 0.13172232, a: 0}
     - _BaseColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

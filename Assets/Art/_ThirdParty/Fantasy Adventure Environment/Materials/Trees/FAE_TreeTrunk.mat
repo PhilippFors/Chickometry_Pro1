@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_1699dfefe7c5441c9bf7f17f6f18be60:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 61a3270c4d8878644a0cf42159f9e789, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AbstractionGlitchEmission_d2a0e76bbef54a5fa694385bcc69bf16_Texture2Dbd82a118ee5c44548e7744cd95402304_4131117674:
@@ -124,18 +124,20 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_0a0b203953d94fe4bf330386803b85ff: 0.7
+    - Vector1_0a0b203953d94fe4bf330386803b85ff: 0.54
     - Vector1_1: 0.2
     - Vector1_125e8f371cbd4d2890ee391876afae4f: 1
-    - Vector1_27e8266fa0124a4f93a65909822750f6: 1
-    - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 5
-    - Vector1_76f87e6ecc0f455ebc7808c49637fbb0: 0.5
-    - Vector1_84a2ef05dcf6416882317d2c3d98ddf7: 2
-    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 100000
-    - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0.5
-    - Vector1_cece7f719ab547cf9f1983fb3840f704: 6
-    - Vector1_d515358ae6cc4de988f5461708932c58: 0.5
-    - Vector1_dedb2ced46c04e348a20c7b6157f3c32: 0.5
+    - Vector1_27e8266fa0124a4f93a65909822750f6: 2.58
+    - Vector1_39ebbf50cc5e4700a816c28f99536859: 0.743
+    - Vector1_57e1e0bfe3a141e5b4a604042e0c0e85: 2.59
+    - Vector1_76f87e6ecc0f455ebc7808c49637fbb0: 2
+    - Vector1_84a2ef05dcf6416882317d2c3d98ddf7: 0.35
+    - Vector1_87fe0c2e339b4c1fad3a95ad259aa6d7: 1
+    - Vector1_acfbe22c7c4443ab833b580b9e62b8ff: 2
+    - Vector1_cac2df5bf79f4a0aa8de8eb6ec1c8a20: 0.77
+    - Vector1_cece7f719ab547cf9f1983fb3840f704: 3.69
+    - Vector1_d515358ae6cc4de988f5461708932c58: 0.2
+    - Vector1_dedb2ced46c04e348a20c7b6157f3c32: 0.2
     - _AO: 1
     - _Alphacutoff: 0.547
     - _AmbientOcclusion: 1
@@ -158,6 +160,7 @@ Material:
     - _Mode: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RandomSwitchEdge: 0.4
     - _Reverse: 0
     - _RimBrightness: 1.5
     - _Shadows: 0.855
@@ -171,6 +174,7 @@ Material:
     - _Subsurface: 0.373
     - _SubsurfaceAmount: 1
     - _SubsurfaceSize: 1.91
+    - _TimeSpeed: 1
     - _TopDarkness: 1
     - _UVSec: 0
     - _UseLegacyVertexColors: 0
@@ -181,11 +185,13 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 1.605559, g: 0.0756546, b: 0.0756546, a: 0}
+    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 1.1353015, g: 0.05349588, b: 0.05349588, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 1}
     - _MainColor: {r: 0.5441177, g: 0.9052481, b: 1, a: 0}
+    - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
+    - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
