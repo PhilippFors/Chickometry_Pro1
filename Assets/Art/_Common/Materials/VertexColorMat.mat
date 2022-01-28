@@ -160,13 +160,13 @@ Material:
     - Vector1_7226b4a102fa4d82b9c36bc673c3e257: 0.2
     - Vector1_90c18cc97b934e3d9f1ce73f8d96d099: 0.5
     - Vector1_976a8fd5e8d547678fdc9055af0eadb5: 0.5
-    - Vector1_993e7df66a85480fa9d7548f5a0b648d: 0.089
+    - Vector1_993e7df66a85480fa9d7548f5a0b648d: 0.023
     - Vector1_d82e8f8bc5ac44debede4430d1fbb815: 0.34
     - Vector1_e6b7208adf3e410ca459e9369654a0ff: 0.4
     - Vector1_ea62681efacb414e8b66cbd6cc561973: 0.67
     - Vector1_eb9e8632549648869f3037256ea72cf5: 0.6
     - Vector1_f06d80ad2ec74ba096a99eb192328def: 0.27
-    - Vector1_f21399ae4ca3404ba14ff6a93826c1e9: 0
+    - Vector1_f21399ae4ca3404ba14ff6a93826c1e9: 0.098
     - Vector1_fabd22ca769140c59a8f224dd3194fc5: 5
     - Vector1_fed39385788b43a88191502cd986e41f: 1
     - _AORemapMax: 1
@@ -236,6 +236,7 @@ Material:
     - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
+    - _RandomSwitchEdge: 0.4
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
@@ -295,6 +296,8 @@ Material:
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
+    - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}

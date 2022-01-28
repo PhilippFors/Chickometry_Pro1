@@ -27,6 +27,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 61a3270c4d8878644a0cf42159f9e789, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_916470c239a9408f94631cde3c96b8e4_Texture2Dbd82a118ee5c44548e7744cd95402304_4131117674:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchShaderSub_b56dac86f85549c99ca93a4a756bde23_Texture2D45aa8a533b144a9b9c1acd62dc70e6d8_3976009163:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 2038a37a87e1eff4fa5efd69c9d1312e, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -113,7 +121,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - GrassWiggleFloat: 1
+    - Vector1_0cf263f448234eda8c3f89f899b194b7: 0.89
+    - Vector1_139f6a0ef7574ebd914a14bed26c13f7: 0
     - Vector1_16bbfee654b44f6082432d469ca838a4: 0
+    - Vector1_35394217ec2040f0bc2d0ad6454f1c60: 0
+    - Vector1_7a58c105809944e0ac70da33a1d5f42e: 0
+    - Vector1_a6b8ac9fe09d45f7b510a016aaa3a14b: 1
+    - Vector1_c654d9d74cbc4a899a2a11ea3ad938db: 0.5
+    - Vector1_cb91d238dd194e0c8a231d8699966bc6: 0
+    - Vector1_e43739bea0794b3ab46d06e497b35dbf: 1
+    - Vector1_e51bc021b7b04787a9fa7c7cf58e1ea5: 1
     - Vector1_e55158b3e0994c88a658ae1b5ae64177: 10.39
     - WindSpeedFloat: 0.1
     - WindStrenghtFloat: 0.8
@@ -148,7 +165,9 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
+    - _RandomSwitchEdge: 0.4
     - _ReceiveShadows: 1
+    - _Reverse: 0
     - _Rotation: 0.6
     - _Scale: 0.3
     - _ShadowStrength: 0.5
@@ -166,6 +185,7 @@ Material:
     - _Strenght: 0.5
     - _StrenghtNoise: 1
     - _Surface: 0
+    - _TimeSpeed: 1
     - _ToggleSwitch0: 0
     - _TransAmbient: 1
     - _TransDirect: 1
@@ -189,12 +209,15 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
+    - Color_199569acabc649b381d8b578b28047af: {r: 2.351959, g: 0.1427958, b: 0.1427958, a: 0}
     - _BaseColor: {r: 1, g: 0.42001882, b: 0, a: 1}
     - _Color: {r: 0.26383924, g: 1, b: 0, a: 1}
     - _Color0: {r: 1, g: 0.9847094, b: 0, a: 1}
     - _Color1: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HueVariation: {r: 0.4097438, g: 0.5660378, b: 0, a: 0.5686275}
+    - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
+    - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
     - _SnowColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Speed: {r: -0, g: 10, b: 0, a: 0}
