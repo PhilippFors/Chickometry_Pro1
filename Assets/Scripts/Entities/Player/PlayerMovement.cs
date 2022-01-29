@@ -2,6 +2,7 @@ using System;
 using Entities.Player.PlayerInput;
 using RoomLoop.Portal;
 using UnityEngine;
+using UsefulCode.SOArchitecture;
 
 namespace Entities.Player
 {
@@ -16,12 +17,16 @@ namespace Entities.Player
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private float groundCheckRadius;
         [SerializeField] private bool isGrounded;
+        [SerializeField] private float notGroundedDelay;
 
         private Vector2 moveDirection => InputController.Instance.GetValue<Vector2>(InputPatterns.Movement);
         private bool jumpTriggered => InputController.Instance.Triggered(InputPatterns.Jump);
         private Rigidbody rb;
         private bool moveEnabled = true;
+        private bool isJumping;
+        private float notGroundedTimer;
 
+        private int jumpFrameDelay;
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -30,11 +35,35 @@ namespace Entities.Player
         private void Update()
         {
             Jump();
+            
+            if (jumpFrameDelay > 2 || !isJumping) {
+                if (Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask,
+                    QueryTriggerInteraction.Ignore)) {
+                    isGrounded = true;
+                    notGroundedTimer = 0;
+                    isJumping = false;
+                }
+                else {
+                    if (isJumping) {
+                        isGrounded = false;
+                    }
+                    else {
+                        notGroundedTimer += Time.deltaTime;
+                        if (notGroundedTimer >= notGroundedDelay) {
+                            isGrounded = false;
+                        }
+                    }
+                }
 
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask,
-                QueryTriggerInteraction.Ignore);
+                jumpFrameDelay = 0;
+            }
+            
+            if (isJumping) {
+                jumpFrameDelay++;
+            }
+            
             if (isGrounded) {
-                rb.drag = 2;
+                rb.drag = 1;
             }
             else {
                 rb.drag = 0;
@@ -53,8 +82,10 @@ namespace Entities.Player
 
         private void Jump()
         {
-            if (isGrounded && jumpTriggered) {
+            if (isGrounded && jumpTriggered && !isJumping) {
                 rb.velocity += jumpStrength * Vector3.up;
+                isJumping = true;
+                isGrounded = false;
             }
         }
 
