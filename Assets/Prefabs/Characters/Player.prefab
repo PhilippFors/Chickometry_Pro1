@@ -1002,8 +1002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea76e364d8bfca41982c4daf47850cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
-  jumpStrength: 6
+  moveSpeed: 6.5
+  jumpStrength: 6.2
   groundCheck: {fileID: 7105781407399895577}
   groundMask:
     serializedVersion: 2
@@ -1033,7 +1033,7 @@ MonoBehaviour:
     m_Bits: 128
   placeDownMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 129
   itemParent: {fileID: 1769925509068507922}
 --- !u!114 &1144667323850829841
 MonoBehaviour:

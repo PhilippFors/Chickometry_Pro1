@@ -25,8 +25,9 @@ namespace Entities.Player
         private bool moveEnabled = true;
         private bool isJumping;
         private float notGroundedTimer;
-
         private int jumpFrameDelay;
+        private float jumpdivider;
+        
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -79,11 +80,15 @@ namespace Entities.Player
             transform.position += moveDir;
         }
 
-
+        public void SetJumpDivder(float val)
+        {
+            jumpdivider = val;
+        }
+        
         private void Jump()
         {
             if (isGrounded && jumpTriggered && !isJumping) {
-                rb.velocity += jumpStrength * Vector3.up;
+                rb.velocity += jumpStrength / jumpdivider * Vector3.up;
                 isJumping = true;
                 isGrounded = false;
             }

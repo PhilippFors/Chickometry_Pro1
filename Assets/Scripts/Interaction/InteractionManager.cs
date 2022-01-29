@@ -1,6 +1,7 @@
 using System.Collections;
 using Checkpoints;
 using DG.Tweening;
+using Entities.Player;
 using Entities.Player.PlayerInput;
 using Interaction.Interactables;
 using Interaction.Items;
@@ -24,6 +25,7 @@ namespace Interactables
         [SerializeField] private Transform itemParent;
 
         private MouseBasedRotator itemRotator;
+        private PlayerMovement playerMovement;
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
@@ -43,6 +45,7 @@ namespace Interactables
 
         private void Awake()
         {
+            playerMovement = GetComponent<PlayerMovement>();
             InputController.Instance.Canceled(InputPatterns.Throw, ThrowRelease);
             mainCam = Camera.main;
             throwForce = minThrowForce;
@@ -108,6 +111,7 @@ namespace Interactables
                 var playerRb = GetComponent<Rigidbody>();
                 playerRb.mass += rb.mass;
                 oldItemMass = rb.mass;
+                playerMovement.SetJumpDivder(2);
             }
         }
 
@@ -149,7 +153,6 @@ namespace Interactables
                         var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                         rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
                         ReleaseObject();
-
                     }
                 }
                 else {
@@ -178,6 +181,7 @@ namespace Interactables
             rb.constraints = constraintCache;
             currentlyHeldItem.OnThrow();
             currentlyHeldItem = null;
+            playerMovement.SetJumpDivder(1);
         }
 
         private IEnumerator PlaceDown(float dist)
@@ -191,6 +195,7 @@ namespace Interactables
             playerRb.mass -= rb.mass;
             rb.useGravity = true;
             currentlyHeldItem = null;
+            playerMovement.SetJumpDivder(1);
         }
 
         private void HandleRightClick()
