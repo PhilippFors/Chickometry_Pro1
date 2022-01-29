@@ -25,7 +25,6 @@ namespace ObjectAbstraction.Utilities
                     action.Execute(other);
                 }
             }
-
         }
 
         protected virtual void OnTriggerExit(Collider other)

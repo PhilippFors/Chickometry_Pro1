@@ -58,10 +58,9 @@ namespace ObjectAbstraction.Wireframe
             MaterialTransitions(mats, 1);
             var objs = GetComponentsInChildren<Collider>();
             foreach (var o in objs) {
-                if (o.gameObject.layer == 11) {
-                    abstractableCol = o;
+                if (o.gameObject.layer != 11) {
+                    o.gameObject.layer = wireframeLayer;
                 }
-                o.gameObject.layer = wireframeLayer;
             }
 
             modelChanger.Shootable = false;
@@ -72,10 +71,7 @@ namespace ObjectAbstraction.Wireframe
             MaterialTransitions(mats, minWireFrameBlend);
             var objs = GetComponentsInChildren<Collider>();
             foreach (var o in objs) {
-                if (o == abstractableCol) {
-                    o.gameObject.layer = 11;
-                }
-                else {
+                if (o.gameObject.layer != 11) {
                     o.gameObject.layer = defaultLayer;
                 }
             }

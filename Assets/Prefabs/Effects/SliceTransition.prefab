@@ -59,9 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeAmount: 100
-  cubeScale: 1
   bounds: {fileID: 7747136788121427583}
-  cubePrefab: {fileID: 7360853255301366340, guid: f176f46516d2eb34e825e77937e892fc, type: 3}
   excludeBounds: {fileID: 7332636409352145786}
   cubePositions: []
 --- !u!1 &3600449213713647708
@@ -74,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8325893196493440466}
   - component: {fileID: 7332636409352145786}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: exclude
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +102,7 @@ BoxCollider:
   m_GameObject: {fileID: 3600449213713647708}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2, y: 5, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -195,3 +193,4 @@ MonoBehaviour:
   batchAmount: 30
   drawGizmos: 0
   gizmoSize: 1
+  gizmoTransparency: 0.2

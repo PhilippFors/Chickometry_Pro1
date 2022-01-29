@@ -70,7 +70,7 @@ namespace ObjectAbstraction.ModelChanger
 
         public void ToggleModels()
         {
-            if (isAbstract) {
+            if (isAbstract && shootable) {
                 EnableNormalLayer(useSimpleTransition);
             }
             else {
@@ -100,7 +100,7 @@ namespace ObjectAbstraction.ModelChanger
         {
             if (useSlicePlane) {
                 if (instant) {
-                    plane.StartTransition(toAbstract, 0.1f);
+                    plane.StartTransition(toAbstract, 0f);
                     return;
                 }
 
