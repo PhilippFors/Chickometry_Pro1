@@ -192,14 +192,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8508046670162888113}
     m_Modifications:
-    - target: {fileID: 554661953697511308, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
-      propertyPath: m_Cameras.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 554661953697511308, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
-      propertyPath: m_Cameras.Array.data[0]
-      value: 
-      objectReference: {fileID: 6645317517424011185}
     - target: {fileID: 1144667323850829841, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: mouseLook
       value: 
@@ -207,10 +199,6 @@ PrefabInstance:
     - target: {fileID: 2836646049685890862, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4314873027095143043, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 7159
       objectReference: {fileID: 0}
     - target: {fileID: 6435167782267622569, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
       propertyPath: grenadeTimer
@@ -287,8 +275,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c646fba431250a4aa4585e3f57213ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!20 &6645317517424011185 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5164769852171832989, guid: 20323ae439d544344be8c6b9a0c2a4de, type: 3}
-  m_PrefabInstance: {fileID: 1987243863615760684}
-  m_PrefabAsset: {fileID: 0}
