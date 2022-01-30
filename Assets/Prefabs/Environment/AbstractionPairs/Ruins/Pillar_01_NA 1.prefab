@@ -319,7 +319,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7081806956540709089}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 10
   m_UseGravity: 1
@@ -376,7 +376,7 @@ MonoBehaviour:
     customColliderMesh: {fileID: 6908847595050264679, guid: 7f70548284520b6499774d5ca20d4c04, type: 3}
     useRigidbodySettings: 1
     rigidbodySettings:
-      mass: 50
+      mass: 5
       drag: 0
       useGravity: 1
 --- !u!64 &5240409630992869950
