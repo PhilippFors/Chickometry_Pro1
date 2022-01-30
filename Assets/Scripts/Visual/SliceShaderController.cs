@@ -17,12 +17,10 @@ namespace Visual
         
         private void Awake()
         {
-            slicePlanePosID = Shader.PropertyToID("_SlicePlanePos");
-            slicePlaneDirID = Shader.PropertyToID("_SlicePlaneDir");
             meshRenderer = GetComponent<MeshRenderer>();
             foreach (var mat in meshRenderer.materials) {
-                mat.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
-                mat.SetFloat("_RandomSwitchEdge", Random.Range(0.25f, 0.65f));
+                mat.SetFloat("_TimeSpeed", Random.Range(0.5f, 1.6f));
+                mat.SetFloat("_RandomSwitchEdge", Random.Range(0.2f, 0.7f));
                 mat.SetVector("_SlicePlanePos", plane.transform.position);
                 mat.SetVector("_SlicePlaneDir", plane.transform.forward);
                 mat.SetFloat("_Reverse", reverse ? 1 : 0);
