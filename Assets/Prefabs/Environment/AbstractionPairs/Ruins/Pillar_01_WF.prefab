@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2839910553120567783}
-  - component: {fileID: 8660863697393300655}
-  - component: {fileID: 5018018718505463484}
   - component: {fileID: 1882538015101023210}
   - component: {fileID: 3366560773628288409}
   - component: {fileID: 308039192036949824}
@@ -29,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308039192036949830}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -18.8, y: 17.162117, z: 95.229996}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.13778004, y: 0.13778009, z: 0.13778004}
   m_Children:
   - {fileID: 220298761097025977}
   - {fileID: 2592798068214147122}
@@ -42,37 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &8660863697393300655
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308039192036949830}
-  serializedVersion: 2
-  m_Mass: 5
-  m_Drag: 0
-  m_AngularDrag: 10
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &5018018718505463484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308039192036949830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c0c5d5011d3a243a95288c402e1867, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pattern: 3
-  isInteractable: 1
-  canBePickedUp: 1
 --- !u!114 &1882538015101023210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +65,7 @@ MonoBehaviour:
     customColliderMesh: {fileID: -4475802157968290210, guid: 7f70548284520b6499774d5ca20d4c04, type: 3}
     useRigidbodySettings: 1
     rigidbodySettings:
-      mass: 15
+      mass: 500
       drag: 0
       useGravity: 1
   abstractModel:
@@ -107,7 +74,7 @@ MonoBehaviour:
     customColliderMesh: {fileID: 6908847595050264679, guid: 7f70548284520b6499774d5ca20d4c04, type: 3}
     useRigidbodySettings: 1
     rigidbodySettings:
-      mass: 5
+      mass: 50
       drag: 0
       useGravity: 1
 --- !u!64 &3366560773628288409
@@ -121,7 +88,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6908847595050264679, guid: 7f70548284520b6499774d5ca20d4c04, type: 3}
 --- !u!114 &308039192036949824
@@ -459,7 +426,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043366605208764167}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5, y: 10, z: 1.5}
@@ -569,6 +536,18 @@ PrefabInstance:
       propertyPath: gizmoTransparency
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: sliceShaderControllers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: sliceShaderControllers.Array.data[0]
+      value: 
+      objectReference: {fileID: 3971970866691057683}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: sliceShaderControllers.Array.data[1]
+      value: 
+      objectReference: {fileID: 6530827838271344104}
     - target: {fileID: 635556944176571434, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
