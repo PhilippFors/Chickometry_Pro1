@@ -8,16 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wireframe_Dissolve_Tree_mat
-  m_Shader: {fileID: -6465566751694194690, guid: 7c6b30b307387d04488e0fa5770a85c7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3fc96146964e9764983736cb5e88e607, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
     _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
-    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
   - TransparentDepthPrepass
@@ -27,8 +26,32 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_28b4bbb62f264f838e86782283e8d156:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_6f5ef6ecdbc94c9993c0e6e46e11cacf:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_b4df1cdeccd14e6ba2601d4926b27780:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_125de1da3e69422496eb23a5e8633e9f_Texture2D47d7883c78564256ac68903f8550a478_2199319159:
+        m_Texture: {fileID: 2800000, guid: 61a3270c4d8878644a0cf42159f9e789, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AbstractionGlitchEmission_125de1da3e69422496eb23a5e8633e9f_Texture2Dbd82a118ee5c44548e7744cd95402304_4131117674:
+        m_Texture: {fileID: 2800000, guid: fe067c51d21fc0b4aa67199957b23d9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 28a51d508c86a8948b59df81d5188b17, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WireframeSub_2c6f5f5b8101471e86cda4ad1d9d614b_Texture2Db81eb590c0cb41debef5ba265f8043a2_3593280151:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WireframeSub_5cd83863e72a4e029cabf1a3e8d9f288_Texture2Db81eb590c0cb41debef5ba265f8043a2_3593280151:
@@ -48,11 +71,32 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_45858a5cfa0a4ca5b9284a3be33382cf: 0
+    - Boolean_7606c24369834d0fa2c041da3fe3df3d: 0
+    - Vector1_1: 1.19
     - Vector1_1899ce0c24a2472a8a6fe4fda60408a3: 0.43
+    - Vector1_33e44a55b4174c899967e944e7d4d7fe: 0.5
+    - Vector1_3fc88c9ac71b409495dfa60431fd534a: 1
+    - Vector1_43a8d632d954436b83be4e63b08292c6: 0.24
+    - Vector1_4e32a18e72f54a9cbf7269a0d6f07b0f: 0.77
     - Vector1_5af3fa4a91224495ad72dee32b4f4f87: 0
+    - Vector1_5cca70463108418cae2491d882d4f9b1: 0
     - Vector1_71eb39d75e45454baf71622766f3fc04: 0.68
+    - Vector1_7226b4a102fa4d82b9c36bc673c3e257: 0.2
     - Vector1_8fa1428c5674427b9e4d4a87bccfba3b: 0.136
+    - Vector1_90c18cc97b934e3d9f1ce73f8d96d099: 0.5
+    - Vector1_976a8fd5e8d547678fdc9055af0eadb5: 0.5
+    - Vector1_993e7df66a85480fa9d7548f5a0b648d: 0.35
     - Vector1_9a35b4c9ee714552a4a3bc492088035c: 0
+    - Vector1_d31adbab87c54eb9ad12c46aba649c14: 0
+    - Vector1_d82e8f8bc5ac44debede4430d1fbb815: 0.59
+    - Vector1_e6b7208adf3e410ca459e9369654a0ff: 0.4
+    - Vector1_ea62681efacb414e8b66cbd6cc561973: 0.73
+    - Vector1_eb9e8632549648869f3037256ea72cf5: 0.6
+    - Vector1_f06d80ad2ec74ba096a99eb192328def: 0
+    - Vector1_f21399ae4ca3404ba14ff6a93826c1e9: 0
+    - Vector1_fabd22ca769140c59a8f224dd3194fc5: 5
+    - Vector1_fed39385788b43a88191502cd986e41f: 1
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 10
@@ -69,13 +113,17 @@ Material:
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
+    - _MaxThickness: 3.28
+    - _MinThickness: 2.14
     - _OpaqueCullMode: 2
+    - _RandomSwitchEdge: 0.4
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
+    - _Reverse: 0
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
@@ -97,7 +145,8 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
     - _UseShadowThreshold: 0
-    - _WireframeBlend: 0.044
+    - _WireframeBlend: 0.089
+    - _WireframeSmoothness: 0.162
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
@@ -105,8 +154,13 @@ Material:
     m_Colors:
     - Color_8d826bdc8a994097a88ef2f43f68d015: {r: 0, g: 0.13545203, b: 0.57547164, a: 0.84313726}
     - Color_8ff95b502fb840029dbbf2d111f264a2: {r: 0, g: 10.227451, b: 11.984314, a: 0}
+    - Color_96ab5326eb3a49e1839fa05329b93197: {r: 10.64887, g: 1.55068, b: 1.55068, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
+    - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
+    - _WireColor: {r: 0, g: 1.854524, b: 3.031433, a: 0}
+    - _WireframeAlbedo: {r: 0.16025218, g: 0.55698526, b: 0.7924528, a: 0.64705884}
   m_BuildTextureStacks: []
 --- !u!114 &8744098826795273440
 MonoBehaviour:

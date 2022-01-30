@@ -27,7 +27,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 28a51d508c86a8948b59df81d5188b17, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1dd005060ec71cc43b7bffbbcff46c93, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WireframeSub_2c6f5f5b8101471e86cda4ad1d9d614b_Texture2Db81eb590c0cb41debef5ba265f8043a2_3593280151:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WireframeSub_d40d61a23b7b41a6b1ebfbeeb23c7386_Texture2Db81eb590c0cb41debef5ba265f8043a2_3593280151:
@@ -47,6 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_45858a5cfa0a4ca5b9284a3be33382cf: 1
     - Vector1_5cca70463108418cae2491d882d4f9b1: 0
     - Vector1_d31adbab87c54eb9ad12c46aba649c14: 0.214
     - _AddPrecomputedVelocity: 0
@@ -74,6 +79,7 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
+    - _Reverse: 0
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
@@ -95,7 +101,7 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
     - _UseShadowThreshold: 0
-    - _WireframeBlend: 0.100000024
+    - _WireframeBlend: 0.092
     - _WireframeSmoothness: 0.169
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
@@ -104,6 +110,8 @@ Material:
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
+    - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
     - _WireColor: {r: 0, g: 3.5805354, b: 4.981132, a: 0}
     - _WireframeAlbedo: {r: 0, g: 0.01767754, b: 0.41509432, a: 0.6}
   m_BuildTextureStacks: []

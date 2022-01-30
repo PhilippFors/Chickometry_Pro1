@@ -24,6 +24,7 @@ namespace Visual
                 mat.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
                 mat.SetFloat("_RandomSwitchEdge", Random.Range(0.25f, 0.65f));
                 mat.SetVector("_SlicePlanePos", plane.transform.position);
+                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
                 mat.SetFloat("_Reverse", reverse ? 1 : 0);
             }
         }
@@ -35,8 +36,8 @@ namespace Visual
             }
             
             foreach (var mat in meshRenderer.materials) {
-                mat.SetVector(slicePlanePosID, plane.transform.position);
-                mat.SetVector(slicePlaneDirID, plane.transform.forward);
+                mat.SetVector("_SlicePlanePos", plane.transform.position);
+                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
             }
         }
 

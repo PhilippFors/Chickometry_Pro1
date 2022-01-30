@@ -82,7 +82,7 @@ namespace ObjectAbstraction.Wireframe
         public void MaterialTransitions(Material[] mats, float endValue)
         {
             foreach (var mat in mats) {
-                mat.DOFloat(endValue, wireframeBlendID, transitionDuration);
+                mat.DOFloat(endValue, "_WireframeBlend", transitionDuration);
             }
         }
     }

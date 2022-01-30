@@ -12,7 +12,6 @@ namespace ObjectAbstraction.ModelChanger
     /// <summary>
     /// Advanced version of the model changer with more settings and functionality
     /// </summary>
-    [RequireComponent(typeof(MeshCollider))]
     public partial class AdvModelChanger : MonoBehaviour, IModelChanger, IResettableItem
     {
         public bool Shootable
