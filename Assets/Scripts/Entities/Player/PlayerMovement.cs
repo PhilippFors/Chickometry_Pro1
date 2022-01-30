@@ -24,7 +24,7 @@ namespace Entities.Player
         private bool isJumping;
         private float notGroundedTimer;
         private int jumpFrameDelay;
-        private float jumpdivider;
+        private float jumpdivider = 1;
         
         private void Awake()
         {

@@ -35,7 +35,7 @@ namespace ObjectAbstraction.Wireframe
         private void Update()
         {
             ChangeLength(length);
-            
+
             if (length > minLength) {
                 EnableParticles();
             }
@@ -44,7 +44,7 @@ namespace ObjectAbstraction.Wireframe
             }
             
             if (!isEnabled) {
-                ChangeLength(minLength);
+                length = minLength;
                 return;
             }
 

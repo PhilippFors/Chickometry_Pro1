@@ -8,27 +8,35 @@ namespace Visual
     public class SliceShaderController : MonoBehaviour
     {
         public bool reverse;
+        public bool isTransitioning;
         public GameObject plane;
         private MeshRenderer meshRenderer;
         // public BoxCollider volume;
-
+        private int slicePlanePosID;
+        private int slicePlaneDirID;
+        
         private void Awake()
         {
+            slicePlanePosID = Shader.PropertyToID("_SlicePlanePos");
+            slicePlaneDirID = Shader.PropertyToID("_SlicePlaneDir");
             meshRenderer = GetComponent<MeshRenderer>();
             foreach (var mat in meshRenderer.materials) {
                 mat.SetFloat("_TimeSpeed", Random.Range(0.6f, 1.4f));
                 mat.SetFloat("_RandomSwitchEdge", Random.Range(0.25f, 0.65f));
                 mat.SetVector("_SlicePlanePos", plane.transform.position);
+                mat.SetFloat("_Reverse", reverse ? 1 : 0);
             }
         }
 
         void Update()
         {
-            // GetMinMax();
+            if (!isTransitioning) {
+                return;
+            }
+            
             foreach (var mat in meshRenderer.materials) {
-                mat.SetVector("_SlicePlanePos", plane.transform.position);
-                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
-                mat.SetFloat("_Reverse", reverse ? 1 : 0);
+                mat.SetVector(slicePlanePosID, plane.transform.position);
+                mat.SetVector(slicePlaneDirID, plane.transform.forward);
             }
         }
 

@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 1
+  isTransitioning: 0
   plane: {fileID: 5541232664727316304}
 --- !u!1 &2755675107474791165
 GameObject:
@@ -402,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 0
+  isTransitioning: 0
   plane: {fileID: 5541232664727316304}
 --- !u!1 &5043366605208764167
 GameObject:

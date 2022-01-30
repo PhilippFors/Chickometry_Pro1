@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 0
+  isTransitioning: 0
   plane: {fileID: 6919890280458137141}
 --- !u!1 &7106288269288069896
 GameObject:
@@ -488,6 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 1
+  isTransitioning: 0
   plane: {fileID: 6919890280458137141}
 --- !u!1001 &6927651667565510
 PrefabInstance:
@@ -536,6 +538,18 @@ PrefabInstance:
       propertyPath: gizmoTransparency
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: sliceShaderControllers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: sliceShaderControllers.Array.data[0]
+      value: 
+      objectReference: {fileID: 8860464797806491197}
+    - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
+      propertyPath: sliceShaderControllers.Array.data[1]
+      value: 
+      objectReference: {fileID: 617080796898027753}
     - target: {fileID: 635556944176571434, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
