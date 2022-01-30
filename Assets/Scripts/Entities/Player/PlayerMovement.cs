@@ -1,8 +1,6 @@
-using System;
 using Entities.Player.PlayerInput;
 using RoomLoop.Portal;
 using UnityEngine;
-using UsefulCode.SOArchitecture;
 
 namespace Entities.Player
 {
