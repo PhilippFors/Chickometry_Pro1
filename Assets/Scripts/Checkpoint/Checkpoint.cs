@@ -29,5 +29,6 @@ namespace Checkpoints
             Gizmos.color = new Color(0, 50, 200, 0.5f);
             Gizmos.DrawWireCube(transform.position, newVec);
         }
+        
     }
 }

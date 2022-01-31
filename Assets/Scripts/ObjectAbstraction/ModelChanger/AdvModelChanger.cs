@@ -27,7 +27,10 @@ namespace ObjectAbstraction.ModelChanger
 
         [SerializeField] private bool useSlicePlane;
         [SerializeField] private bool useSimpleTransition;
-        [SerializeField, ShowIf("useSlicePlane")] private TransitionController plane;
+
+        [SerializeField, ShowIf("useSlicePlane")]
+        private TransitionController plane;
+
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private MeshFilter normalMeshFilter;
@@ -37,7 +40,6 @@ namespace ObjectAbstraction.ModelChanger
 
         private MeshRenderer normalRend;
         private MeshRenderer abstractRend;
-        private MeshCollider meshCollider;
         private GameObject previousColliders;
 
         private void Awake()
@@ -46,7 +48,6 @@ namespace ObjectAbstraction.ModelChanger
             OriginalPosition = transform.position;
             OriginalRotation = transform.rotation;
 
-            meshCollider = GetComponent<MeshCollider>();
             normalRend = normalMeshFilter.GetComponent<MeshRenderer>();
             abstractRend = abstractMeshFilter.GetComponent<MeshRenderer>();
         }
@@ -57,13 +58,28 @@ namespace ObjectAbstraction.ModelChanger
                 plane.Init(isAbstract);
             }
 
+            StartCoroutine(Init());
+        }
+
+        private IEnumerator Init()
+        {
             if (isAbstract) {
-                EnableNormalLayer(true);
-                EnableAbstractLayer(true);
+                normalModel.ApplyCollider(ref previousColliders);
+                normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
+                normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
+                yield return null;
+                abstractModel.ApplyCollider(ref previousColliders);
+                abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
+                abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
             else {
-                EnableAbstractLayer(true);
-                EnableNormalLayer(true);
+                abstractModel.ApplyCollider(ref previousColliders);
+                abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
+                abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
+                yield return null;
+                normalModel.ApplyCollider(ref previousColliders);
+                normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
+                normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
         }
 
@@ -80,9 +96,9 @@ namespace ObjectAbstraction.ModelChanger
         }
 
         private void EnableNormalLayer(bool instant = false)
-        {            
+        {
             normalModel.ApplyCollider(ref previousColliders);
-            normalModel.ApplyMeshCollider(meshCollider, normalMeshFilter);
+            normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
             normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             Transition(false, instant);
         }
@@ -90,7 +106,7 @@ namespace ObjectAbstraction.ModelChanger
         private void EnableAbstractLayer(bool instant = false)
         {
             abstractModel.ApplyCollider(ref previousColliders);
-            abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
+            abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
             abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             Transition(true, instant);
         }
@@ -138,23 +154,21 @@ namespace ObjectAbstraction.ModelChanger
 
         private void OnValidate()
         {
-            meshCollider = GetComponent<MeshCollider>();
             if (isAbstract) {
-                abstractModel.ApplyMeshCollider(meshCollider, abstractMeshFilter);
-                abstractModel.ApplyCollider(ref previousColliders);
-                abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
+                // abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
+                // abstractModel.ApplyCollider(ref previousColliders);
+                // abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
             else {
-                normalModel.ApplyMeshCollider(meshCollider, normalMeshFilter);
-                normalModel.ApplyCollider(ref previousColliders);
-                normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
+                // normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
+                // normalModel.ApplyCollider(ref previousColliders);
+                // normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.matrix = transform.localToWorldMatrix;
-
         }
     }
 }

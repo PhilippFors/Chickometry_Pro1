@@ -145,7 +145,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
-  m_CookingOptions: 30
+  m_CookingOptions: 0
   m_Mesh: {fileID: 4538217865194384945, guid: 47f26e4b3c443d6478b7386274c42883, type: 3}
 --- !u!114 &6717339863129173820
 MonoBehaviour:
@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: drawGizmos
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 262148163485020983, guid: ad54992ed4d137e408211d2690827d03, type: 3}
       propertyPath: batchAmount

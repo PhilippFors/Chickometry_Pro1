@@ -10,7 +10,7 @@ Material:
   m_Name: WireframeBlending_Tree_mat
   m_Shader: {fileID: -6465566751694194690, guid: 3fc96146964e9764983736cb5e88e607, type: 3}
   m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -51,9 +51,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_45858a5cfa0a4ca5b9284a3be33382cf: 1
+    - Boolean_45858a5cfa0a4ca5b9284a3be33382cf: 0
     - Vector1_5cca70463108418cae2491d882d4f9b1: 0
-    - Vector1_d31adbab87c54eb9ad12c46aba649c14: 0.214
+    - Vector1_d31adbab87c54eb9ad12c46aba649c14: 0.253
     - _AddPrecomputedVelocity: 0
     - _AlphaBlend: 0
     - _AlphaCutoffEnable: 0
@@ -70,8 +70,8 @@ Material:
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 0
-    - _MaxThickness: 0.68
-    - _MinThickness: 0.23
+    - _MaxThickness: 4.81
+    - _MinThickness: 3.17
     - _OpaqueCullMode: 2
     - _RayTracing: 0
     - _ReceivesSSR: 1
@@ -101,8 +101,8 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
     - _UseShadowThreshold: 0
-    - _WireframeBlend: 0.092
-    - _WireframeSmoothness: 0.169
+    - _WireframeBlend: 0.059
+    - _WireframeSmoothness: 0.133
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
@@ -112,8 +112,8 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
     - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
-    - _WireColor: {r: 0, g: 3.5805354, b: 4.981132, a: 0}
-    - _WireframeAlbedo: {r: 0, g: 0.01767754, b: 0.41509432, a: 0.6}
+    - _WireColor: {r: 0, g: 20.036901, b: 27.53272, a: 1}
+    - _WireframeAlbedo: {r: 0, g: 0.03070495, b: 0.6509434, a: 0.5254902}
   m_BuildTextureStacks: []
 --- !u!114 &2007060680812830470
 MonoBehaviour:

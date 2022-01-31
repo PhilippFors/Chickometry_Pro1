@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks.Triggers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -25,18 +26,29 @@ namespace ObjectAbstraction.ModelChanger
             if (!collider) {
                 return;
             }
-            
+
+            var obj = collider.gameObject;
+            MeshCollider col = collider;
             if (useMeshCollider) {
-                collider.enabled = true;
+                if (Application.isPlaying) {
+                    var convex = collider.convex;
+                    var trigger = collider.isTrigger;
+                    Object.Destroy(collider);
+                    col = obj.AddComponent<MeshCollider>();
+                    Debug.Log($"Adding Collider to {obj.name}");
+                    col.convex = convex;
+                    col.isTrigger = trigger;
+                }
+
                 if (filter) {
-                    collider.sharedMesh = filter.sharedMesh;
+                    col.sharedMesh = filter.sharedMesh;
                 }
                 else {
-                    collider.sharedMesh = customColliderMesh;
+                    col.sharedMesh = customColliderMesh;
                 }
             }
             else {
-                collider.enabled = false;
+                col.enabled = false;
             }
         }
 

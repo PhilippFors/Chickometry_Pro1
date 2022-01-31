@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Checkpoints;
 using DG.Tweening;
@@ -46,11 +47,16 @@ namespace Interactables
         private void Awake()
         {
             playerMovement = GetComponent<PlayerMovement>();
-            InputController.Instance.Canceled(InputPatterns.Throw, ThrowRelease);
+            
             mainCam = Camera.main;
             throwForce = minThrowForce;
             itemRotator = itemParent.GetComponent<MouseBasedRotator>();
             ogItemRotation = itemParent.localRotation;
+        }
+
+        private void Start()
+        {
+            InputController.Instance.Canceled(InputPatterns.Throw, ThrowRelease);
         }
 
         private void OnEnable()

@@ -55,7 +55,7 @@ namespace ObjectAbstraction.Wireframe
 
         private void EnableWireFrame(Material[] mats)
         {
-            MaterialTransitions(mats, 1);
+            MaterialTransitions(mats, 0.9f);
             var objs = GetComponentsInChildren<Collider>();
             foreach (var o in objs) {
                 if (o.gameObject.layer != 11) {

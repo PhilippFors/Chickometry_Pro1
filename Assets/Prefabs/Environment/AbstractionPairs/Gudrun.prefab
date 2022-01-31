@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 31474245}
   - component: {fileID: 2039551569785397473}
   - component: {fileID: 31474246}
-  - component: {fileID: 1453844818229854786}
+  - component: {fileID: -7266069634758726195}
   m_Layer: 7
   m_Name: Gudrun
   m_TagString: Gudrun
@@ -53,7 +53,7 @@ MonoBehaviour:
   useSlicePlane: 0
   useSimpleTransition: 1
   plane: {fileID: 0}
-  isAbstract: 0
+  isAbstract: 1
   shootable: 1
   normalMeshFilter: {fileID: 7996208326614851816}
   abstractMeshFilter: {fileID: 2370864428424155662}
@@ -61,16 +61,16 @@ MonoBehaviour:
     useMeshCollider: 1
     colliderParent: {fileID: 0}
     customColliderMesh: {fileID: 0}
-    useRigidbodySettings: 0
+    useRigidbodySettings: 1
     rigidbodySettings:
-      mass: 1
+      mass: 5
       drag: 0
       useGravity: 1
   abstractModel:
     useMeshCollider: 1
     colliderParent: {fileID: 0}
     customColliderMesh: {fileID: 0}
-    useRigidbodySettings: 0
+    useRigidbodySettings: 1
     rigidbodySettings:
       mass: 1
       drag: 0
@@ -88,8 +88,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  stopDistance: 1
-  speed: 7
+  stopDistance: 2
+  speed: 10
 --- !u!114 &2039551569785397473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,9 +119,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
---- !u!64 &1453844818229854786
+--- !u!64 &-7266069634758726195
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +134,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2394505134966479517, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
+  m_Mesh: {fileID: -6005386447070930203, guid: dfc2588bda97086459b7d56a8004022f, type: 3}
 --- !u!1 &880029654293751679
 GameObject:
   m_ObjectHideFlags: 0

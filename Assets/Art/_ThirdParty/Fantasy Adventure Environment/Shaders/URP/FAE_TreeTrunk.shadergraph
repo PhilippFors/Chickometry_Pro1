@@ -1786,9 +1786,9 @@
     "m_Guid": {
         "m_GuidSerialized": "6e64dfae-a927-461b-9cbe-e4bce4093ce4"
     },
-    "m_Name": "SmallGlitchSpawnSpeed",
+    "m_Name": "SmallGlitchesSpawnSpeed",
     "m_DefaultReferenceName": "Vector1_125e8f371cbd4d2890ee391876afae4f",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_SmallGlitchesSpawnSpeed",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -3287,7 +3287,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "5fd3958df8be4dbea7d57bd955dee7ad",
     "m_Id": 0,
-    "m_DisplayName": "SmallGlitchSpawnSpeed",
+    "m_DisplayName": "SmallGlitchesSpawnSpeed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5239,9 +5239,9 @@
     "m_Guid": {
         "m_GuidSerialized": "d9ac2bd1-5c88-4d08-b122-01bddc3c36c2"
     },
-    "m_Name": "BigGlitchSpawnSpeed",
+    "m_Name": "BigGlitchesSpawnSpeed",
     "m_DefaultReferenceName": "",
-    "m_OverrideReferenceName": "Vector1_1",
+    "m_OverrideReferenceName": "_BigGlitchesSpawnSpeed",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -7096,7 +7096,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "faf8d0f4397a4621834a001b6f81e2e2",
     "m_Id": 0,
-    "m_DisplayName": "BigGlitchSpawnSpeed",
+    "m_DisplayName": "BigGlitchesSpawnSpeed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
