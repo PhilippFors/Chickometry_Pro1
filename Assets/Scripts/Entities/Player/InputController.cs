@@ -16,7 +16,9 @@ namespace Entities.Player.PlayerInput
         MouseDelta,
         MousePosition,
         MouseWheel,
-        Throw
+        Throw,
+        P,
+        Esc
     }
 
     /// <summary>
@@ -36,7 +38,9 @@ namespace Entities.Player.PlayerInput
         [SerializeField] private InputActionProperty rightMouseButtonAction;
         [SerializeField] private InputActionProperty mousewheelAction;
         [SerializeField] private InputActionProperty throwItemAction;
-
+        [SerializeField] private InputActionProperty P;
+        [SerializeField] private InputActionProperty Esc;
+        
         private readonly Dictionary<InputPatterns, InputActionData> inputDictonary =
             new Dictionary<InputPatterns, InputActionData>();
 
@@ -62,6 +66,8 @@ namespace Entities.Player.PlayerInput
             inputDictonary.Add(InputPatterns.RightClick, new InputActionData(rightMouseButtonAction));
             inputDictonary.Add(InputPatterns.MouseWheel, new InputActionData(mousewheelAction));
             inputDictonary.Add(InputPatterns.Throw, new InputActionData(throwItemAction));
+            inputDictonary.Add(InputPatterns.P, new InputActionData(P));
+            inputDictonary.Add(InputPatterns.Esc, new InputActionData(Esc));
         }
 
         public InputActionData Get(InputPatterns pattern)

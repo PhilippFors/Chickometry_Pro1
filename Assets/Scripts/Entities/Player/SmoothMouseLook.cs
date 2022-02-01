@@ -26,8 +26,13 @@ namespace Entities.Player
         {
             targetDirection = transform.localRotation.eulerAngles;
 
-            if (characterBody)
+            if (characterBody) {
                 targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
+            }
+
+            if (lockCursor) {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
 
         public void ResetTargeDirection() // why
@@ -53,10 +58,6 @@ namespace Entities.Player
         {
             if (!enableLook) {
                 return;
-            }
-
-            if (lockCursor) {
-                Cursor.lockState = CursorLockMode.Locked;
             }
 
             var targetOrientation = Quaternion.Euler(targetDirection);

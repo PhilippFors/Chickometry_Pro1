@@ -38,6 +38,12 @@ namespace Visual
         private Vector3 ToAbstractPos => parentModelChanger.position + (-plane.transform.forward * minYPosition);
         private Vector3 ToNormalPos => parentModelChanger.position + (-plane.transform.forward * maxYPosition);
 
+        private int transitionPositionID;
+        private int absoluteScaleID;
+        private int maxDistanceID;
+        private int minDistanceID;
+        private int worldToLocalID;
+
         private void OnValidate()
         {
             if (!parentModelChanger) {
@@ -48,9 +54,16 @@ namespace Visual
             }
         }
 
-        private void Start()
+        private void Awake()
         {
+            plane = transform;
             parentModelChanger = GetComponentInParent<AdvModelChanger>().transform;
+
+            transitionPositionID = Shader.PropertyToID("_TransitionPosition");
+            absoluteScaleID = Shader.PropertyToID("_AbsoluteScale");
+            maxDistanceID = Shader.PropertyToID("_MaxDistance");
+            minDistanceID = Shader.PropertyToID("_MinDistance");
+            worldToLocalID = Shader.PropertyToID("_WorldToLocal");
         }
 
         public void Init(bool toAbstract)
@@ -112,13 +125,14 @@ namespace Visual
             updateRunning = false;
         }
 
+
         private void SetCubeMaterial(MeshRenderer r)
         {
-            r.material.SetVector("_TransitionPosition", plane.position);
-            r.material.SetFloat("_AbsoluteScale", cubeStartScale);
-            r.material.SetFloat("_MaxDistance", maxDistance);
-            r.material.SetFloat("_MinDistance", minDistance);
-            r.material.SetMatrix("_WorldToLocal", parentModelChanger.worldToLocalMatrix);
+            r.material.SetVector(transitionPositionID, plane.position);
+            r.material.SetFloat(absoluteScaleID, cubeStartScale);
+            r.material.SetFloat(maxDistanceID, maxDistance);
+            r.material.SetFloat(minDistanceID, minDistance);
+            r.material.SetMatrix(worldToLocalID, parentModelChanger.worldToLocalMatrix);
         }
 
         public void StartTransition(bool toAbstract, float duration = -1)

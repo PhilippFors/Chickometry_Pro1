@@ -932,6 +932,28 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 2520517370913500402, guid: e24367dd430e4364ebe9f3cb0ade16ed, type: 3}
+  P:
+    m_UseReference: 1
+    m_Action:
+      m_Name: P
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 33a8c607-ae29-4511-b0d7-e4db52137adb
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -8291697065597683409, guid: e24367dd430e4364ebe9f3cb0ade16ed, type: 3}
+  Esc:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Esc
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ddcb10e0-d8d5-4ec2-a537-1171dc34f420
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 6150359242596690991, guid: e24367dd430e4364ebe9f3cb0ade16ed, type: 3}
 --- !u!1 &7105781407259761278
 GameObject:
   m_ObjectHideFlags: 0
