@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.autodesk.fbx": {
+      "version": "4.1.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.philfors.usefulcode": {
       "version": "https://github.com/PhilippFors/useful-code.git?path=Assets/UsefulCode#c328bb437f8a8c222c8fe30061b468e8f4089fac",
       "depth": 0,
@@ -8,6 +15,15 @@
         "com.unity.inputsystem": "1.0.2"
       },
       "hash": "c328bb437f8a8c222c8fe30061b468e8f4089fac"
+    },
+    "com.samdriver.driven-decals": {
+      "version": "https://github.com/Anatta336/driven-decals.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "7.3.1"
+      },
+      "hash": "d334d4b6aa4e080a9cf911eab591cbcebd59e0e7"
     },
     "com.unity.cinemachine": {
       "version": "2.6.5",
@@ -21,6 +37,16 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.formats.fbx": {
+      "version": "4.1.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.5.2",
+        "com.autodesk.fbx": "4.1.1"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
@@ -170,8 +196,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.4.8",
-      "depth": 0,
+      "version": "1.5.2",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.director": "1.0.0",
