@@ -10,16 +10,32 @@ namespace Visual
         public bool reverse;
         public bool isTransitioning;
         public GameObject plane;
+        public bool isSkinnedMesh;
         private MeshRenderer meshRenderer;
+
+        private SkinnedMeshRenderer skinnedMeshRenderer;
+
         // public BoxCollider volume;
         private int slicePlanePosID;
         private int slicePlaneDirID;
         private Vector3 oldPlanePos;
+
         private void Awake()
         {
             oldPlanePos = plane.transform.position;
-            meshRenderer = GetComponent<MeshRenderer>();
-            foreach (var mat in meshRenderer.materials) {
+            if (isSkinnedMesh) {
+                skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+                ApplySettings(skinnedMeshRenderer.materials);
+            }
+            else {
+                meshRenderer = GetComponent<MeshRenderer>();
+                ApplySettings(meshRenderer.materials);
+            }
+        }
+
+        private void ApplySettings(Material[] materials)
+        {
+            foreach (var mat in materials) {
                 mat.SetFloat("_TimeSpeed", Random.Range(0.5f, 1.6f));
                 mat.SetFloat("_RandomSwitchEdge", Random.Range(0.2f, 0.7f));
                 mat.SetFloat("_BigGlitchesSpawnSpeed", Random.Range(0.1f, 1f));
@@ -31,15 +47,25 @@ namespace Visual
             }
         }
 
+        private void ApplyPos(Material[] materials)
+        {
+            foreach (var mat in materials) {
+                mat.SetVector("_SlicePlanePos", plane.transform.position);
+                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
+            }
+        }
+        
         void Update()
         {
             var diff = oldPlanePos - plane.transform.position;
             if (diff.magnitude > 0.01) {
-                foreach (var mat in meshRenderer.materials) {
-                    mat.SetVector("_SlicePlanePos", plane.transform.position);
-                    mat.SetVector("_SlicePlaneDir", plane.transform.forward);
+                if (isSkinnedMesh) {
+                    ApplyPos(skinnedMeshRenderer.materials);
                 }
-
+                else {
+                    ApplyPos(meshRenderer.materials);
+                }
+                
                 oldPlanePos = plane.transform.position;
             }
         }

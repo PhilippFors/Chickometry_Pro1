@@ -27,14 +27,19 @@ namespace ObjectAbstraction.ModelChanger
 
         [SerializeField] private bool useSlicePlane;
         [SerializeField] private bool useSimpleTransition;
-
         [SerializeField, ShowIf("useSlicePlane")]
         private TransitionController plane;
 
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
-        [SerializeField] private MeshFilter normalMeshFilter;
-        [SerializeField] private MeshFilter abstractMeshFilter;
+        
+        [SerializeField] private bool useNormalSkinnedMeshRenderer;
+        [SerializeField, ShowIf("useNormalSkinnedMeshRenderer")] private SkinnedMeshRenderer normalSkinnedMeshRenderer;
+        [SerializeField, HideIf("useNormalSkinnedMeshRenderer")] private MeshFilter normalMeshFilter;
+            
+        [SerializeField] private bool useAbstractSkinnedMeshRenderer;
+        [SerializeField, ShowIf("useAbstractSkinnedMeshRenderer")] private SkinnedMeshRenderer abstractSkinnedMeshRenderer;
+        [SerializeField, HideIf("useAbstractSkinnedMeshRenderer")] private MeshFilter abstractMeshFilter;
         [SerializeField] private ModelSettings normalModel;
         [SerializeField] private ModelSettings abstractModel;
 
@@ -63,22 +68,27 @@ namespace ObjectAbstraction.ModelChanger
 
         private IEnumerator Init()
         {
+            var abstrMesh = useAbstractSkinnedMeshRenderer ? abstractSkinnedMeshRenderer.sharedMesh : abstractMeshFilter.mesh;
+            var normalMesh = useNormalSkinnedMeshRenderer ? normalSkinnedMeshRenderer.sharedMesh : normalMeshFilter.mesh;
             if (isAbstract) {
                 normalModel.ApplyCollider(ref previousColliders);
-                normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
+                
+                normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMesh);
                 normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
                 yield return null;
+                
+                
                 abstractModel.ApplyCollider(ref previousColliders);
-                abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
+                abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstrMesh);
                 abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
             else {
                 abstractModel.ApplyCollider(ref previousColliders);
-                abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
+                abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstrMesh);
                 abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
                 yield return null;
                 normalModel.ApplyCollider(ref previousColliders);
-                normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
+                normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMesh);
                 normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             }
         }
@@ -97,16 +107,19 @@ namespace ObjectAbstraction.ModelChanger
 
         private void EnableNormalLayer(bool instant = false)
         {
+            
+            var normalMesh = useNormalSkinnedMeshRenderer ? normalSkinnedMeshRenderer.sharedMesh : normalMeshFilter.mesh;
             normalModel.ApplyCollider(ref previousColliders);
-            normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMeshFilter);
+            normalModel.ApplyMeshCollider(GetComponent<MeshCollider>(), normalMesh);
             normalModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             Transition(false, instant);
         }
 
         private void EnableAbstractLayer(bool instant = false)
         {
+            var abstrMesh = useAbstractSkinnedMeshRenderer ? abstractSkinnedMeshRenderer.sharedMesh : abstractMeshFilter.mesh;
             abstractModel.ApplyCollider(ref previousColliders);
-            abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstractMeshFilter);
+            abstractModel.ApplyMeshCollider(GetComponent<MeshCollider>(), abstrMesh);
             abstractModel.ApplyRigidbodySettings(GetComponent<Rigidbody>());
             Transition(true, instant);
         }

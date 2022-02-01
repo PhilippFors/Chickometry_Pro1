@@ -21,7 +21,7 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private bool useRigidbodySettings;
         [SerializeField] private RigidbodySettings rigidbodySettings;
         
-        public void ApplyMeshCollider(MeshCollider collider, MeshFilter filter = null)
+        public void ApplyMeshCollider(MeshCollider collider, Mesh mesh)
         {
             if (!collider) {
                 return;
@@ -40,8 +40,8 @@ namespace ObjectAbstraction.ModelChanger
                     col.isTrigger = trigger;
                 }
 
-                if (filter) {
-                    col.sharedMesh = filter.sharedMesh;
+                if (mesh) {
+                    col.sharedMesh = mesh;
                 }
                 else {
                     col.sharedMesh = customColliderMesh;

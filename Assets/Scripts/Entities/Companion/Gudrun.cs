@@ -14,6 +14,8 @@ namespace Entities.Companion
         [SerializeField] private Transform player;
         [SerializeField] private float stopDistance = 2f;
         [SerializeField] private float speed = 4f;
+        [SerializeField] private Animator animator;
+        
         private bool isGrounded;
         private BasePickUpInteractable pickUpInteractable;
         private Rigidbody rb;
@@ -46,9 +48,11 @@ namespace Entities.Companion
             // isGrounded = Physics.CheckSphere(transform.position + new Vector3(0, 0.09f, 0), 0.2f, LayerMask.GetMask("Default", "Interactable"));
 
             if (!isGrounded || switcher.IsAbstract || pickUpInteractable.IsPickedUp || Vector3.Distance(transform.position, player.position) < stopDistance) {
+                animator.SetBool("isRunning", false);
                 return;
             }
 
+            animator.SetBool("isRunning", true);
             navData.UpdatePath(transform.position, player.position, ref currentPoints);
             
             if (navData.pathStatus == PathStatus.PathReady) {
