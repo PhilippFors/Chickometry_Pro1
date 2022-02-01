@@ -41,11 +41,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_6f5ef6ecdbc94c9993c0e6e46e11cacf:
-        m_Texture: {fileID: 2800000, guid: ef8fb9e1e0bb91148a7bde7490e9b701, type: 3}
+        m_Texture: {fileID: 2800000, guid: c61d915a1c20229499c1f018c2c376c6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_b4df1cdeccd14e6ba2601d4926b27780:
-        m_Texture: {fileID: 2800000, guid: 1dd005060ec71cc43b7bffbbcff46c93, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3c01cc022370e904d855f9a6ccbfd8ba, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AbstractionGlitchEmission_125de1da3e69422496eb23a5e8633e9f_Texture2D47d7883c78564256ac68903f8550a478_2199319159:
@@ -173,6 +173,7 @@ Material:
     - Vector1_fed39385788b43a88191502cd986e41f: 1
     - _AlphaClip: 0
     - _AmbientOcclusion: 0.506
+    - _BigGlitchesSpawnSpeed: 0.59
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -196,6 +197,7 @@ Material:
     - _RandomSwitchEdge: 0.4
     - _ReceiveShadows: 1
     - _Reverse: 0
+    - _SmallGlitchesSpawnSpeed: 0.73
     - _Smoothness: 0.494
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -209,7 +211,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - Color_96ab5326eb3a49e1839fa05329b93197: {r: 10.64887, g: 1.55068, b: 1.55068, a: 0}
+    - Color_96ab5326eb3a49e1839fa05329b93197: {r: 6.6716757, g: 0, b: 44.72706, a: 1}
     - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 1.605559, g: 0.0756546, b: 0.0756546, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

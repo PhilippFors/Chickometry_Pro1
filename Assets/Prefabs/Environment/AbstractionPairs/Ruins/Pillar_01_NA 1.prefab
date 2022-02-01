@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9070902807202091848
 Transform:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
       drag: 0
       useGravity: 1
   abstractModel:
-    useMeshCollider: 0
+    useMeshCollider: 1
     colliderParent: {fileID: 304487539641304551}
     customColliderMesh: {fileID: 6908847595050264679, guid: 7f70548284520b6499774d5ca20d4c04, type: 3}
     useRigidbodySettings: 1
@@ -357,7 +357,7 @@ MeshCollider:
   m_GameObject: {fileID: 7081806956540709089}
   m_Material: {fileID: 13400000, guid: 58afb0a27495ca743a5e5d50e0a95b27, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30

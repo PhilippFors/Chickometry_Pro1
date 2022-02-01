@@ -154,6 +154,7 @@ Material:
     - _Alphacutoff: 0.415
     - _AmbientOcclusion: 0.5
     - _BendingInfluence: 0
+    - _BigGlitchesSpawnSpeed: 0.2
     - _BlendSpeed: 1
     - _BumpScale: 1
     - _ColorVariation: 0.422
@@ -182,6 +183,7 @@ Material:
     - _ShadowStrength: 1
     - _Shadows: 0
     - _Shininess: 0.1
+    - _SmallGlitchesSpawnSpeed: 1
     - _SmoothShading: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
@@ -205,7 +207,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 1.605559, g: 0.0756546, b: 0.0756546, a: 0}
+    - Color_b376b438dcf14bf89504ccbd80262ca4: {r: 0.22745098, g: 0, b: 1.4980392, a: 1}
     - _Color: {r: 0, g: 0, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 1, g: 0.80689657, b: 0, a: 0.366}
