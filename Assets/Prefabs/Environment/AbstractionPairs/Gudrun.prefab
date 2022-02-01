@@ -205,9 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 0
-  isTransitioning: 0
-  plane: {fileID: 9008482889410576636}
   isSkinnedMesh: 1
+  plane: {fileID: 9008482889410576636}
 --- !u!1 &386587074420288243
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,9 +905,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 1
-  isTransitioning: 0
-  plane: {fileID: 9008482889410576636}
   isSkinnedMesh: 0
+  plane: {fileID: 9008482889410576636}
 --- !u!1 &4373364252240639571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6564983934998446937}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

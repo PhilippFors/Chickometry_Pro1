@@ -71,24 +71,6 @@ namespace Visual
             }
         }
 
-        private void EnableSliceControllers()
-        {
-            if (sliceShaderControllers != null && sliceShaderControllers.Length > 0) {
-                foreach (var cont in sliceShaderControllers) {
-                    cont.isTransitioning = true;
-                }
-            }
-        }
-
-        private void DisableSliceControllers()
-        {
-            if (sliceShaderControllers != null && sliceShaderControllers.Length > 0) {
-                foreach (var cont in sliceShaderControllers) {
-                    cont.isTransitioning = false;
-                }
-            }
-        }
-        
         private async UniTaskVoid UpdateCubeSpawns()
         {
             updateRunning = true;
@@ -144,7 +126,6 @@ namespace Visual
             if (coroutine != null) {
                 StopCoroutine(coroutine);
                 isTransitioning = false;
-                DisableSliceControllers();
             }
 
             coroutine = StartCoroutine(MovePlane(toAbstract, duration > 0 ? duration : transitionDuration));
@@ -153,7 +134,6 @@ namespace Visual
         private IEnumerator MovePlane(bool isAbstract, float duration)
         {
             isTransitioning = true;
-            EnableSliceControllers();
             var dir = plane.forward * Mathf.Abs(minYPosition - maxYPosition);
             Tween t;
             if (isAbstract) {
@@ -173,7 +153,6 @@ namespace Visual
 
             currentRenderers.Clear();
             isTransitioning = false;
-            DisableSliceControllers();
         }
 
         private void OnDrawGizmos()

@@ -95,9 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 0
-  isTransitioning: 0
-  plane: {fileID: 8365289792375408731}
   isSkinnedMesh: 0
+  plane: {fileID: 8365289792375408731}
 --- !u!1 &2933630401411893321
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,9 +192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 1
-  isTransitioning: 0
-  plane: {fileID: 8365289792375408731}
   isSkinnedMesh: 0
+  plane: {fileID: 8365289792375408731}
 --- !u!1 &3855522364205431194
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568282748275280742}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5751924449945498131}
   - component: {fileID: 431215808240597639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AbstractCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152761600187932344}
   - component: {fileID: 4684107536331212703}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NormalCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5912347379983553802}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8402419730134251110}
   - component: {fileID: 7295169651796692157}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NormalCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2403945499083788163}
   - component: {fileID: 2786895327127232356}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AbstractCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,9 +417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 1
-  isTransitioning: 0
-  plane: {fileID: 409969955749438569}
   isSkinnedMesh: 0
+  plane: {fileID: 409969955749438569}
 --- !u!1 &8191858081007752133
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,9 +514,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 0
-  isTransitioning: 0
-  plane: {fileID: 409969955749438569}
   isSkinnedMesh: 0
+  plane: {fileID: 409969955749438569}
 --- !u!1001 &7322992242155606426
 PrefabInstance:
   m_ObjectHideFlags: 0

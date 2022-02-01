@@ -7,21 +7,19 @@ namespace Visual
     /// </summary>
     public class SliceShaderController : MonoBehaviour
     {
-        public bool reverse;
-        public bool isTransitioning;
-        public GameObject plane;
-        public bool isSkinnedMesh;
+        [SerializeField] private bool reverse;
+        [SerializeField] private bool isSkinnedMesh;
+        [SerializeField] private GameObject plane;
+
         private MeshRenderer meshRenderer;
-
         private SkinnedMeshRenderer skinnedMeshRenderer;
-
-        // public BoxCollider volume;
-        private int slicePlanePosID;
-        private int slicePlaneDirID;
         private Vector3 oldPlanePos;
-
+        private int slicePlanePos;
+        private int slicePlaneDir;
         private void Awake()
         {
+            slicePlanePos = Shader.PropertyToID("_SlicePlanePos");
+            slicePlaneDir = Shader.PropertyToID("_SlicePlaneDir");
             oldPlanePos = plane.transform.position;
             if (isSkinnedMesh) {
                 skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
@@ -33,6 +31,21 @@ namespace Visual
             }
         }
 
+        void Update()
+        {
+            var diff = oldPlanePos - plane.transform.position;
+            if (diff.magnitude > 0.001) {
+                if (isSkinnedMesh) {
+                    ApplyPos(skinnedMeshRenderer.materials);
+                }
+                else {
+                    ApplyPos(meshRenderer.materials);
+                }
+
+                oldPlanePos = plane.transform.position;
+            }
+        }
+
         private void ApplySettings(Material[] materials)
         {
             foreach (var mat in materials) {
@@ -41,8 +54,8 @@ namespace Visual
                 mat.SetFloat("_BigGlitchesSpawnSpeed", Random.Range(0.1f, 1f));
                 mat.SetFloat("_SmallGlitchesSpawnSpeed", Random.Range(0.7f, 2f));
                 mat.SetFloat("_RandomSwitchEdge", Random.Range(0.2f, 0.7f));
-                mat.SetVector("_SlicePlanePos", plane.transform.position);
-                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
+                mat.SetVector(slicePlanePos, plane.transform.position);
+                mat.SetVector(slicePlaneDir, plane.transform.forward);
                 mat.SetFloat("_Reverse", reverse ? 1 : 0);
             }
         }
@@ -50,119 +63,9 @@ namespace Visual
         private void ApplyPos(Material[] materials)
         {
             foreach (var mat in materials) {
-                mat.SetVector("_SlicePlanePos", plane.transform.position);
-                mat.SetVector("_SlicePlaneDir", plane.transform.forward);
+                mat.SetVector(slicePlanePos, plane.transform.position);
+                mat.SetVector(slicePlaneDir, plane.transform.forward);
             }
-        }
-        
-        void Update()
-        {
-            var diff = oldPlanePos - plane.transform.position;
-            if (diff.magnitude > 0.01) {
-                if (isSkinnedMesh) {
-                    ApplyPos(skinnedMeshRenderer.materials);
-                }
-                else {
-                    ApplyPos(meshRenderer.materials);
-                }
-                
-                oldPlanePos = plane.transform.position;
-            }
-        }
-
-        private void GetMinMax()
-        {
-            // var pos = volume.transform.position;
-            // var size = volume.size;
-            // var scale = volume.transform.localScale;
-            // var rot = volume.transform.rotation;
-            // var s = Vector3.Scale(size, scale);
-            // var verts = new[] {
-            //     rot * (new Vector3(pos.x + s.x / 2, pos.y + s.y / 2, pos.z - s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x + s.x / 2, pos.y + s.y / 2, pos.z + s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x - s.x / 2, pos.y + s.y / 2, pos.z + s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x - s.x / 2, pos.y + s.y / 2, pos.z - s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x + s.x / 2, pos.y - s.y / 2, pos.z - s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x + s.x / 2, pos.y - s.y / 2, pos.z + s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x - s.x / 2, pos.y - s.y / 2, pos.z + s.z / 2) - pos) + pos,
-            //     rot * (new Vector3(pos.x - s.x / 2, pos.y - s.y / 2, pos.z - s.z / 2) - pos) + pos,
-            // };
-            // var minPoint = new Vector3(FindMinX(verts), FindMinY(verts), FindMinZ(verts));
-            // var maxPoint = new Vector3(FindMaxX(verts), FindMaxY(verts), FindMaxZ(verts));
-            // meshRenderer.material.SetVector("_MinPoint", minPoint);
-            // meshRenderer.material.SetVector("_MaxPoint", maxPoint);
-        }
-
-        private float FindMinX(Vector3[] verts)
-        {
-            float min = float.PositiveInfinity;
-            for (int i = 0; i < verts.Length; i++) {
-                if (verts[i].x < min) {
-                    min = verts[i].x;
-                }
-            }
-
-            return min;
-        }
-
-        private float FindMaxX(Vector3[] verts)
-        {
-            float max = float.NegativeInfinity;
-            for (int i = 0; i < verts.Length; i++) {
-                if (verts[i].x > max) {
-                    max = verts[i].x;
-                }
-            }
-
-            return max;
-        }
-
-        private float FindMinY(Vector3[] verts)
-        {
-            float min = float.PositiveInfinity;
-            for (int i = 0; i < verts.Length; i++) {
-                if (verts[i].y < min) {
-                    min = verts[i].y;
-                }
-            }
-
-            return min;
-        }
-
-        private float FindMaxY(Vector3[] verts)
-        {
-            float max = float.NegativeInfinity;
-            for (int i = 0; i < verts.Length; i++) {
-                if (verts[i].y > max) {
-                    max = verts[i].y;
-                }
-            }
-
-            return max;
-        }
-
-        private float FindMinZ(Vector3[] verts)
-        {
-            float min = float.PositiveInfinity;
-            for (int i = 0; i < verts.Length; i++) {
-                if (verts[i].z < min) {
-                    min = verts[i].z;
-                }
-            }
-
-            return min;
-        }
-
-        private float FindMaxZ(Vector3[] verts)
-        {
-            float max = float.NegativeInfinity;
-            for (int i = 0; i < verts.Length; i++) {
-                if (verts[i].z > max) {
-                    max = verts[i].z;
-                }
-            }
-
-            return max;
         }
     }
 }
