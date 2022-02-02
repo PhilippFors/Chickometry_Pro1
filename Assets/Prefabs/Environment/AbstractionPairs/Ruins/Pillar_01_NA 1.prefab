@@ -405,11 +405,11 @@ MonoBehaviour:
   plane: {fileID: 4262101834817693056}
   isAbstract: 1
   shootable: 1
-  useNormalSkinnedMeshRenderer: 0
-  normalSkinnedMeshRenderer: {fileID: 0}
+  useNormSkinnedMesh: 0
+  normalSkinnedMesh: {fileID: 0}
   normalMeshFilter: {fileID: 1790282461325335999}
-  useAbstractSkinnedMeshRenderer: 0
-  abstractSkinnedMeshRenderer: {fileID: 0}
+  useAbstrSkinnedMesh: 0
+  abstractSkinnedMesh: {fileID: 0}
   abstractMeshFilter: {fileID: 2375137781871811183}
   normalModel:
     useMeshCollider: 0

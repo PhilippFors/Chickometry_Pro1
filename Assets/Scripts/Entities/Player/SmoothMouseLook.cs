@@ -7,7 +7,6 @@ namespace Entities.Player
     public class SmoothMouseLook : MonoBehaviourService
     {
         public bool enableLook;
-        public Transform CharacterBody => characterBody.transform;
 
         [SerializeField] private GameObject characterBody;
         [SerializeField] private Vector2 clampInDegrees = new Vector2(360, 180);
