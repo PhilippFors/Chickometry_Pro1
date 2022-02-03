@@ -1,4 +1,5 @@
 ﻿using System;
+using ECM.Components;
 using Entities.Player;
 using Entities.Player.PlayerInput;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Interaction.Interactables
         private float Width => Screen.width;
         private float Height => Screen.height;
 
-        private SmoothMouseLook mouseLook;
+        private MouseLook mouseLook;
 
         private Vector2 targetDirection;
         private Vector2 targetCharacterDirection;
@@ -32,7 +33,7 @@ namespace Interaction.Interactables
         {
             targetDirection = transform.localRotation.eulerAngles;
             // yRotation = Quaternion.Euler(0, transform.rotation.y, 0);
-            mouseLook = ServiceLocator.Get<SmoothMouseLook>();
+            mouseLook = ServiceLocator.Get<MouseLook>();
             InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => EnableMouseLook();
             // ResetTargeDirection();
         }
@@ -41,7 +42,7 @@ namespace Interaction.Interactables
         {
             var targetOrientation = Quaternion.Euler(targetDirection);
 
-            mouseLook.enableLook = false;
+            mouseLook.lookEnabled = false;
             absolute.x += MouseDeltaX / Width * sensitity;
             absolute.y += MouseDeltaY / Height * sensitity;
 
@@ -62,7 +63,7 @@ namespace Interaction.Interactables
 
         private void EnableMouseLook()
         {
-            mouseLook.enableLook = true;
+            mouseLook.lookEnabled = true;
         }
     }
 }

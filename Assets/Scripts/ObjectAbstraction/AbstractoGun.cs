@@ -1,4 +1,5 @@
 using System.Collections;
+using ECM.Components;
 using Entities.Player;
 using Entities.Player.PlayerInput;
 using ObjectAbstraction.ModelChanger;
@@ -20,13 +21,13 @@ namespace ObjectAbstraction
         private bool FireTriggered => InputController.Instance.Triggered(InputPatterns.LeftClick);
         private bool FirePressed => InputController.Instance.IsPressed(InputPatterns.LeftClick);
         private Transform mainCam;
-        private SmoothMouseLook mouseLook;
+        private MouseLook mouseLook;
 
         private void Start()
         {
-            mouseLook = ServiceLocator.Get<SmoothMouseLook>();
+            mouseLook = ServiceLocator.Get<MouseLook>();
             mainCam = Camera.main.transform;
-            InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => mouseLook.ResetTargeDirection();
+            // InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => mouseLook.ResetTargeDirection();
         }
 
         private void Update()

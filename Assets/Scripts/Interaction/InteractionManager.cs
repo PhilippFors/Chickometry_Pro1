@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Checkpoints;
 using DG.Tweening;
-using Entities.Player;
+using ECM.Controllers;
 using Entities.Player.PlayerInput;
 using Interaction.Interactables;
 using Interaction.Items;
@@ -26,17 +26,17 @@ namespace Interactables
         [SerializeField] private Transform itemParent;
 
         private MouseBasedRotator itemRotator;
-        private PlayerMovement playerMovement;
+        private BaseCharacterController playerMovement;
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
-        private bool ThrowTriggered => InputController.Instance.Triggered(InputPatterns.Throw);
+        
         private bool ThrowPressed => InputController.Instance.IsPressed(InputPatterns.Throw);
         private bool InteractTriggered => InputController.Instance.Triggered(InputPatterns.Interact);
         private bool RightClickTriggered => InputController.Instance.Triggered(InputPatterns.RightClick);
         private bool RightClickIsPressed => InputController.Instance.IsPressed(InputPatterns.RightClick);
+        
         private Camera mainCam;
-
         private float pressTime;
         private float maxPressTime = 2f;
         private float throwTime;
@@ -46,7 +46,7 @@ namespace Interactables
 
         private void Awake()
         {
-            playerMovement = GetComponent<PlayerMovement>();
+            playerMovement = GetComponent<BaseCharacterController>();
             
             mainCam = Camera.main;
             throwForce = minThrowForce;
@@ -111,13 +111,14 @@ namespace Interactables
                 currentlyHeldItem.transform.localPosition = Vector3.zero;
                 var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                 rb.useGravity = false;
+                rb.isKinematic = true;
                 constraintCache = rb.constraints;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 pickup.OnPickup();
                 var playerRb = GetComponent<Rigidbody>();
                 playerRb.mass += rb.mass;
                 oldItemMass = rb.mass;
-                playerMovement.SetJumpDivder(2);
+                playerMovement.SetJumpMulitiplier(2);
             }
         }
 
@@ -157,14 +158,16 @@ namespace Interactables
                     }
                     else {
                         var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                        ReleaseRigidBody(rb);
                         rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
-                        ReleaseObject();
+                        ReleaseObject(false);
                     }
                 }
                 else {
                     var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+                    ReleaseRigidBody(rb);
                     rb.AddForce(Camera.main.gameObject.transform.forward * throwForce, ForceMode.Impulse);
-                    ReleaseObject();
+                    ReleaseObject(false);
                 }
             }
 
@@ -175,33 +178,39 @@ namespace Interactables
             itemParent.localRotation = ogItemRotation;
         }
 
-        public void ReleaseObject()
+        public void ReleaseRigidBody(Rigidbody rb)
+        {
+            rb.useGravity = true;
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = constraintCache;
+        }
+        
+        public void ReleaseObject(bool withRb)
         {
             currentlyHeldItem.transform.parent = null;
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
             var playerRb = GetComponent<Rigidbody>();
             playerRb.mass -= rb.mass;
-            rb.useGravity = true;
-            rb.isKinematic = false;
-            rb.constraints = RigidbodyConstraints.None;
-            rb.constraints = constraintCache;
+            if (withRb) {
+                ReleaseRigidBody(rb);
+            }
             currentlyHeldItem.OnThrow();
             currentlyHeldItem = null;
-            playerMovement.SetJumpDivder(1);
+            playerMovement.SetJumpMulitiplier(1);
         }
 
         private IEnumerator PlaceDown(float dist)
         {
-            var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-            var playerRb = GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.None;
             currentlyHeldItem.transform.DOMove(mainCam.transform.position + new Vector3(0, placeYOffset, 0) + mainCam.transform.forward * dist, 0.5f);
             yield return new WaitForSeconds(0.5f);
-            rb.constraints = constraintCache;
+            var rb = currentlyHeldItem.GetComponent<Rigidbody>();
+            var playerRb = GetComponent<Rigidbody>();
             playerRb.mass -= rb.mass;
-            rb.useGravity = true;
+            ReleaseRigidBody(rb);
+            
             currentlyHeldItem = null;
-            playerMovement.SetJumpDivder(1);
+            playerMovement.SetJumpMulitiplier(1);
         }
 
         private void HandleRightClick()

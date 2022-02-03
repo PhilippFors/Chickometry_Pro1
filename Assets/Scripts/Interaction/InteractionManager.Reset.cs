@@ -1,4 +1,5 @@
 ﻿using Checkpoints;
+using UnityEngine;
 
 namespace Interactables
 {
@@ -10,7 +11,7 @@ namespace Interactables
                 return;
             }
             currentlyHeldItem.transform.parent = null;
-            ReleaseObject();
+            ReleaseObject(true);
         }
     }
 }

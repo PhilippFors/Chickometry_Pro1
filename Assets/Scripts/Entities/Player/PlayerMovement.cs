@@ -94,12 +94,10 @@ namespace Entities.Player
 
         public void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot, Vector3 velocity)
         {
-            moveEnabled = false;
-            var mouselook = GetComponentInChildren<SmoothMouseLook>();
-            mouselook.ForceLookAt(rot);
+            // var mouselook = GetComponentInChildren<SmoothMouseLook>();
+            // mouselook.ForceLookAt(rot);
+            transform.rotation = rot;
             transform.position = pos;
-            Physics.SyncTransforms();
-            moveEnabled = true;
         }
 
         private void OnDrawGizmos()

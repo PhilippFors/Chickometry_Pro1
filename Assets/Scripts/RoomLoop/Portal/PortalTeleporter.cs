@@ -26,8 +26,8 @@ namespace RoomLoop.Portal
                     }
                     
                     var receiverTransform = Receiver;
-                    var m = receiverTransform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GetTransform().localToWorldMatrix;
-
+                    var m = receiverTransform.localToWorldMatrix * transform.localToWorldMatrix * traveller.GetTransform().localToWorldMatrix;
+                    
                     Vector3 relativePos = transform.InverseTransformPoint(traveller.GetTransform().position);
                     relativePos = halfTurn * relativePos;
                     var newPosition = receiverTransform.TransformPoint(relativePos);
@@ -37,12 +37,16 @@ namespace RoomLoop.Portal
                     relativeVel = halfTurn * relativeVel;
                     var newVelocity = receiverTransform.TransformDirection(relativeVel);
                     
+                    Quaternion relativeRot = Quaternion.Inverse(transform.rotation) * traveller.GetTransform().rotation;
+                    relativeRot = halfTurn * relativeRot;
+                    var newRot = receiverTransform.rotation * relativeRot;
+                    
                     var portalToPlayer = traveller.GetTransform().position - transform.position;
                     var dot = Vector3.Dot(portalToPlayer, transform.forward);
                     var previousDot = Vector3.Dot(traveller.PreviousPortalOffset, transform.forward);
 
                     if (dot < 0f && previousDot > 0f) {
-                        traveller.Teleport(transform, receiverTransform, newPosition, m.rotation, newVelocity);
+                        traveller.Teleport(transform, receiverTransform, newPosition, newRot, newVelocity);
                         teleportQueue.RemoveAt(i);
                         i--;
                     }

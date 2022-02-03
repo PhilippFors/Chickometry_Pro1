@@ -18,7 +18,7 @@ namespace Interaction.Interactables
         public virtual bool Activate(RoomSnapInteractable interactable, InteractionManager manager)
         {
             if (placeableItems.Contains(interactable) && !socketOccupied) {
-                manager.ReleaseObject();
+                manager.ReleaseObject(true);
                 AttachObject(interactable);
                 return true;
             }
