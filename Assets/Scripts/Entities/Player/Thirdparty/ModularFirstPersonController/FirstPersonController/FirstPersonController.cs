@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Entities.Player.PlayerInput;
 using RoomLoop.Portal;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 using Utlities.Locators;
@@ -752,7 +753,8 @@ public class FirstPersonControllerEditor : Editor
         GUILayout.Label("Jump",
             new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleLeft, fontStyle = FontStyle.Bold, fontSize = 13},
             GUILayout.ExpandWidth(true));
-
+        LayerMask tempMask = EditorGUILayout.MaskField( InternalEditorUtility.LayerMaskToConcatenatedLayersMask(fpc.groundedMask), InternalEditorUtility.layers);
+        fpc.groundedMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
         fpc.enableJump =
             EditorGUILayout.ToggleLeft(new GUIContent("Enable Jump", "Determines if the player is allowed to jump."),
                 fpc.enableJump);
@@ -764,9 +766,6 @@ public class FirstPersonControllerEditor : Editor
         fpc.jumpPower =
             EditorGUILayout.Slider(new GUIContent("Jump Power", "Determines how high the player will jump."),
                 fpc.jumpPower, .1f, 20f);
-        fpc.groundedMask =
-            EditorGUILayout.LayerField(new GUIContent("Ground Mask", "Checks the ground for these layers"),
-                fpc.groundedMask);
         GUI.enabled = true;
 
         EditorGUILayout.Space();
