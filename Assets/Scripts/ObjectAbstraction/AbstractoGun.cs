@@ -21,13 +21,10 @@ namespace ObjectAbstraction
         private bool FireTriggered => InputController.Instance.Triggered(InputPatterns.LeftClick);
         private bool FirePressed => InputController.Instance.IsPressed(InputPatterns.LeftClick);
         private Transform mainCam;
-        private MouseLook mouseLook;
 
         private void Start()
         {
-            mouseLook = ServiceLocator.Get<MouseLook>();
             mainCam = Camera.main.transform;
-            // InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => mouseLook.ResetTargeDirection();
         }
 
         private void Update()

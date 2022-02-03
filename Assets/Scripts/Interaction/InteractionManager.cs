@@ -26,7 +26,7 @@ namespace Interactables
         [SerializeField] private Transform itemParent;
 
         private MouseBasedRotator itemRotator;
-        private BaseCharacterController playerMovement;
+        private FirstPersonController playerMovement;
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
@@ -46,7 +46,7 @@ namespace Interactables
 
         private void Awake()
         {
-            playerMovement = GetComponent<BaseCharacterController>();
+            playerMovement = GetComponent<FirstPersonController>();
             
             mainCam = Camera.main;
             throwForce = minThrowForce;

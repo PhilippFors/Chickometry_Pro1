@@ -22,7 +22,7 @@ namespace Interaction.Interactables
         private float Width => Screen.width;
         private float Height => Screen.height;
 
-        private MouseLook mouseLook;
+        private FirstPersonController mouseLook;
 
         private Vector2 targetDirection;
         private Vector2 targetCharacterDirection;
@@ -32,25 +32,20 @@ namespace Interaction.Interactables
         private void Start()
         {
             targetDirection = transform.localRotation.eulerAngles;
-            // yRotation = Quaternion.Euler(0, transform.rotation.y, 0);
-            mouseLook = ServiceLocator.Get<MouseLook>();
+            mouseLook = ServiceLocator.Get<FirstPersonController>();
             InputController.Instance.Get(InputPatterns.RightClick).Canceled += ctx => EnableMouseLook();
-            // ResetTargeDirection();
         }
         
         public override void OnInteract()
         {
             var targetOrientation = Quaternion.Euler(targetDirection);
 
-            mouseLook.lookEnabled = false;
+            mouseLook.cameraCanMove = false;
             absolute.x += MouseDeltaX / Width * sensitity;
             absolute.y += MouseDeltaY / Height * sensitity;
 
             Quaternion rot;
             Quaternion rotY = Quaternion.identity;
-            // var currentRot = transform.rotation.eulerAngles;
-            // currentRot += new Vector3(deltaY, deltaX, 0);
-            // transform.rotation = Quaternion.Euler(currentRot);
 
             rot = Quaternion.AngleAxis(absolute.x, Vector3.up);
 
@@ -63,7 +58,7 @@ namespace Interaction.Interactables
 
         private void EnableMouseLook()
         {
-            mouseLook.lookEnabled = true;
+            mouseLook.cameraCanMove = true;
         }
     }
 }
