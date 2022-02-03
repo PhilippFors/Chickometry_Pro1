@@ -16,7 +16,6 @@ namespace Visual
     {
         [SerializeField] private Transform plane;
         [SerializeField] private VolumeCubeGenerator cubeGenerator;
-        [SerializeField] private SliceShaderController[] sliceShaderControllers;
         [SerializeField] private float cubeScale = 1;
         [SerializeField] private float transitionDuration = 1;
         [SerializeField] private float maxYPosition;
@@ -89,6 +88,7 @@ namespace Visual
             updateRunning = true;
             var maxDist = maxDistance + 0.5f;
             var positions = cubeGenerator.CubePositions;
+            
             for (int i = 0; i < positions.Count; i++) {
                 batchCount++;
                 

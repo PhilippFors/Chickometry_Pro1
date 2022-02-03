@@ -32,12 +32,12 @@ namespace ObjectAbstraction.ModelChanger
         [SerializeField] private bool isAbstract;
         [SerializeField] public bool shootable = true;
         [SerializeField] private bool useNormSkinnedMesh;
-        [SerializeField, ShowIf("useNormalSkinnedMeshRenderer")] private SkinnedMeshRenderer normalSkinnedMesh;
-        [SerializeField, HideIf("useNormalSkinnedMeshRenderer")] private MeshFilter normalMeshFilter;
+        [SerializeField, ShowIf("useNormSkinnedMesh")] private SkinnedMeshRenderer normalSkinnedMesh;
+        [SerializeField, HideIf("useNormSkinnedMesh")] private MeshFilter normalMeshFilter;
 
         [SerializeField] private bool useAbstrSkinnedMesh;
-        [SerializeField, ShowIf("useAbstractSkinnedMeshRenderer")] private SkinnedMeshRenderer abstractSkinnedMesh;
-        [SerializeField, HideIf("useAbstractSkinnedMeshRenderer")] private MeshFilter abstractMeshFilter;
+        [SerializeField, ShowIf("useAbstrSkinnedMesh")] private SkinnedMeshRenderer abstractSkinnedMesh;
+        [SerializeField, HideIf("useAbstrSkinnedMesh")] private MeshFilter abstractMeshFilter;
 
         [SerializeField] private ModelSettings normalModel;
         [SerializeField] private ModelSettings abstractModel;

@@ -35,7 +35,7 @@ namespace ObjectAbstraction.ModelChanger
                     var trigger = collider.isTrigger;
                     Object.Destroy(collider);
                     col = obj.AddComponent<MeshCollider>();
-                    Debug.Log($"Adding Collider to {obj.name}");
+                    // Debug.Log($"Adding Collider to {obj.name}");
                     col.convex = convex;
                     col.isTrigger = trigger;
                 }

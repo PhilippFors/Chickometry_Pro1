@@ -18,5 +18,18 @@ namespace Utilities.Math
                     obj.transform.position.z + obj.transform.localScale.z * bounds.size.z * 0.5f)
             );
         }
+
+        public static Vector3 FindRandomInArea(GameObject obj, BoxCollider bounds, float y, float range = 0.5f)
+        {
+            return new Vector3(
+                Random.Range(
+                    obj.transform.position.x - obj.transform.localScale.x * bounds.size.x * 0.5f,
+                    obj.transform.position.x + obj.transform.localScale.x * bounds.size.x * 0.5f),
+                y + Random.Range(-range, range),
+                Random.Range(
+                    obj.transform.position.z - obj.transform.localScale.z * bounds.size.z * 0.5f,
+                    obj.transform.position.z + obj.transform.localScale.z * bounds.size.z * 0.5f)
+            );
+        }
     }
 }
