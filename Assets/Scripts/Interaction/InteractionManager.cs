@@ -111,7 +111,7 @@ namespace Interactables
                 currentlyHeldItem.transform.localPosition = Vector3.zero;
                 var rb = currentlyHeldItem.GetComponent<Rigidbody>();
                 rb.useGravity = false;
-                rb.isKinematic = true;
+                // rb.isKinematic = true;
                 constraintCache = rb.constraints;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 pickup.OnPickup();
@@ -181,7 +181,7 @@ namespace Interactables
         public void ReleaseRigidBody(Rigidbody rb)
         {
             rb.useGravity = true;
-            rb.isKinematic = false;
+            // rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints = constraintCache;
         }

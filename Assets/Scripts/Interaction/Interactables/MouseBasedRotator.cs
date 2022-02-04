@@ -1,7 +1,4 @@
-﻿using System;
-using ECM.Components;
-using Entities.Player;
-using Entities.Player.PlayerInput;
+﻿using Entities.Player.PlayerInput;
 using UnityEngine;
 using Utlities;
 
@@ -15,20 +12,15 @@ namespace Interaction.Interactables
     {
         [SerializeField] private float sensitity = 200;
         [SerializeField] private bool useYAxis;
-        public Vector2 absolute;
 
         private float MouseDeltaX => InputController.Instance.GetValue<Vector2>(InputPatterns.MouseDelta).x;
         private float MouseDeltaY => InputController.Instance.GetValue<Vector2>(InputPatterns.MouseDelta).y;
         private float Width => Screen.width;
         private float Height => Screen.height;
-
         private FirstPersonController mouseLook;
-
+        private Vector2 absolute;
         private Vector2 targetDirection;
-        private Vector2 targetCharacterDirection;
-        private Quaternion yRotation;
-        private Quaternion rotation;
-        
+
         private void Start()
         {
             targetDirection = transform.localRotation.eulerAngles;

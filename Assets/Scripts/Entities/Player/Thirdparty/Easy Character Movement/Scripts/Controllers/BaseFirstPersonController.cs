@@ -115,7 +115,6 @@ namespace ECM.Controllers
         public void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot, Vector3 velocity)
         {
             transform.rotation = rot;
-            // mouseLook.Init(transform, cameraTransform);
             transform.position = pos;
         }
         

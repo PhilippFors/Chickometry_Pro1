@@ -51,11 +51,12 @@ namespace Checkpoints
             var checkPos = activeCheckopint.checkPointPosition;
             if (checkPos) {
                 transform.position = checkPos.position;
-                // GetComponentInChildren<SmoothMouseLook>().ForceLookAt(checkPos.rotation);
+                transform.rotation = checkPos.rotation;
             }
             else {
                 transform.position = activeCheckopint.transform.position;
-                // GetComponentInChildren<SmoothMouseLook>().ForceLookAt(activeCheckopint.transform.rotation);
+                transform.rotation = activeCheckopint.transform.rotation;
+
             }
         }
     }
