@@ -14,7 +14,7 @@ namespace Checkpoints
         public Transform checkPointPosition;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerMovement>()) {
+            if (other.GetComponent<FirstPersonController>()) {
                 CheckpointManager.Instance.SetActiveCheckpoint(this);
             }
         }

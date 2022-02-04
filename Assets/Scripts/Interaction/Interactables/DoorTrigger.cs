@@ -11,7 +11,7 @@ namespace Interaction.Interactables
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<Gudrun>()) {
+            if (other.GetComponentInParent<Gudrun>()) {
                 door.OpenDoor();
                 // contested = true;
             }
@@ -19,7 +19,7 @@ namespace Interaction.Interactables
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.GetComponent<Gudrun>()) {
+            if (other.GetComponentInParent<Gudrun>()) {
                 door.CloseDoor();
                 // contested = false;
             }

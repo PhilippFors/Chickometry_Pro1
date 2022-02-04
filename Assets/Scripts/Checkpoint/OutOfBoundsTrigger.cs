@@ -11,7 +11,7 @@ namespace Checkpoints
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerMovement>()) {
+            if (other.GetComponent<FirstPersonController>()) {
                 CheckpointManager.Instance.ResetToCheckpoint();
             }
         }
