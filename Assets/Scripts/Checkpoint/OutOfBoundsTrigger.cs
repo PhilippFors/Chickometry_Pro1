@@ -1,4 +1,4 @@
-﻿using Entities.Player;
+﻿using ECM2.Characters;
 using UnityEngine;
 
 namespace Checkpoints
@@ -11,7 +11,7 @@ namespace Checkpoints
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<FirstPersonController>()) {
+            if (other.GetComponent<FirstPersonCharacter>()) {
                 CheckpointManager.Instance.ResetToCheckpoint();
             }
         }

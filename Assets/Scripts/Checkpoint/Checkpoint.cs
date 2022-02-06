@@ -1,4 +1,5 @@
-﻿using Entities.Player;
+﻿using ECM2.Characters;
+using Entities.Player;
 using UnityEngine;
 
 namespace Checkpoints
@@ -14,7 +15,7 @@ namespace Checkpoints
         public Transform checkPointPosition;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<FirstPersonController>()) {
+            if (other.GetComponent<FirstPersonCharacter>()) {
                 CheckpointManager.Instance.SetActiveCheckpoint(this);
             }
         }

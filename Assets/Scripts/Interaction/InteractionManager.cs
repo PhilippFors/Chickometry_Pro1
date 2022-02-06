@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Checkpoints;
 using DG.Tweening;
-using ECM.Controllers;
+using ECM2.Characters;
 using Entities.Player.PlayerInput;
 using Interaction.Interactables;
 using Interaction.Items;
@@ -26,7 +26,7 @@ namespace Interactables
         [SerializeField] private Transform itemParent;
 
         private MouseBasedRotator itemRotator;
-        private FirstPersonController playerMovement;
+        private FirstPersonCharacter playerMovement;
         private BaseInteractable currentSelected;
         private BasePickUpInteractable currentlyHeldItem;
         private RigidbodyConstraints constraintCache; // needed for pickup items
@@ -46,7 +46,7 @@ namespace Interactables
 
         private void Awake()
         {
-            playerMovement = GetComponent<FirstPersonController>();
+            playerMovement = GetComponent<FirstPersonCharacter>();
             
             mainCam = Camera.main;
             throwForce = minThrowForce;
@@ -118,7 +118,7 @@ namespace Interactables
                 var playerRb = GetComponent<Rigidbody>();
                 playerRb.mass += rb.mass;
                 oldItemMass = rb.mass;
-                playerMovement.SetJumpMulitiplier(2);
+                playerMovement.SetJumpMultiplier(2);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Interactables
             }
             currentlyHeldItem.OnThrow();
             currentlyHeldItem = null;
-            playerMovement.SetJumpMulitiplier(1);
+            playerMovement.SetJumpMultiplier(1);
         }
 
         private IEnumerator PlaceDown(float dist)
@@ -210,7 +210,7 @@ namespace Interactables
             ReleaseRigidBody(rb);
             
             currentlyHeldItem = null;
-            playerMovement.SetJumpMulitiplier(1);
+            playerMovement.SetJumpMultiplier(1);
         }
 
         private void HandleRightClick()

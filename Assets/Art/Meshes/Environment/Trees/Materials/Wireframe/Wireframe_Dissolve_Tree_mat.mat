@@ -113,8 +113,8 @@ Material:
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
-    - _MaxThickness: 2.65
-    - _MinThickness: 1.15
+    - _MaxThickness: 1.01
+    - _MinThickness: 0.54
     - _OpaqueCullMode: 2
     - _RandomSwitchEdge: 0.4
     - _RayTracing: 0
@@ -145,7 +145,7 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
     - _UseShadowThreshold: 0
-    - _WireframeBlend: 0.073
+    - _WireframeBlend: 0.047
     - _WireframeSmoothness: 0.162
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 3
@@ -159,7 +159,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SlicePlaneDir: {r: 0, g: 0, b: 0, a: 0}
     - _SlicePlanePos: {r: 0, g: 0, b: 0, a: 0}
-    - _WireColor: {r: 0, g: 5.563571, b: 9.082411, a: 0}
+    - _WireColor: {r: 0, g: 4.216399, b: 6.8831816, a: 0}
     - _WireframeAlbedo: {r: 0.16025218, g: 0.55698526, b: 0.7924528, a: 0.64705884}
   m_BuildTextureStacks: []
 --- !u!114 &8744098826795273440

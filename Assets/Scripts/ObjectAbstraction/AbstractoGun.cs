@@ -1,10 +1,8 @@
 using System.Collections;
-using ECM.Components;
 using Entities.Player;
 using Entities.Player.PlayerInput;
 using ObjectAbstraction.ModelChanger;
 using UnityEngine;
-using Utlities;
 
 namespace ObjectAbstraction
 {
@@ -41,7 +39,10 @@ namespace ObjectAbstraction
                     
                     if (modelChanger != null) {
                         if (canShoot) {
-                            anim.Play();
+                            if (anim) {
+                                anim.Play();
+                            }
+
                             Shoot(modelChanger, hit.transform.GetComponent<Rigidbody>());
                         }
                     }
