@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5897535417466103245}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.095, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7092454993924466634}
@@ -43,8 +43,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.99538153, b: 0.9758079, a: 1}
-  m_Intensity: 0.91
-  m_Range: 5.2
+  m_Intensity: 1.89
+  m_Range: 5.08
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 7092454993423345547}
   - component: {fileID: 7092454993423345544}
   - component: {fileID: 12762054928135662}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pattern: 3
-  isInteractable: 1
+  isInteractable: 0
   canBePickedUp: 1
 --- !u!114 &5882855513286932027
 MonoBehaviour:
@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 8297990121542239908}
   - component: {fileID: 8297990121542239930}
   - component: {fileID: 8297990121542239931}
+  - component: {fileID: 155803270}
   m_Layer: 12
   m_Name: GameObject
   m_TagString: Untagged
@@ -426,3 +427,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &155803270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297990121542239909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0115411bcd800634aad983adb4f71878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

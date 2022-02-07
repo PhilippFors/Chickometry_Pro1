@@ -6,6 +6,7 @@ using ECM2.Characters;
 using Entities.Player.PlayerInput;
 using Interaction.Interactables;
 using Interaction.Items;
+using Trajectory;
 using UI;
 using UnityEngine;
 
@@ -24,7 +25,8 @@ namespace Interactables
         [SerializeField] private LayerMask interactableMask;
         [SerializeField] private LayerMask placeDownMask;
         [SerializeField] private Transform itemParent;
-
+        [SerializeField] private TrajectoryPredictor trajectoryPredictor;
+        
         private MouseBasedRotator itemRotator;
         private FirstPersonCharacter playerMovement;
         private BaseInteractable currentSelected;
@@ -141,10 +143,13 @@ namespace Interactables
             }
 
             if (pressTime > 0.5f) {
+                trajectoryPredictor.EnableTrajectory();
+                trajectoryPredictor.Simulate(itemParent.position, GetComponent<Rigidbody>().velocity, Camera.main.gameObject.transform.forward * throwForce, currentlyHeldItem.GetComponent<Rigidbody>());
                 if (throwTime < maxPressTime) {
                     throwTime += Time.deltaTime;
                     ThrowUIController.Instance.ShowSlider();
                     ThrowUIController.Instance.SetSliderValue(throwTime, maxPressTime);
+                    
                     throwForce = Mathf.Lerp(minThrowForce, maxThrowForce, (throwTime / maxPressTime) * 1.5f);
                 }
             }
@@ -177,6 +182,7 @@ namespace Interactables
             }
 
             ThrowUIController.Instance.HideSlider();
+            trajectoryPredictor.DisableTrajectory();
             throwForce = minThrowForce;
             pressTime = 0;
             throwTime = 0;
