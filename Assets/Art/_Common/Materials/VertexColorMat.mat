@@ -152,7 +152,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_7606c24369834d0fa2c041da3fe3df3d: 0
-    - Vector1_1: 1.83
+    - Vector1_1: 0.4
     - Vector1_33e44a55b4174c899967e944e7d4d7fe: 1
     - Vector1_3fc88c9ac71b409495dfa60431fd534a: 4.34
     - Vector1_43a8d632d954436b83be4e63b08292c6: 0.3
@@ -160,7 +160,7 @@ Material:
     - Vector1_7226b4a102fa4d82b9c36bc673c3e257: 0.69
     - Vector1_90c18cc97b934e3d9f1ce73f8d96d099: 0.08
     - Vector1_976a8fd5e8d547678fdc9055af0eadb5: 0
-    - Vector1_993e7df66a85480fa9d7548f5a0b648d: 0.1
+    - Vector1_993e7df66a85480fa9d7548f5a0b648d: 0.05
     - Vector1_d82e8f8bc5ac44debede4430d1fbb815: 0.3
     - Vector1_e6b7208adf3e410ca459e9369654a0ff: 0.4
     - Vector1_ea62681efacb414e8b66cbd6cc561973: 1.2
@@ -184,6 +184,7 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _Anisotropy: 0
+    - _BigGlitchesSpawnSpeed: 0.1
     - _BlendMode: 0
     - _CoatMask: 0
     - _CullMode: 0
@@ -244,6 +245,7 @@ Material:
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Reverse: 0
+    - _SmallGlitchesSpawnSpeed: 0.3
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -267,6 +269,7 @@ Material:
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
+    - _TimeSpeed: 1
     - _TransmissionEnable: 1
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
