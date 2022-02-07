@@ -119,8 +119,9 @@ namespace Interactables
                 constraintCache = rb.constraints;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 pickup.OnPickup();
-                var playerRb = GetComponent<Rigidbody>();
-                playerRb.mass += rb.mass;
+                //var playerRb = GetComponent<Rigidbody>();
+                //playerRb.mass += rb.mass;
+                playerMovement.mass += rb.mass;
                 oldItemMass = rb.mass;
                 playerMovement.SetJumpMultiplier(2);
             }
@@ -194,8 +195,9 @@ namespace Interactables
         {
             currentlyHeldItem.transform.parent = null;
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-            var playerRb = GetComponent<Rigidbody>();
-            playerRb.mass -= rb.mass;
+            //var playerRb = GetComponent<Rigidbody>();
+            //playerRb.mass -= rb.mass;
+            playerMovement.mass -= rb.mass;
             if (withRb) {
                 ReleaseRigidBody(rb);
             }
@@ -209,8 +211,9 @@ namespace Interactables
             currentlyHeldItem.transform.DOMove(mainCam.transform.position + new Vector3(0, placeYOffset, 0) + mainCam.transform.forward * dist, 0.5f);
             yield return new WaitForSeconds(0.5f);
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-            var playerRb = GetComponent<Rigidbody>();
-            playerRb.mass -= rb.mass;
+            //var playerRb = GetComponent<Rigidbody>();
+            //playerRb.mass -= rb.mass;
+            playerMovement.mass -= rb.mass;
             ReleaseRigidBody(rb);
             
             currentlyHeldItem = null;
@@ -249,9 +252,11 @@ namespace Interactables
         {
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
             if (oldItemMass > rb.mass || oldItemMass < rb.mass) {
-                var playerRb = GetComponent<Rigidbody>();
-                playerRb.mass -= oldItemMass;
-                playerRb.mass += rb.mass;
+                //var playerRb = GetComponent<Rigidbody>();
+                //playerRb.mass -= oldItemMass;
+                //playerRb.mass += rb.mass;
+                playerMovement.mass -= oldItemMass;
+                playerMovement.mass += rb.mass;     
                 oldItemMass = rb.mass;
             }
         }
