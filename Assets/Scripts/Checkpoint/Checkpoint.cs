@@ -1,5 +1,4 @@
 ﻿using ECM2.Characters;
-using Entities.Player;
 using UnityEngine;
 
 namespace Checkpoints
@@ -13,10 +12,11 @@ namespace Checkpoints
     {
         public ResetButton resetButton;
         public Transform checkPointPosition;
+        [SerializeField] private GudrunNest[] gudrunNests;
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<FirstPersonCharacter>()) {
-                CheckpointManager.Instance.SetActiveCheckpoint(this);
+                CheckpointManager.Instance.SetActiveCheckpoint(this, gudrunNests);
             }
         }
 
@@ -30,6 +30,5 @@ namespace Checkpoints
             Gizmos.color = new Color(0, 50, 200, 0.5f);
             Gizmos.DrawWireCube(transform.position, newVec);
         }
-        
     }
 }

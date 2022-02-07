@@ -37,14 +37,14 @@ namespace Entities.Companion
 
         private void Update()
         {
-            var cols = Physics.OverlapSphere(transform.position + new Vector3(0, 0.09f, 0), 0.2f,
-                LayerMask.GetMask("Default", "Interactable"));
+            var cols = Physics.OverlapSphere(transform.position + new Vector3(0, 0.09f, 0), 0.2f, LayerMask.GetMask("Default", "Interactable"));
             if (cols.Length > 1) {
                 isGrounded = true;
             }
             else {
                 isGrounded = false;
             }
+            
             // isGrounded = Physics.CheckSphere(transform.position + new Vector3(0, 0.09f, 0), 0.2f, LayerMask.GetMask("Default", "Interactable"));
 
             if (!isGrounded || switcher.IsAbstract || pickUpInteractable.IsPickedUp || Vector3.Distance(transform.position, player.position) < stopDistance) {

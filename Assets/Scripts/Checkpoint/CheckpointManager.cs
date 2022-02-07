@@ -14,9 +14,24 @@ namespace Checkpoints
     {
         private Checkpoint activeCheckopint;
         private List<IResettableBehaviour> resettableBehaviours = new List<IResettableBehaviour>();
-        public void SetActiveCheckpoint(Checkpoint checkpoint)
+        private GudrunNest[] activeNests = new GudrunNest[0];
+
+        public void SetActiveCheckpoint(Checkpoint checkpoint, GudrunNest[] nests)
         {
+            SetGudrunNests(activeNests, false);
+            SetGudrunNests(nests, true);
+
+            activeNests = nests;
             activeCheckopint = checkpoint;
+        }
+
+        private void SetGudrunNests(GudrunNest[] nest, bool active)
+        {
+            if (nest != null && nest.Length > 0) {
+                foreach (var n in nest) {
+                    n.SetActive(active);
+                }
+            }
         }
 
         public void RegisterBehaviour(IResettableBehaviour b)
@@ -41,7 +56,7 @@ namespace Checkpoints
         {
             resettableBehaviours.Remove(b);
         }
-        
+
         public void ResetToCheckpoint()
         {
             if (activeCheckopint.resetButton) {
@@ -56,7 +71,6 @@ namespace Checkpoints
             else {
                 transform.position = activeCheckopint.transform.position;
                 transform.rotation = activeCheckopint.transform.rotation;
-
             }
         }
     }
