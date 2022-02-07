@@ -43,6 +43,8 @@ namespace Interaction.Interactables
                     socket.AttachObject(this);
                 }
             }
+
+            rb.isKinematic = false;
             
             if (currentSocket) {
                 currentSocket.socketOccupied = true;

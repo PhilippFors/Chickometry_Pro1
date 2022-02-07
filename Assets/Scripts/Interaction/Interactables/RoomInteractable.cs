@@ -6,7 +6,6 @@ namespace Interaction.Interactables
 {
     public class RoomInteractable : BasePickUpInteractable
     {
-        public Vector3 PreviousPortalOffset { get; set; }
         public Transform currentParent;
         public bool isAbstract;
         public bool isInOriginalRoom = true;
@@ -23,7 +22,6 @@ namespace Interaction.Interactables
             if (roomPuzzle && isInOriginalRoom) {
                 roomPuzzle.RemoveObject(this);
             }
-
         }
 
         public override void OnThrow()
@@ -54,13 +52,6 @@ namespace Interaction.Interactables
             }
 
             thrown = false;
-        }
-
-        public void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot, Vector3 velocity)
-        {
-            transform.position = pos;
-            transform.rotation = rot;
-            rb.velocity = velocity;
         }
 
         public virtual void MakeInvisible()

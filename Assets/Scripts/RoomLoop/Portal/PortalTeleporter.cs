@@ -8,7 +8,7 @@ namespace RoomLoop.Portal
     {    
         private readonly List<IPortalTraveller> teleportQueue = new List<IPortalTraveller>();
         private Portal portal;
-        private Transform Receiver =>  portal.pairPortal.GetComponentInChildren<PortalTeleporter>().transform;
+        private Transform Receiver =>  portal.PairPortalTeleporter.GetComponentInChildren<PortalTeleporter>().transform;
         private readonly Quaternion halfTurn = Quaternion.Euler(0.0f, 180.0f, 0.0f);
         
         private void Awake()
@@ -16,7 +16,7 @@ namespace RoomLoop.Portal
             portal = GetComponentInParent<Portal>();
         }
 
-        void Update()
+        void LateUpdate()
         {
             if (teleportQueue.Count > 0) {
                 for (int i = 0; i < teleportQueue.Count; i++) {

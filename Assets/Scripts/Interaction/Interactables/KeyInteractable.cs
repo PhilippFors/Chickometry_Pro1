@@ -16,10 +16,12 @@ namespace Interaction.Interactables
             if (keySocket.keyInSocket) {
                 Debug.Log("You got a key part");
                 canBePickedUp = true;
+                isInteractable = false;
                 pattern = InteractionPattern.PickUp;
                 var rb = GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.constraints = RigidbodyConstraints.None;
+                roomPuzzle.SyncPair(this);
             }
             else if(keySocket.socketOccupied){
                 Debug.Log("Playing something");
@@ -31,6 +33,13 @@ namespace Interaction.Interactables
 
         public override void MakeVisible()
         {
+        }
+
+        public override void Sync(RoomInteractable interactable)
+        {
+            canBePickedUp = true;
+            rb.isKinematic = false;
+            rb.useGravity = true;
         }
     }
 }

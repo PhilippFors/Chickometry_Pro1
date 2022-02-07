@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 1244423068820145219}
   - component: {fileID: 1244423068820145216}
   - component: {fileID: 8777030365530226131}
+  - component: {fileID: 2171448195331353757}
   m_Layer: 7
   m_Name: AbstractoGenerator
   m_TagString: Untagged
@@ -141,6 +142,18 @@ MonoBehaviour:
   pattern: 3
   isInteractable: 0
   canBePickedUp: 1
+--- !u!114 &2171448195331353757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244423068820145220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c6f61ce0c2c1f4baeb1f1491fff9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1244423070332093446
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8dec434ca7b3c4e8e18954ad1cebcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultLayer: 0
+  overrideLayer: -1
 --- !u!1 &1244423070569440027
 GameObject:
   m_ObjectHideFlags: 0

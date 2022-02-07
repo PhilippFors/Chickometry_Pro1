@@ -6,8 +6,11 @@ namespace RoomLoop.Portal
 {
     public class Portal : MonoBehaviour
     {
-        public Transform pairPortal;
+        public Transform PairPortal => pairPortal;
+        public Transform PairPortalTeleporter => pairPortalTeleporter;
 
+
+        [SerializeField] private Transform pairPortal;
         [SerializeField] private Camera portalCam;
         [SerializeField] private float clipOffset;
         [SerializeField] private bool useClipping;
@@ -16,6 +19,7 @@ namespace RoomLoop.Portal
 
         private Camera mainCam;
         private RenderTexture renderTexture;
+        private Transform pairPortalTeleporter;
 
         private void Awake()
         {
@@ -24,6 +28,7 @@ namespace RoomLoop.Portal
             mainCam = Camera.main;
             AssignRenderTexture();
             RenderPipelineManager.beginFrameRendering += UpdateCamera;
+            pairPortalTeleporter = pairPortal.GetComponentInChildren<PortalTeleporter>().transform;
         }
 
         private void OnDisable()
@@ -35,7 +40,7 @@ namespace RoomLoop.Portal
         {
             if (portalCam.targetTexture == null || portalCam.targetTexture.width != renderTextureSize.x ||
                 portalCam.targetTexture.height != renderTextureSize.y) {
-                renderTexture = new RenderTexture(renderTextureSize.x, renderTextureSize.y, 0);
+                renderTexture = new RenderTexture(renderTextureSize.x, renderTextureSize.y, 24);
                 portalCam.targetTexture = renderTexture;
                 portalScreen.material.SetTexture("_PortalTexture", renderTexture);
                 portalScreen.material.SetVector("_Forward", transform.forward);
@@ -45,6 +50,7 @@ namespace RoomLoop.Portal
         public void SetTargetPortal(Portal target)
         {
             pairPortal = target.transform;
+            pairPortalTeleporter = pairPortal.GetComponentInChildren<PortalTeleporter>().transform;
         }
 
         private void UpdateCamera(ScriptableRenderContext ctx, Camera[] cams)
@@ -56,10 +62,9 @@ namespace RoomLoop.Portal
 
             portalCam.enabled = true;
 
-            AssignRenderTexture();
 
-            // for (int i = 3; i >= 0; --i) {
-            RenderCamera();
+            // for (int i = 1; i >= 0; --i) {
+                RenderCamera();
             // }
         }
 
@@ -67,23 +72,37 @@ namespace RoomLoop.Portal
         {
             var cameraTransform = portalCam.transform;
             // for (int i = 0; i <= renderIndex; ++i) {
-            var relativePosition = transform.InverseTransformPoint(mainCam.transform.position);
-            relativePosition = Quaternion.Euler(0, 180, 0) * relativePosition;
-            cameraTransform.position = pairPortal.TransformPoint(relativePosition);
+                var relativePosition = transform.InverseTransformPoint(mainCam.transform.position);
+                relativePosition = Quaternion.Euler(0, 180, 0) * relativePosition;
+                cameraTransform.position = pairPortal.TransformPoint(relativePosition);
 
-            var relativeRotation = transform.InverseTransformDirection(mainCam.transform.forward);
-            relativeRotation = Quaternion.Euler(0, 180, 0) * relativeRotation;
-            cameraTransform.forward = pairPortal.TransformDirection(relativeRotation);
+                var relativeRotation = transform.InverseTransformDirection(mainCam.transform.forward);
+                relativeRotation = Quaternion.Euler(0, 180, 0) * relativeRotation;
+                cameraTransform.forward = pairPortal.TransformDirection(relativeRotation);
+            // }
+
+            // cameraTransform.position = mainCam.transform.position;
+            // cameraTransform.rotation = mainCam.transform.rotation;
+            //
+            // for (int i = 0; i <= renderIndex; ++i) {
+            //     // Position the camera behind the other portal.
+            //     Vector3 relativePos = transform.InverseTransformPoint(cameraTransform.position);
+            //     relativePos = Quaternion.Euler(0.0f, 180.0f, 0.0f) * relativePos;
+            //     cameraTransform.position = pairPortal.TransformPoint(relativePos);
+            //
+            //     // Rotate the camera to look through the other portal.
+            //     Quaternion relativeRot = Quaternion.Inverse(transform.rotation) * cameraTransform.rotation;
+            //     relativeRot = Quaternion.Euler(0.0f, 180.0f, 0.0f) * relativeRot;
+            //     cameraTransform.rotation = pairPortal.rotation * relativeRot;
             // }
 
             var newMatrix = mainCam.projectionMatrix;
-            var dirToCamera = portalCam.transform.position - pairPortal.position;
-            
             var clip = clipOffset;
+
             if (Vector3.Distance(portalCam.transform.position, pairPortal.position) < 0.1f) {
                 clip = 0;
             }
-            
+
             if (useClipping) {
                 Plane p = new Plane(pairPortal.forward, pairPortal.position + pairPortal.forward * clip);
                 Vector4 clipPlaneWorldSpace = new Vector4(p.normal.x, p.normal.y, p.normal.z, p.distance);

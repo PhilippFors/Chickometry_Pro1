@@ -5,14 +5,16 @@ namespace Interaction.Interactables
 {
     public class PlantRoomInteractable : RoomInteractable
     {
-        [SerializeField] private GameObject plant;
+        [SerializeField] private GameObject smallPlant;
+        [SerializeField] private GameObject bigPlant;
 
         private bool plantEnabled;
         public void EnablePlant()
         {
             if (!plantEnabled) {
                 plantEnabled = true;
-                plant.SetActive(true);
+                bigPlant.SetActive(true);
+                smallPlant.SetActive(false);
                 roomPuzzle.SyncPair(this);
             }
         }

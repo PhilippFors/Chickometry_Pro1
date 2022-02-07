@@ -8,11 +8,11 @@ namespace Interaction.Items.ProgressionItems
         [SerializeField] private RoomLoopKey abstractKey;
         [SerializeField] private RoomLoopKey normalKey;
         [SerializeField] private Transform mainKeyTransformAbstract;
-        [SerializeField] private Transform mainKeyTransformNormal;
+        // [SerializeField] private Transform mainKeyTransformNormal;
         [SerializeField] private SocketInteractable[] abstractSockets;
-        [SerializeField] private SocketInteractable[] normalSockets;
+        // [SerializeField] private SocketInteractable[] normalSockets;
         [SerializeField] private RoomSnapInteractable[] abstractKeyParts;
-        [SerializeField] private RoomSnapInteractable[] normalKeyParts;
+        // [SerializeField] private RoomSnapInteractable[] normalKeyParts;
 
         private bool[] filledKeys = new bool[3];
 
@@ -22,9 +22,9 @@ namespace Interaction.Items.ProgressionItems
                 socket.socketActivated += SocketEvent;
             }
 
-            foreach (var socket in normalSockets) {
-                socket.socketActivated += SocketEvent;
-            }
+            // foreach (var socket in normalSockets) {
+            //     socket.socketActivated += SocketEvent;
+            // }
         }
 
         private void OnDisable()
@@ -33,9 +33,9 @@ namespace Interaction.Items.ProgressionItems
                 socket.socketActivated -= SocketEvent;
             }
 
-            foreach (var socket in normalSockets) {
-                socket.socketActivated -= SocketEvent;
-            }
+            // foreach (var socket in normalSockets) {
+            //     socket.socketActivated -= SocketEvent;
+            // }
         }
 
         private bool CheckForAllKeys()
@@ -52,13 +52,9 @@ namespace Interaction.Items.ProgressionItems
         private void SocketEvent(SocketInteractable socket)
         {
             for (int i = 0; i < abstractSockets.Length; i++) {
-                if (abstractSockets[i].gameObject.activeSelf && abstractSockets[i] == socket ||
-                    normalSockets[i].gameObject.activeSelf && normalSockets[i] == socket) {
+                if (abstractSockets[i].gameObject.activeSelf && abstractSockets[i] == socket) {
                     filledKeys[i] = true;
-                    AttachToSocket(normalSockets[i], normalKeyParts[i]);
                     AttachToSocket(abstractSockets[i], abstractKeyParts[i]);
-
-                    DisableKey(normalKeyParts[i].gameObject, mainKeyTransformNormal);
                     DisableKey(abstractKeyParts[i].gameObject, mainKeyTransformAbstract);
                 }
             }
@@ -85,6 +81,7 @@ namespace Interaction.Items.ProgressionItems
         private void ReleaseKey()
         {
             //Todo: Soundeffects, etc.?
+            normalKey.gameObject.SetActive(true);
             normalKey.canBePickedUp = true;
             normalKey.GetComponent<Rigidbody>().isKinematic = false;
             normalKey.GetComponent<Collider>().enabled = true;

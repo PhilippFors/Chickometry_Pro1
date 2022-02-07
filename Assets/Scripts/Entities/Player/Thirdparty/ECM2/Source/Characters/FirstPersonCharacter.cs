@@ -544,8 +544,10 @@ namespace ECM2.Characters
         public bool CanTravel => true;
         public void Teleport(Transform inPortal, Transform outPortal, Vector3 pos, Quaternion rot, Vector3 velocity)
         {
-            SetPosition(pos);
-            SetRotation(rot);
+            transform.position = pos;
+            transform.rotation = rot;
+            // SetPosition(pos);
+            // SetRotation(rot);
         }
     }
 }

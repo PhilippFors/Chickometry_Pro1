@@ -35,7 +35,7 @@ namespace Interaction.Items
             var col = GetComponentsInChildren<Collider>(true);
             foreach (var c in col) {
                 if (!c.GetComponent<IgnoreColliderChange>()) {
-                    c.isTrigger = true; // it just works
+                    c.enabled = false;
                 }
             }
 
@@ -74,7 +74,7 @@ namespace Interaction.Items
             var col = GetComponentsInChildren<Collider>(true);
             foreach (var c in col) {
                 if (!c.GetComponent<IgnoreColliderChange>()) {
-                    c.isTrigger = false; // it just works
+                    c.enabled = true;
                 }
             }
 

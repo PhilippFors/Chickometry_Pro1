@@ -8,7 +8,6 @@ namespace Interactables.Util
 {
     public class TimedPlantActivator : MonoBehaviour
     {
-        [SerializeField] private GameObject objectToActivate;
         [SerializeField] private Collider[] activationTrigger;
         [SerializeField] private float time;
         

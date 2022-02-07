@@ -97,6 +97,9 @@ namespace ObjectAbstraction.ModelChanger
 
         public void ToggleModels()
         {
+            if (name.Contains("Rock")) {
+                Debug.Log("Rock was changed");
+            }
             if (isAbstract && shootable) {
                 EnableNormalLayer(useSimpleTransition);
             }
