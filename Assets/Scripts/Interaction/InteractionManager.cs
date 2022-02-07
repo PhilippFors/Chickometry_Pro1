@@ -103,7 +103,10 @@ namespace Interactables
         {
             if (!currentlyHeldItem && InteractTriggered && currentSelected.pattern == InteractionPattern.PickUp) {
                 var pickup = (BasePickUpInteractable) currentSelected;
-                if (!pickup.canBePickedUp) {
+                var blockerMask = LayerMask.GetMask("ItemBlocker");
+                var blocker = Physics.Linecast(itemParent.position, currentSelected.transform.position, blockerMask) || 
+                              Physics.CheckSphere(itemParent.position, 0.5f, blockerMask);
+                if (!pickup.canBePickedUp || blocker) {
                     return;
                 }
 
@@ -201,8 +204,6 @@ namespace Interactables
         {
             currentlyHeldItem.transform.parent = null;
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-            //var playerRb = GetComponent<Rigidbody>();
-            //playerRb.mass -= rb.mass;
             playerMovement.mass -= rb.mass;
             if (withRb) {
                 ReleaseRigidBody(rb);
@@ -217,8 +218,6 @@ namespace Interactables
             currentlyHeldItem.transform.DOMove(mainCam.transform.position + new Vector3(0, placeYOffset, 0) + mainCam.transform.forward * dist, 0.5f);
             yield return new WaitForSeconds(0.5f);
             var rb = currentlyHeldItem.GetComponent<Rigidbody>();
-            //var playerRb = GetComponent<Rigidbody>();
-            //playerRb.mass -= rb.mass;
             playerMovement.mass -= rb.mass;
             ReleaseRigidBody(rb);
             
