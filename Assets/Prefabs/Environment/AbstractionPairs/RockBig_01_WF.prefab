@@ -85,8 +85,12 @@ MonoBehaviour:
   useSimpleTransition: 0
   plane: {fileID: 3469939315921947865}
   isAbstract: 0
-  shootable: 1
+  shootable: 0
+  useNormSkinnedMesh: 0
+  normalSkinnedMesh: {fileID: 0}
   normalMeshFilter: {fileID: 2885278866959827341}
+  useAbstrSkinnedMesh: 0
+  abstractSkinnedMesh: {fileID: 0}
   abstractMeshFilter: {fileID: 2885278866712794714}
   normalModel:
     useMeshCollider: 1
