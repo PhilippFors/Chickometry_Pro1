@@ -1,3 +1,4 @@
+using System;
 using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,12 @@ public class StartMenuManager : MonoBehaviour
     public bool skipIntro;
 
     [SerializeField] private ApplicationManager applicationManager;
+
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     public void StartGame()
     {
