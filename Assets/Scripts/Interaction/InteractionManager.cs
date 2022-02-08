@@ -128,7 +128,7 @@ namespace Interactables
                 //playerRb.mass += rb.mass;
                 playerMovement.mass += rb.mass;
                 oldItemMass = rb.mass;
-                playerMovement.SetJumpMultiplier(2);
+                //playerMovement.SetJumpMultiplier(2);
             }
         }
 
@@ -210,7 +210,7 @@ namespace Interactables
             }
             currentlyHeldItem.OnThrow();
             currentlyHeldItem = null;
-            playerMovement.SetJumpMultiplier(1);
+            //playerMovement.SetJumpMultiplier(1);
         }
 
         private IEnumerator PlaceDown(float dist)
@@ -222,7 +222,7 @@ namespace Interactables
             ReleaseRigidBody(rb);
             
             currentlyHeldItem = null;
-            playerMovement.SetJumpMultiplier(1);
+            //playerMovement.SetJumpMultiplier(1);
         }
 
         private void HandleRightClick()
