@@ -24,7 +24,6 @@ namespace Utlities.MeshUtils
         /// <summary>
         /// We will assign a color to each Vertex in a Triangle on the object's mesh
         /// </summary>
-        [Button]
         public void GenerateMeshData()
         {
             modelChanger = GetComponentInParent<AdvModelChanger>();

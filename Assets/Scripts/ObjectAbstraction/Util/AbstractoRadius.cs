@@ -13,10 +13,7 @@ namespace ObjectAbstraction
     public class AbstractoRadius : MonoBehaviour
     {
         [SerializeField] private AbstractoAction action;
-
         [SerializeField] private float radius = 1;
-
-        // [SerializeField] private Transform radiusVis;
         [SerializeField] private bool permanentChange;
         [SerializeField] private bool hasTimer;
         [SerializeField] private float timer;
@@ -46,7 +43,6 @@ namespace ObjectAbstraction
 
         public void Init(AbstractoGrenadeThrower thrower, bool permanent, float t = 0)
         {
-            grenadeThrower = thrower;
             permanentChange = permanent;
             if (t != 0) {
                 timer = t;
@@ -60,11 +56,7 @@ namespace ObjectAbstraction
             if (grenadeThrower) {
                 grenadeThrower.Remove(gameObject);
             }
-
-            if (!permanentChange) {
-                ToggleAll();
-            }
-
+            
             Destroy(gameObject);
         }
 
@@ -93,23 +85,10 @@ namespace ObjectAbstraction
                 changers.Remove(modelChanger);
             }
         }
-
-        private void ToggleAll()
-        {
-            // foreach (var m in changers) {
-            //     action.Execute(m);
-            // }
-        }
-
+        
         private void OnCollisionEnter(Collision other)
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
-
-        // private void OnValidate()
-        // {
-        //     GetComponent<SphereCollider>().radius = radius;
-        //     radiusVis.localScale = new Vector3(radius, radius, radius) * 2;
-        // }
     }
 }

@@ -92,9 +92,11 @@ namespace Visual
             for (int i = 0; i < positions.Count; i++) {
                 batchCount++;
                 
+                // Transforming both points into the same local space
                 var pos = cubeGenerator.transform.TransformPoint(positions[i]);
                 pos = parentModelChanger.worldToLocalMatrix.MultiplyPoint3x4(pos);
                 var planePos = parentModelChanger.worldToLocalMatrix.MultiplyPoint3x4(plane.position);
+                
                 var dist = Mathf.Abs(pos.y - planePos.y);
 
                 if (dist > maxDist && currentRenderers.ContainsKey(i)) {
@@ -106,14 +108,14 @@ namespace Visual
                 }
 
                 if (dist < maxDist && !currentRenderers.ContainsKey(i)) {
-                    var cube = CubePool.Instance.GetObject();
-                    cube.transform.parent = cubeGenerator.transform;
-                    cube.transform.localPosition = positions[i];
-                    cube.transform.localRotation = plane.localRotation;
-                    cube.transform.localScale = new Vector3(cubeScale, cubeScale, cubeScale);
-                    var renderer = cube.GetComponent<MeshRenderer>();
-                    currentRenderers.Add(i, renderer);
-                    SetCubeMaterial(renderer);
+                    var cube = CubePool.Instance.GetObject().transform;
+                    cube.parent = cubeGenerator.transform;
+                    cube.localPosition = positions[i];
+                    cube.localRotation = plane.localRotation;
+                    cube.localScale = new Vector3(cubeScale, cubeScale, cubeScale);
+                    var rend = cube.GetComponent<MeshRenderer>();
+                    currentRenderers.Add(i, rend);
+                    SetCubeMaterial(rend);
                 }
 
                 if (batchCount >= batchAmount) {
@@ -124,7 +126,6 @@ namespace Visual
 
             updateRunning = false;
         }
-
 
         private void SetCubeMaterial(MeshRenderer r)
         {

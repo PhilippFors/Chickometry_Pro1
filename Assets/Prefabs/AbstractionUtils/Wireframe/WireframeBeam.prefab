@@ -181,8 +181,6 @@ GameObject:
   - component: {fileID: 4722770371323444997}
   - component: {fileID: 8513348333517287584}
   - component: {fileID: 5891142060515705962}
-  - component: {fileID: 4236772327265610037}
-  - component: {fileID: 1722622050234476714}
   m_Layer: 0
   m_Name: Wireframe_Beam_Gun
   m_TagString: Untagged
@@ -254,35 +252,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4236772327265610037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5386716431692424639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd659f98f8edf0b46bb84eea6fc0b93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1722622050234476714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5386716431692424639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a404a4d7960a239498c51a24267a1209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minWireFrameBlend: 0.1
-  defaultLayer: 7
-  wireframeLayer: 8
-  transitionDuration: 0.2
-  isWireframeOnStart: 0
 --- !u!1001 &627969452509116615
 PrefabInstance:
   m_ObjectHideFlags: 0

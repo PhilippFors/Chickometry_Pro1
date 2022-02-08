@@ -29,13 +29,13 @@ namespace ObjectAbstraction.ModelChanger
 
             var obj = collider.gameObject;
             MeshCollider col = collider;
+            // none of this works aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             if (useMeshCollider) {
                 if (Application.isPlaying) {
                     var convex = collider.convex;
                     var trigger = collider.isTrigger;
                     Object.Destroy(collider);
                     col = obj.AddComponent<MeshCollider>();
-                    // Debug.Log($"Adding Collider to {obj.name}");
                     col.convex = convex;
                     col.isTrigger = trigger;
                 }

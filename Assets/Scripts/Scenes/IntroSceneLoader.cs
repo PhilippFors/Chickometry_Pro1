@@ -14,7 +14,9 @@ public class IntroSceneLoader : MonoBehaviour
 
     private IEnumerator WaitForIntro()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
+        player.Play();
+        yield return new WaitUntil(() => player.isPlaying);
         
         yield return new WaitUntil(() => !player.isPlaying);
 

@@ -1,34 +1,29 @@
-using System.Data.SqlTypes;
+using System;
 using Entities.Player.PlayerInput;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Services
 {
     public class ApplicationManager : MonoBehaviour
     {
-        // private bool Ptriggered => InputController.Instance.Triggered(InputPatterns.P);
         private bool Esctriggered => InputController.Instance.Triggered(InputPatterns.Esc);
 
-        private bool cursorLocked = true;
-        // Update is called once per frame
-        void Update()
+        private void Awake()
         {
-            if (Esctriggered) {
-                Application.Quit();
-            }
+            DontDestroyOnLoad(gameObject);
+        }
 
-            // if (Ptriggered) {
-            //     if (cursorLocked) {
-            //         Cursor.visible = true;
-            //         Cursor.lockState = CursorLockMode.None;
-            //     }
-            //     else {
-            //         Cursor.visible = false;
-            //         Cursor.lockState = CursorLockMode.Locked;
-            //     }
-            //
-            //     cursorLocked = !cursorLocked;
+        private void Update()
+        {
+            // if (Esctriggered) {
+            //     SceneManager.LoadSceneAsync("StartMenu", LoadSceneMode.Single);
             // }
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
     }
 }
