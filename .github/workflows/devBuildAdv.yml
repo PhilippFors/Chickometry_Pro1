@@ -13,6 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        projectName:
+          - Chickometry
         projectPath:
           - Chickometry_Pro1
         targetPlatform:
@@ -57,7 +59,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Build-${{ matrix.targetPlatform }}
+          name: Build-${{ matrix.projectName }}
           path: build/${{ matrix.targetPlatform }}
           retention-days: 10
 
