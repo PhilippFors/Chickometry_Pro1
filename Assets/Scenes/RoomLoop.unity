@@ -20198,8 +20198,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2986407381833587935, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986407381833587935, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.991
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986407381833587935, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7640291166408261587, guid: 2a47a7b434d025743b134d61a1d7e020, type: 3}
       propertyPath: m_Depth
@@ -24248,12 +24256,6 @@ MonoBehaviour:
     abstractObject: {fileID: 1494428996}
   - normalObject: {fileID: 5716204201417936749}
     abstractObject: {fileID: 1314363184}
-  - normalObject: {fileID: 827926841}
-    abstractObject: {fileID: 0}
-  - normalObject: {fileID: 0}
-    abstractObject: {fileID: 0}
-  - normalObject: {fileID: 0}
-    abstractObject: {fileID: 0}
 --- !u!4 &2029466877
 Transform:
   m_ObjectHideFlags: 0

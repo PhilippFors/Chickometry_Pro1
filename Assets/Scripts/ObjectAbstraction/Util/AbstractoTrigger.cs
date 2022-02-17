@@ -9,7 +9,7 @@ namespace ObjectAbstraction.Utilities
     /// <summary>
     /// Trigger setup that detects model changers and executes an action defined in a scriptable object.
     /// </summary>
-    public class AbstractoBoxTrigger : MonoBehaviour
+    public class AbstractoTrigger : MonoBehaviour
     {
         [SerializeField] private AbstractoAction[] triggerEnterAction;
         [SerializeField] private AbstractoAction[] triggerExitAction;
