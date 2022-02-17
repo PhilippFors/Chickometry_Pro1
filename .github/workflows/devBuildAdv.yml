@@ -54,14 +54,15 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: ${{ matrix.projectName }}
-          customParameters: -Development true # Build is development build
+          customParameters: '-Development' # Build is development build
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Build-${{ matrix.tragetPlatform }}
-          path: build/-${{ matrix.targetPlatform }}
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
           retention-days: 2
 
   #deployPages:
