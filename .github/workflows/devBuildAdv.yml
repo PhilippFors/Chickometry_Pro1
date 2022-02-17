@@ -59,8 +59,9 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
+          buildName: -${{ matrix.projectName }}
           name: Build-${{ matrix.projectName }}
-          path: build/${{ matrix.targetPlatform }}
+          path: build/-${{ matrix.targetPlatform }}
           retention-days: 10
 
   #deployPages:
