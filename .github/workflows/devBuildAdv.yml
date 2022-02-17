@@ -31,7 +31,6 @@ jobs:
       - name: Prepare Cache
         uses: actions/cache@v2
         with:
-        with:
           path: Library
           key: Library-${{ matrix.projectName }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectName) }}
           restore-keys: |
