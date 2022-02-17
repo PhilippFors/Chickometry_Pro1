@@ -2,7 +2,7 @@ name: Dev Build Advanced
 
 #on: push:
 #      branches: 
-#          - 'develop'
+#          - 'main'
 
 on:
   workflow_dispatch: {}
@@ -43,10 +43,9 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: ${{ matrix.projectName }}
-          customParameters: '-Development' # Build is development build
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Build-${{ matrix.targetPlatform }}
+          name: Build-${{ matrix.targetPlatform }}-release
           path: build/${{ matrix.targetPlatform }}
           retention-days: 2
