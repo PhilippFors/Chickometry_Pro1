@@ -19,7 +19,7 @@ jobs:
         projectPath:
           - myProject
         targetPlatform:
-          - StandaloneWindows
+          #- StandaloneWindows
           - StandaloneWindows64
 
     steps:
