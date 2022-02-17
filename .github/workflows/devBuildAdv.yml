@@ -4,9 +4,6 @@ name: Dev Build Advanced Matrix
 on:
   workflow_dispatch: {}
 
-env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-
 jobs:
   buildWindows:
     #needs: testRunner
@@ -15,11 +12,10 @@ jobs:
     #runs-on: windows-latest # for il2cpp use target platform as build server
     strategy:
       fail-fast: false
-    matrix:
+      matrix:
         projectPath:
           - myProject
         targetPlatform:
-          #- StandaloneWindows
           - StandaloneWindows64
 
     steps:
