@@ -1,4 +1,4 @@
-name: Development Build Workflow Mono
+name: Dev Build Simple
 
 #on: push
 on:
@@ -38,7 +38,7 @@ jobs:
           path: Library
           key: Library-build-StandaloneWindows64
           restore-keys: |
-            Library-build-
+            Library-build-StandaloneWindows64
             Library-
       - uses: game-ci/unity-builder@v2
         with:
@@ -78,9 +78,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-build-StandaloneWindows64
+          key: Library-build-StandaloneWindows
           restore-keys: |
-            Library-build-
+            Library-build-StandaloneWindows
             Library-
       - uses: game-ci/unity-builder@v2
         with:
